@@ -23,7 +23,11 @@ int main( void )
 	{
 		fprintf( stderr, "Failed to initialize GLFW\n" );
 		return -1;
-	}
+    }
+    else
+    {
+        printf("GLFW Initialized\n");
+    }
 
 	glfwWindowHint(GLFW_SAMPLES, 4);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -47,6 +51,10 @@ int main( void )
     {
         fprintf(stderr, "Failed to initialize GLEW\n");
         return -1;
+    }
+    else
+    {
+        printf("GLEW Initialized\n");
     }
 
 	// Ensure we can capture the escape key being pressed below
