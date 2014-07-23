@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E9AD267119806B80001A6268 /* libglfw.3.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E9AD267019806B80001A6268 /* libglfw.3.1.dylib */; };
 		E9F2A8761968F8690011EAAF /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9F2A8751968F8690011EAAF /* main.cpp */; };
-		E9F2A8831968FD860011EAAF /* libglfw.3.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E9F2A87E1968F8F60011EAAF /* libglfw.3.1.dylib */; };
 		E9F2A8851968FE310011EAAF /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9F2A8841968FE310011EAAF /* OpenGL.framework */; };
 		E9F2A8881968FF5A0011EAAF /* ColorFragmentShader.fragmentshader in CopyFiles */ = {isa = PBXBuildFile; fileRef = E9F2A8861968FF100011EAAF /* ColorFragmentShader.fragmentshader */; };
 		E9F2A8891968FF5A0011EAAF /* TransformVertexShader.vertexshader in CopyFiles */ = {isa = PBXBuildFile; fileRef = E9F2A8871968FF100011EAAF /* TransformVertexShader.vertexshader */; };
@@ -30,9 +30,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		E9AD267019806B80001A6268 /* libglfw.3.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglfw.3.1.dylib; path = ../biblioteki/GLFW_OSX/lib/libglfw.3.1.dylib; sourceTree = "<group>"; };
 		E9F2A8721968F8690011EAAF /* Brickpong */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Brickpong; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9F2A8751968F8690011EAAF /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		E9F2A87E1968F8F60011EAAF /* libglfw.3.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglfw.3.1.dylib; path = ../glfw/lib/libglfw.3.1.dylib; sourceTree = "<group>"; };
 		E9F2A8841968FE310011EAAF /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		E9F2A8861968FF100011EAAF /* ColorFragmentShader.fragmentshader */ = {isa = PBXFileReference; explicitFileType = sourcecode.glsl; fileEncoding = 4; path = ColorFragmentShader.fragmentshader; sourceTree = "<group>"; };
 		E9F2A8871968FF100011EAAF /* TransformVertexShader.vertexshader */ = {isa = PBXFileReference; explicitFileType = sourcecode.glsl; fileEncoding = 4; path = TransformVertexShader.vertexshader; sourceTree = "<group>"; };
@@ -45,8 +45,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E9AD267119806B80001A6268 /* libglfw.3.1.dylib in Frameworks */,
 				E9F2A8851968FE310011EAAF /* OpenGL.framework in Frameworks */,
-				E9F2A8831968FD860011EAAF /* libglfw.3.1.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -56,8 +56,8 @@
 		E9F2A8691968F8680011EAAF = {
 			isa = PBXGroup;
 			children = (
+				E9AD267019806B80001A6268 /* libglfw.3.1.dylib */,
 				E9F2A8841968FE310011EAAF /* OpenGL.framework */,
-				E9F2A87E1968F8F60011EAAF /* libglfw.3.1.dylib */,
 				E9F2A8741968F8690011EAAF /* Brickpong */,
 				E9F2A8731968F8690011EAAF /* Products */,
 			);
@@ -215,24 +215,28 @@
 		E9F2A87C1968F8690011EAAF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				FRAMEWORK_SEARCH_PATHS = "/Users/michalpiekarski/Documents/WSNHiD/Projekty/CG-projekt-brickpong/biblioteki/GLFW_OSX/lib";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Users/michalpiekarski/Documents/WSNHiD/Projekty/CG-projekt-brickpong/glfw/lib",
+					"/Users/michalpiekarski/Documents/WSNHiD/Projekty/CG-projekt-brickpong/biblioteki/GLFW_OSX/lib",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = "../glfw/include/ ../glm/glm/";
+				USER_HEADER_SEARCH_PATHS = "../biblioteki/GLFW_OSX/include/ ../biblioteki/GLM_OSX/include/";
 			};
 			name = Debug;
 		};
 		E9F2A87D1968F8690011EAAF /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				FRAMEWORK_SEARCH_PATHS = "/Users/michalpiekarski/Documents/WSNHiD/Projekty/CG-projekt-brickpong/biblioteki/GLFW_OSX/lib";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Users/michalpiekarski/Documents/WSNHiD/Projekty/CG-projekt-brickpong/glfw/lib",
+					"/Users/michalpiekarski/Documents/WSNHiD/Projekty/CG-projekt-brickpong/biblioteki/GLFW_OSX/lib",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = "../glfw/include/ ../glm/glm/";
+				USER_HEADER_SEARCH_PATHS = "../biblioteki/GLFW_OSX/include/ ../biblioteki/GLM_OSX/include/";
 			};
 			name = Release;
 		};
@@ -255,6 +259,7 @@
 				E9F2A87D1968F8690011EAAF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
