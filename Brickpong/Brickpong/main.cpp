@@ -1,8 +1,10 @@
     // Include Sysytem Headers
 #include <iostream>
 
+    // Include GLEW
+#include "GL/glew.h"
+
     // Include GLFW
-#define GLFW_INCLUDE_GLCOREARB
 #include "GLFW/glfw3.h"
 
 GLFWwindow* window;
@@ -11,7 +13,7 @@ GLFWwindow* window;
 #include "glm/gtc/matrix_transform.hpp"
 
     // Include Custom Headers
-#include "shader_loader.hpp"
+#include "shader.hpp"
 
 void CreateVBO(GLfloat g_vertex_buffer_data[], int g_vertex_buffer_data_length, GLfloat g_color_buffer_data[], int g_color_buffer_data_length, GLuint vertexbuffers[], GLuint colorbuffers[], int i) {
     GLuint vertexbuffer;
@@ -80,6 +82,14 @@ int main( void ) {
         exit(EXIT_FAILURE);
 	}
 	glfwMakeContextCurrent(window);
+
+    // Initialize GLEW
+    glewExperimental = true; // Needed for core profile
+    if (glewInit() != GLEW_OK)
+    {
+        fprintf(stderr, "Failed to initialize GLEW\n");
+        return -1;
+    }
 
 	glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
 
