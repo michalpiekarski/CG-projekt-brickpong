@@ -1,6 +1,16 @@
     // Include System Headers
 #include <vector>
 #include <fstream>
+    // Check if on Windows - both x86 and x64
+#ifdef _WIN32
+#include <string>
+#endif
+
+    // Check if on Windows - both x86 and x64
+#ifdef _WIN32
+    // Include GLEW
+#include "GL/glew.h"
+#endif
 
     // Include GLFW
 #include "GLFW/glfw3.h"
