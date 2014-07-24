@@ -1,0 +1,267 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		E9AD267119806B80001A6268 /* libglfw.3.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E9AD267019806B80001A6268 /* libglfw.3.1.dylib */; };
+		E9F2A8761968F8690011EAAF /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9F2A8751968F8690011EAAF /* main.cpp */; };
+		E9F2A8851968FE310011EAAF /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9F2A8841968FE310011EAAF /* OpenGL.framework */; };
+		E9F2A8881968FF5A0011EAAF /* ColorFragmentShader.fragmentshader in CopyFiles */ = {isa = PBXBuildFile; fileRef = E9F2A8861968FF100011EAAF /* ColorFragmentShader.fragmentshader */; };
+		E9F2A8891968FF5A0011EAAF /* TransformVertexShader.vertexshader in CopyFiles */ = {isa = PBXBuildFile; fileRef = E9F2A8871968FF100011EAAF /* TransformVertexShader.vertexshader */; };
+		E9F2A8901969099D0011EAAF /* shader_loader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9F2A88E1969099D0011EAAF /* shader_loader.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		E9F2A8701968F8690011EAAF /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 12;
+			dstPath = "";
+			dstSubfolderSpec = 16;
+			files = (
+				E9F2A8881968FF5A0011EAAF /* ColorFragmentShader.fragmentshader in CopyFiles */,
+				E9F2A8891968FF5A0011EAAF /* TransformVertexShader.vertexshader in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		E9AD267019806B80001A6268 /* libglfw.3.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglfw.3.1.dylib; path = ../biblioteki/GLFW_OSX/lib/libglfw.3.1.dylib; sourceTree = "<group>"; };
+		E9F2A8721968F8690011EAAF /* Brickpong */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Brickpong; sourceTree = BUILT_PRODUCTS_DIR; };
+		E9F2A8751968F8690011EAAF /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		E9F2A8841968FE310011EAAF /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
+		E9F2A8861968FF100011EAAF /* ColorFragmentShader.fragmentshader */ = {isa = PBXFileReference; explicitFileType = sourcecode.glsl; fileEncoding = 4; path = ColorFragmentShader.fragmentshader; sourceTree = "<group>"; };
+		E9F2A8871968FF100011EAAF /* TransformVertexShader.vertexshader */ = {isa = PBXFileReference; explicitFileType = sourcecode.glsl; fileEncoding = 4; path = TransformVertexShader.vertexshader; sourceTree = "<group>"; };
+		E9F2A88E1969099D0011EAAF /* shader_loader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = shader_loader.cpp; sourceTree = "<group>"; };
+		E9F2A88F1969099D0011EAAF /* shader_loader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = shader_loader.hpp; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E9F2A86F1968F8690011EAAF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E9AD267119806B80001A6268 /* libglfw.3.1.dylib in Frameworks */,
+				E9F2A8851968FE310011EAAF /* OpenGL.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		E9F2A8691968F8680011EAAF = {
+			isa = PBXGroup;
+			children = (
+				E9AD267019806B80001A6268 /* libglfw.3.1.dylib */,
+				E9F2A8841968FE310011EAAF /* OpenGL.framework */,
+				E9F2A8741968F8690011EAAF /* Brickpong */,
+				E9F2A8731968F8690011EAAF /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		E9F2A8731968F8690011EAAF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E9F2A8721968F8690011EAAF /* Brickpong */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E9F2A8741968F8690011EAAF /* Brickpong */ = {
+			isa = PBXGroup;
+			children = (
+				E9F2A8861968FF100011EAAF /* ColorFragmentShader.fragmentshader */,
+				E9F2A8871968FF100011EAAF /* TransformVertexShader.vertexshader */,
+				E9F2A8751968F8690011EAAF /* main.cpp */,
+				E9F2A88E1969099D0011EAAF /* shader_loader.cpp */,
+				E9F2A88F1969099D0011EAAF /* shader_loader.hpp */,
+			);
+			path = Brickpong;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		E9F2A8711968F8690011EAAF /* Brickpong */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E9F2A87B1968F8690011EAAF /* Build configuration list for PBXNativeTarget "Brickpong" */;
+			buildPhases = (
+				E9F2A86E1968F8690011EAAF /* Sources */,
+				E9F2A86F1968F8690011EAAF /* Frameworks */,
+				E9F2A8701968F8690011EAAF /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Brickpong;
+			productName = Brickpong;
+			productReference = E9F2A8721968F8690011EAAF /* Brickpong */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E9F2A86A1968F8680011EAAF /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = WSNHiD;
+			};
+			buildConfigurationList = E9F2A86D1968F8680011EAAF /* Build configuration list for PBXProject "Brickpong" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = E9F2A8691968F8680011EAAF;
+			productRefGroup = E9F2A8731968F8690011EAAF /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E9F2A8711968F8690011EAAF /* Brickpong */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E9F2A86E1968F8690011EAAF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E9F2A8761968F8690011EAAF /* main.cpp in Sources */,
+				E9F2A8901969099D0011EAAF /* shader_loader.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		E9F2A8791968F8690011EAAF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		E9F2A87A1968F8690011EAAF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		E9F2A87C1968F8690011EAAF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				FRAMEWORK_SEARCH_PATHS = "/Users/michalpiekarski/Documents/WSNHiD/Projekty/CG-projekt-brickpong/biblioteki/GLFW_OSX/lib";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/michalpiekarski/Documents/WSNHiD/Projekty/CG-projekt-brickpong/biblioteki/GLFW_OSX/lib",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "../biblioteki/GLFW_OSX/include/ ../biblioteki/GLM_OSX/include/";
+			};
+			name = Debug;
+		};
+		E9F2A87D1968F8690011EAAF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				FRAMEWORK_SEARCH_PATHS = "/Users/michalpiekarski/Documents/WSNHiD/Projekty/CG-projekt-brickpong/biblioteki/GLFW_OSX/lib";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/michalpiekarski/Documents/WSNHiD/Projekty/CG-projekt-brickpong/biblioteki/GLFW_OSX/lib",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "../biblioteki/GLFW_OSX/include/ ../biblioteki/GLM_OSX/include/";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E9F2A86D1968F8680011EAAF /* Build configuration list for PBXProject "Brickpong" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E9F2A8791968F8690011EAAF /* Debug */,
+				E9F2A87A1968F8690011EAAF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E9F2A87B1968F8690011EAAF /* Build configuration list for PBXNativeTarget "Brickpong" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E9F2A87C1968F8690011EAAF /* Debug */,
+				E9F2A87D1968F8690011EAAF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = E9F2A86A1968F8680011EAAF /* Project object */;
+}
