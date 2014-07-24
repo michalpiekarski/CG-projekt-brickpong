@@ -13,30 +13,73 @@ GLFWwindow* window;
     // Include Custom Headers
 #include "shader_loader.hpp"
 
-int main( void )
-{
+void CreateVBO(GLfloat g_vertex_buffer_data[], int g_vertex_buffer_data_length, GLfloat g_color_buffer_data[], int g_color_buffer_data_length, GLuint vertexbuffers[], GLuint colorbuffers[], int i) {
+    GLuint vertexbuffer;
+    glGenBuffers(1, &vertexbuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
+    glBufferData(GL_ARRAY_BUFFER, g_vertex_buffer_data_length*sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_STATIC_DRAW);
+
+    GLuint colorbuffer;
+	glGenBuffers(1, &colorbuffer);
+	glBindBuffer(GL_ARRAY_BUFFER, colorbuffer);
+	glBufferData(GL_ARRAY_BUFFER, g_color_buffer_data_length*sizeof(g_color_buffer_data), g_color_buffer_data, GL_STATIC_DRAW);
+
+    vertexbuffers[i] = vertexbuffer;
+    colorbuffers[i] = colorbuffer;
+}
+void Draw(GLuint vertexbuffer, GLuint colorbuffer) {
+        // 1rst attribute buffer : vertices
+    glEnableVertexAttribArray(0);
+    glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
+    glVertexAttribPointer(
+                          0,                  // attribute. No particular reason for 0, but must match the layout in the shader.
+                          3,                  // size
+                          GL_FLOAT,           // type
+                          GL_FALSE,           // normalized?
+                          0,                  // stride
+                          (void*)0            // array buffer offset
+                          );
+
+        // 2nd attribute buffer : colors
+    glEnableVertexAttribArray(1);
+    glBindBuffer(GL_ARRAY_BUFFER, colorbuffer);
+    glVertexAttribPointer(
+                          1,                                // attribute. No particular reason for 1, but must match the layout in the shader.
+                          3,                                // size
+                          GL_FLOAT,                         // type
+                          GL_FALSE,                         // normalized?
+                          0,                                // stride
+                          (void*)0                          // array buffer offset
+                          );
+
+        // Draw the triangle !
+    glDrawArrays(GL_TRIANGLES, 0, 12*3); // 12*3 indices starting at 0 -> 12 triangles
+
+    glDisableVertexAttribArray(0);
+    glDisableVertexAttribArray(1);
+}
+int main( void ) {
         // Initialise GLFW
-	if( !glfwInit() )
-        {
+	if( !glfwInit() ) {
 		fprintf( stderr, "Failed to initialize GLFW\n" );
 		return -1;
-        }
+    }
     
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
+//        // Print supported OpenGL version
+//    printf("OpenGL version supported by this platform (%s): \n", glGetString(GL_VERSION));
         // Open a window and create its OpenGL context
-	window = glfwCreateWindow( 1024, 768, "Tutorial 04 - Colored Cube", NULL, NULL);
+	window = glfwCreateWindow( 1024, 576, "Tutorial 04 - Colored Cube", NULL, NULL);
 	if(!window){
-		fprintf( stderr, "Failed to open GLFW window. If you have an Intel GPU, they are not 3.3 compatible. Try the 2.1 version of the tutorials.\n" );
+		fprintf( stderr, "Failed to open GLFW window!\nIf you have an Intel GPU and on Windows, they are not OpenGL 3.3 compatible.\n" );
         glfwTerminate();
         exit(EXIT_FAILURE);
 	}
 	glfwMakeContextCurrent(window);
-
-    printf("OpenGL version supported by this platform (%s): \n", glGetString(GL_VERSION));
 
 	glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
 
@@ -58,19 +101,26 @@ int main( void )
         // Get a handle for our "MVP" uniform
 	GLuint MatrixID = glGetUniformLocation(programID, "MVP");
 
-        // Projection matrix : 45° Field of View, 4:3 ratio, display range : 0.1 unit <-> 100 units
-	glm::mat4 Projection = glm::perspective(45.0f, 4.0f / 3.0f, 0.1f, 100.0f);
-        // Camera matrix
-//	glm::mat4 View       = glm::lookAt(
-//                                       glm::vec3(4,3,-3), // Camera is at (4,3,-3), in World Space
-//                                       glm::vec3(0,0,0), // and looks at the origin
-//                                       glm::vec3(0,1,0)  // Head is up (set to 0,-1,0 to look upside-down)
-//                                       );
         // Model matrix : an identity matrix (model will be at the origin)
 	glm::mat4 Model      = glm::mat4(1.0f);
-        // Our ModelViewProjection : multiplication of our 3 matrices
-//	glm::mat4 MVP        = Projection * View * Model; // Remember, matrix multiplication is the other way around
 
+        // View (Camera) matrix :
+	glm::mat4 View       = glm::lookAt(
+                                       glm::vec3(0,0,-20), // Camera is at (4,3,-3), in World Space
+                                       glm::vec3(0,0,0), // and looks at the origin
+                                       glm::vec3(0,1,0)  // Head is up (set to 0,-1,0 to look upside-down)
+                                       );
+
+        // Projection matrix :
+    glm::mat4 Projection = glm::perspective(
+                                            45.0f, // 45° Field of View
+                                            16.0f / 9.0f, // 16:9 ratio
+                                            0.1f, 100.0f // display range : 0.1 unit <-> 100 units
+                                            );
+
+//        // Our ModelViewProjection : multiplication of our 3 matrices
+//	glm::mat4 MVP        = Projection * View * Model; // Remember, matrix multiplication is the other way around
+//
         // Our vertices. Tree consecutive floats give a 3D vertex; Three consecutive vertices give a triangle.
         // A cube has 6 faces with 2 triangles each, so this makes 6*2=12 triangles, and 12*3 vertices
 	static GLfloat g_vertex_buffer_data[] = {
@@ -113,7 +163,7 @@ int main( void )
 	};
 
         // One color for each vertex. They were generated randomly.
-	static const GLfloat g_color_buffer_data[] = {
+	static GLfloat g_color_buffer_data[] = {
 		0.583f,  0.771f,  0.014f,
 		0.609f,  0.115f,  0.436f,
 		0.327f,  0.483f,  0.844f,
@@ -152,102 +202,59 @@ int main( void )
 		0.982f,  0.099f,  0.879f
 	};
 
-	GLuint vertexbuffer;
-    glGenBuffers(1, &vertexbuffer);
-    glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_STATIC_DRAW);
+    GLuint vertexbuffers[1] = {};
+    GLuint colorbuffers[1] = {};
+    CreateVBO(g_vertex_buffer_data, 108, g_color_buffer_data, 108, vertexbuffers, colorbuffers, 0);
 
-	GLuint colorbuffer;
-	glGenBuffers(1, &colorbuffer);
-	glBindBuffer(GL_ARRAY_BUFFER, colorbuffer);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(g_color_buffer_data), g_color_buffer_data, GL_STATIC_DRAW);
-    float cameraX = -6;
-    float cameraZ = -6;
-    int mode = 0; // 0 - along x; 1 - along z;
+    glm::mat4 tmpModel, tmpMVP;
 	do{
-        glm::mat4 View       = glm::lookAt(
-                                           glm::vec3(cameraX,3,cameraZ), // Camera is at (4,3,-3), in World Space
-                                           glm::vec3(0,0,0), // and looks at the origin
-                                           glm::vec3(0,1,0)  // Head is up (set to 0,-1,0 to look upside-down)
-                                           );
-        if(mode == 0) {
-            if(cameraZ <= -6) {
-                cameraX += 0.1f;
-                if(cameraX >= 6) {
-                    mode = 1;
-                }
-            } else if (cameraZ >= 6) {
-                cameraX -= 0.1f;
-                if(cameraX <= -6) {
-                    mode = 1;
-                }
-            }
-        } else if(mode == 1) {
-            if(cameraX >= 6) {
-                cameraZ += 0.1f;
-                if(cameraZ >= 6) {
-                    mode = 0;
-                }
-            } else if (cameraX <= -6) {
-                cameraZ -= 0.1f;
-                if(cameraZ <= -6) {
-                    mode = 0;
-                }
-            }
-        }
-        glm::mat4 MVP        = Projection * View * Model; // Remember, matrix multiplication is the other way around
-
             // Clear the screen
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
             // Use our shader
 		glUseProgram(programID);
 
+            // Bricks
+        for (float i = -12.0f; i <= 12.2f; i += 2.2f) {
+            for (float j = 0.0f; j <= 8.0f; j += 1.1f) {
+                    // Send our transformation to the currently bound shader,
+                    // in the "MVP" uniform
+                tmpModel = glm::scale(glm::translate(Model, glm::vec3(i,j,0)), glm::vec3(1.0f,0.5f,0.5f));
+                tmpMVP = Projection * View * tmpModel;
+                glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &tmpMVP[0][0]);
+
+                Draw(vertexbuffers[0], colorbuffers[0]);
+            }
+        }
+
+            // Pad
             // Send our transformation to the currently bound shader,
             // in the "MVP" uniform
-		glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP[0][0]);
+        tmpModel = glm::scale(glm::translate(Model, glm::vec3(0,-7.0f,0)), glm::vec3(2.0f,0.25f,2.0f));
+        tmpMVP = Projection * View * tmpModel;
+        glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &tmpMVP[0][0]);
 
-            // 1rst attribute buffer : vertices
-		glEnableVertexAttribArray(0);
-		glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
-		glVertexAttribPointer(
-                              0,                  // attribute. No particular reason for 0, but must match the layout in the shader.
-                              3,                  // size
-                              GL_FLOAT,           // type
-                              GL_FALSE,           // normalized?
-                              0,                  // stride
-                              (void*)0            // array buffer offset
-                              );
+        Draw(vertexbuffers[0], colorbuffers[0]);
 
-            // 2nd attribute buffer : colors
-		glEnableVertexAttribArray(1);
-		glBindBuffer(GL_ARRAY_BUFFER, colorbuffer);
-		glVertexAttribPointer(
-                              1,                                // attribute. No particular reason for 1, but must match the layout in the shader.
-                              3,                                // size
-                              GL_FLOAT,                         // type
-                              GL_FALSE,                         // normalized?
-                              0,                                // stride
-                              (void*)0                          // array buffer offset
-                              );
-        
-            // Draw the triangle !
-		glDrawArrays(GL_TRIANGLES, 0, 12*3); // 12*3 indices starting at 0 -> 12 triangles
-        
-		glDisableVertexAttribArray(0);
-		glDisableVertexAttribArray(1);
-        
+            // Ball
+            // Send our transformation to the currently bound shader,
+            // in the "MVP" uniform
+        tmpModel = glm::scale(glm::translate(Model, glm::vec3(0,-6.5f,0)), glm::vec3(0.25f,0.25f,0.25f));
+        tmpMVP = Projection * View * tmpModel;
+        glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &tmpMVP[0][0]);
+
+        Draw(vertexbuffers[0], colorbuffers[0]);
+
             // Swap buffers
 		glfwSwapBuffers(window);
 		glfwPollEvents();
-        
 	} // Check if the ESC key was pressed or the window was closed
 	while( glfwGetKey(window, GLFW_KEY_ESCAPE ) != GLFW_PRESS &&
           glfwWindowShouldClose(window) == 0 );
     
         // Cleanup VBO and shader
-	glDeleteBuffers(1, &vertexbuffer);
-	glDeleteBuffers(1, &colorbuffer);
+	glDeleteBuffers(1, &vertexbuffers[0]);
+	glDeleteBuffers(1, &colorbuffers[0]);
 	glDeleteProgram(programID);
 	glDeleteVertexArrays(1, &VertexArrayID);
     
