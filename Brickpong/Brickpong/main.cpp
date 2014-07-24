@@ -1,17 +1,16 @@
-    // Include standard headers
+    // Include Sysytem Headers
 #include <iostream>
 
-#define GLFW_INCLUDE_GLCOREARB
     // Include GLFW
+#define GLFW_INCLUDE_GLCOREARB
 #include "GLFW/glfw3.h"
 
 GLFWwindow* window;
 
     // Include GLM
-#include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
-using namespace glm;
 
+    // Include Custom Headers
 #include "shader_loader.hpp"
 
 int main( void )
