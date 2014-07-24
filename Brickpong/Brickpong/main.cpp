@@ -1,10 +1,17 @@
     // Include Sysytem Headers
 #include <iostream>
 
+    //Check if on Windows - both x86 and x64
+#ifdef _WIN32
     // Include GLEW
 #include "GL/glew.h"
+#endif
 
     // Include GLFW
+    // Check if on OSX
+#ifdef __APPLE__
+#define GLFW_INCLUDE_GLCOREARB
+#endif
 #include "GLFW/glfw3.h"
 
 GLFWwindow* window;
@@ -83,6 +90,8 @@ int main( void ) {
 	}
 	glfwMakeContextCurrent(window);
 
+        //Check if on Windows - botx x86 and x64
+#ifdef _WIN32
     // Initialize GLEW
     glewExperimental = true; // Needed for core profile
     if (glewInit() != GLEW_OK)
@@ -90,6 +99,7 @@ int main( void ) {
         fprintf(stderr, "Failed to initialize GLEW\n");
         return -1;
     }
+#endif
 
 	glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
 
