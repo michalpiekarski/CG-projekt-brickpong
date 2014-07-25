@@ -36,6 +36,7 @@ void CreateVBO(GLfloat g_vertex_buffer_data[], int g_vertex_buffer_data_length, 
     vertexbuffers[i] = vertexbuffer;
     colorbuffers[i] = colorbuffer;
 }
+
 void Draw(GLuint vertexbuffer, GLuint colorbuffer) {
         // 1rst attribute buffer : vertices
     glEnableVertexAttribArray(0);
@@ -66,6 +67,56 @@ void Draw(GLuint vertexbuffer, GLuint colorbuffer) {
 
     glDisableVertexAttribArray(0);
     glDisableVertexAttribArray(1);
+}
+
+float CursorX = 0.0f;
+float CurserOffset = 150.0f;
+float CursorDamping = 10.0f;
+void cursorPositionChanged(GLFWwindow *window, double x, double y)
+{
+    int windowWidth;
+    glfwGetWindowSize(window, &windowWidth, NULL);
+    CursorX = glm::clamp(float(-(x - windowWidth / 2.0f)), -CurserOffset, CurserOffset)/CursorDamping;
+    printf("%f\n", CursorX);
+}
+
+glm::vec3 BallPosition = glm::vec3(1.0f, -6.0f, 0);
+glm::vec3 BallVelocity = glm::vec3(0.2f, -0.1f, 0);
+
+void CheckBallBoundsCol()
+{
+        // Horizontal
+    if (BallPosition.x <= -14.0f || BallPosition.x >= 14.0f)
+    {
+        BallVelocity.x = -BallVelocity.x;
+        printf("Wall collision at: %f x %f\n", BallPosition.x, BallPosition.y);
+    }
+        // Vertical
+    if (BallPosition.y <= -7.0f || BallPosition.y >= 7.0f)
+    {
+        BallVelocity.y = -BallVelocity.y;
+        printf("Wall collision at: %f x %f\n", BallPosition.x, BallPosition.y);
+    }
+}
+
+void CheckBallPadCol()
+{
+    if (BallPosition.y <= -6.5f && (BallPosition.x >= CursorX-2.0f && BallPosition.x <= CursorX+2.0f))
+    {
+        BallVelocity.y = -BallVelocity.y;
+    }
+}
+
+glm::vec3 PauseBallVelocity = glm::vec3(0,0,0);
+void PauseBall(GLFWwindow *window, int key, int scancode, int action, int mods)
+{
+    if (action == GLFW_RELEASE && key == GLFW_KEY_SPACE)
+    {
+        glm::vec3 tmp = BallVelocity;
+        tmp = BallVelocity;
+        BallVelocity = PauseBallVelocity;
+        PauseBallVelocity = tmp;
+    }
 }
 int main( void ) {
         // Initialise GLFW
@@ -101,7 +152,10 @@ int main( void ) {
     }
 #endif
 
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 	glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
+    glfwSetCursorPosCallback(window, cursorPositionChanged);
+    glfwSetKeyCallback(window, PauseBall);
 
         // Dark blue background
 	glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
@@ -250,7 +304,7 @@ int main( void ) {
             // Pad
             // Send our transformation to the currently bound shader,
             // in the "MVP" uniform
-        tmpModel = glm::scale(glm::translate(Model, glm::vec3(0,-7.0f,0)), glm::vec3(2.0f,0.25f,2.0f));
+        tmpModel = glm::scale(glm::translate(Model, glm::vec3(CursorX,-7.0f,0)), glm::vec3(2.0f,0.25f,2.0f));
         tmpMVP = Projection * View * tmpModel;
         glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &tmpMVP[0][0]);
 
@@ -259,7 +313,10 @@ int main( void ) {
             // Ball
             // Send our transformation to the currently bound shader,
             // in the "MVP" uniform
-        tmpModel = glm::scale(glm::translate(Model, glm::vec3(0,-6.5f,0)), glm::vec3(0.25f,0.25f,0.25f));
+        tmpModel = glm::scale(glm::translate(Model, BallPosition), glm::vec3(0.25f,0.25f,0.25f));
+        BallPosition += BallVelocity;
+        CheckBallBoundsCol();
+        CheckBallPadCol();
         tmpMVP = Projection * View * tmpModel;
         glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &tmpMVP[0][0]);
 
