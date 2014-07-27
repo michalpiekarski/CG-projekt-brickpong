@@ -92,7 +92,7 @@ void CheckBallBoundsCol()
         printf("Wall collision at: %f x %f\n", BallPosition.x, BallPosition.y);
     }
         // Vertical
-    if (BallPosition.y <= -7.0f || BallPosition.y >= 7.0f)
+    else if (BallPosition.y <= -7.0f || BallPosition.y >= 7.0f)
     {
         BallVelocity.y = -BallVelocity.y;
         printf("Wall collision at: %f x %f\n", BallPosition.x, BallPosition.y);
@@ -104,11 +104,35 @@ void CheckBallPadCol()
     if (BallPosition.y <= -6.5f && (BallPosition.x >= CursorX-2.0f && BallPosition.x <= CursorX+2.0f))
     {
         BallVelocity.y = -BallVelocity.y;
+
+bool CheckBallBrickCol(float brickX, float brickY)
+{
+    // top
+    if (BallPosition.y - 0.25f > brickY + 0.25f)
+    {
+        return false;
     }
+    // left
+    if (BallPosition.x - 0.25f > brickX + 0.5f)
+    {
+        return false;
+    }
+    // bottom
+    if (BallPosition.y + 0.25f < brickY - 0.25f)
+    {
+        return false;
+    }
+    // right
+    if (BallPosition.x + 0.25f < brickX - 0.5f)
+    {
+        return false;
+    }
+    return true;
 }
 
-glm::vec3 PauseBallVelocity = glm::vec3(0,0,0);
-void PauseBall(GLFWwindow *window, int key, int scancode, int action, int mods)
+glm::vec3 PauseBallVelocity = glm::vec3(0, 0, 0);
+bool bricks[100];
+void KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mods)
 {
     if (action == GLFW_RELEASE && key == GLFW_KEY_SPACE)
     {
@@ -301,6 +325,10 @@ int main( void ) {
     CreateVBO(g_vertex_buffer_data, 108, g_color_buffer_data, 108, vertexbuffers, colorbuffers, 0);
 
     glm::mat4 tmpModel, tmpMVP;
+    for (int i = 0; i < 100; i++)
+    {
+        bricks[i] = false;
+    }
 	do{
             // Clear the screen
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -309,15 +337,30 @@ int main( void ) {
 		glUseProgram(programID);
 
             // Bricks
+        int brick_i = 0;
         for (float i = -12.0f; i <= 12.2f; i += 2.2f) {
-            for (float j = 0.0f; j <= 8.0f; j += 1.1f) {
-                    // Send our transformation to the currently bound shader,
-                    // in the "MVP" uniform
-                tmpModel = glm::scale(glm::translate(Model, glm::vec3(i,j,0)), glm::vec3(1.0f,0.5f,0.5f));
-                tmpMVP = Projection * View * tmpModel;
-                glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &tmpMVP[0][0]);
+            for (float j = 0.0f; j <= 8.0f; j += 1.1f)
+            {
+                if (!bricks[brick_i])
+                {
+                    if (!CheckBallBrickCol(i, j))
+                    {
+                        // Send our transformation to the currently bound shader,
+                        // in the "MVP" uniform
+                        tmpModel = glm::scale(glm::translate(Model, glm::vec3(i, j, 0)), glm::vec3(1.0f, 0.5f, 0.5f));
+                        tmpMVP = Projection * View * tmpModel;
+                        glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &tmpMVP[0][0]);
 
-                Draw(vertexbuffers[0], colorbuffers[0]);
+                        Draw(vertexbuffers[0], colorbuffers[0]);
+                    }
+                    else
+                    {
+                        printf("Brick nr. %d collision", brick_i);
+                        bricks[brick_i] = true;
+                        BallVelocity.y = -BallVelocity.y;
+                    }
+                }
+                ++brick_i;
             }
         }
 
