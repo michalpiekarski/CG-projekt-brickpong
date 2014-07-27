@@ -86,6 +86,16 @@ glm::vec3 BallVelocity = glm::vec3(0.05f, 0.1f, 0);
 glm::vec3 PauseBallVelocity = glm::vec3(0, 0, 0);
 bool bricks[100];
 
+void ResetGame()
+{
+    BallPosition = glm::vec3(1.0f, -6.0f, 0);
+    BallVelocity = glm::vec3(0.05f, 0.1f, 0);
+    for (int i = 0; i < 100; i++)
+    {
+        bricks[i] = false;
+    }
+}
+
 void KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mods)
 {
     if (action == GLFW_RELEASE && key == GLFW_KEY_SPACE)
@@ -107,12 +117,7 @@ void KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mods
         }
         if (key == GLFW_KEY_R)
         {
-            BallPosition = glm::vec3(1.0f, -6.0f, 0);
-            BallVelocity = glm::vec3(0.05f, 0.1f, 0);
-            for (int i = 0; i < 100; i++)
-            {
-                bricks[i] = false;
-            }
+            ResetGame();
         }
     }
 }
@@ -135,13 +140,8 @@ void CheckBallBoundsCol()
     else if (BallPosition.y <= -8.0f)
     {
         printf("Wall collision at: %f x %f\n", BallPosition.x, BallPosition.y);
-        printf("GAME OVER - ball fell down");
-        BallPosition = glm::vec3(1.0f, -6.0f, 0);
-        BallVelocity = glm::vec3(0.05f, 0.1f, 0);
-        for (int i = 0; i < 100; i++)
-        {
-            bricks[i] = false;
-        }
+        printf("GAME OVER - ball fell down\n");
+        ResetGame();
     }
 }
 
