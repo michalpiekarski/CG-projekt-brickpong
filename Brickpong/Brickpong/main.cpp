@@ -22,6 +22,9 @@ GLFWwindow* window;
     // Include Custom Headers
 #include "shader.hpp"
 
+//    // Comment out for debud output in console
+//#define BRICKPONG_DEBUG
+
 void CreateVBO(GLfloat g_vertex_buffer_data[], int g_vertex_buffer_data_length, GLfloat g_color_buffer_data[], int g_color_buffer_data_length, GLuint vertexbuffers[], GLuint colorbuffers[], int i) {
     GLuint vertexbuffer;
     glGenBuffers(1, &vertexbuffer);
@@ -77,7 +80,9 @@ void cursorPositionChanged(GLFWwindow *window, double x, double y)
     int windowWidth;
     glfwGetWindowSize(window, &windowWidth, NULL);
     CursorX = glm::clamp(float(-(x - windowWidth / 2.0f)), -CurserOffset, CurserOffset)/CursorDamping;
+#ifdef BRICKPONG_DEBUG
     printf("Cursor x position: %f\n", CursorX);
+#endif
 }
 
 glm::vec3 BallPosition = glm::vec3(1.0f, -6.0f, 0);
@@ -132,19 +137,25 @@ void CheckBallBoundsCol()
     if (BallPosition.x < -14.0f || BallPosition.x > 14.0f)
     {
         BallVelocity.x = -BallVelocity.x;
+#ifdef BRICKPONG_DEBUG
         printf("Wall collision at: %f x %f\n", BallPosition.x, BallPosition.y);
+#endif
     }
         // Top
     else if (BallPosition.y > 8.0f)
     {
         BallVelocity.y = -BallVelocity.y;
+#ifdef BRICKPONG_DEBUG
         printf("Wall collision at: %f x %f\n", BallPosition.x, BallPosition.y);
+#endif
     }
         // Bottom
     else if (BallPosition.y < -8.0f)
     {
+#ifdef BRICKPONG_DEBUG
         printf("Wall collision at: %f x %f\n", BallPosition.x, BallPosition.y);
-        printf("GAME OVER - ball fell down\n");
+#endif
+        printf("##GAME OVER ##\n\n");
         ResetGame();
     }
 }
@@ -167,7 +178,9 @@ void CheckBallPadCol()
             BallVelocity.x = -BallVelocity.x;
         }
         BallVelocity.y = -BallVelocity.y;
+#ifdef BRICKPONG_DEBUG
         printf("Pad collision at: %f x %f\n", BallPosition.x, BallPosition.y);
+#endif
     }
 }
 
@@ -197,7 +210,7 @@ void CheckGameWin()
 {
     if (Points == 70)
     {
-        printf("=== YOU WON! ===\n");
+        printf("=== YOU WON! ===\n\n");
         ResetGame();
     }
 }
@@ -214,8 +227,10 @@ int main( void ) {
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-//        // Print supported OpenGL version
-//    printf("OpenGL version supported by this platform (%s): \n", glGetString(GL_VERSION));
+#ifdef BRICKPONG_DEBUG
+        // Print supported OpenGL version
+    printf("OpenGL version supported by this platform: %s\n", glGetString(GL_VERSION));
+#endif
         // Open a window and create its OpenGL context
 	window = glfwCreateWindow( 1024, 576, "Tutorial 04 - Colored Cube", NULL, NULL);
 	if(!window){
@@ -369,6 +384,9 @@ int main( void ) {
     {
         bricks[i] = false;
     }
+
+    printf("Points: %d\n", Points);
+
 	do{
             // Clear the screen
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -395,7 +413,9 @@ int main( void ) {
                     }
                     else
                     {
+#ifdef BRICKPONG_DEBUG
                         printf("Brick nr. %d destroyed\n", brick_i);
+#endif
                         bricks[brick_i] = true;
                     }
                 }
