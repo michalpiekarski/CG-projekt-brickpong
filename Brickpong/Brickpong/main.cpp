@@ -103,7 +103,14 @@ void CheckBallPadCol()
 {
     if (BallPosition.y <= -6.5f && (BallPosition.x >= CursorX-2.0f && BallPosition.x <= CursorX+2.0f))
     {
+        if ((BallVelocity.x < 0 && BallPosition.x > CursorX+1.0f) || (BallVelocity.x > 0 && BallPosition.x < CursorX-1.0f))
+        {
+            BallVelocity.x = -BallVelocity.x;
+        }
         BallVelocity.y = -BallVelocity.y;
+        printf("Pad collision at: %f x %f\n", BallPosition.x, BallPosition.y);
+    }
+}
 
 bool CheckBallBrickCol(float brickX, float brickY)
 {
