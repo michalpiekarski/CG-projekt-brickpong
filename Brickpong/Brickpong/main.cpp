@@ -84,7 +84,7 @@ glm::vec3 BallPosition = glm::vec3(1.0f, -6.0f, 0);
 glm::vec3 BallVelocity = glm::vec3(0.05f, 0.1f, 0);
 
 glm::vec3 PauseBallVelocity = glm::vec3(0, 0, 0);
-bool bricks[100];
+bool bricks[500];
 
 int Points = 0;
 
@@ -92,7 +92,7 @@ void ResetGame()
 {
     BallPosition = glm::vec3(1.0f, -6.0f, 0);
     BallVelocity = glm::vec3(0.05f, 0.1f, 0);
-    for (int i = 0; i < 100; i++)
+    for (int i = 0; i < 500; i++)
     {
         bricks[i] = false;
     }
@@ -129,19 +129,19 @@ void KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mods
 void CheckBallBoundsCol()
 {
         // Horizontal
-    if (BallPosition.x <= -14.0f || BallPosition.x >= 14.0f)
+    if (BallPosition.x < -14.0f || BallPosition.x > 14.0f)
     {
         BallVelocity.x = -BallVelocity.x;
         printf("Wall collision at: %f x %f\n", BallPosition.x, BallPosition.y);
     }
         // Top
-    else if (BallPosition.y >= 8.0f)
+    else if (BallPosition.y > 8.0f)
     {
         BallVelocity.y = -BallVelocity.y;
         printf("Wall collision at: %f x %f\n", BallPosition.x, BallPosition.y);
     }
         // Bottom
-    else if (BallPosition.y <= -8.0f)
+    else if (BallPosition.y < -8.0f)
     {
         printf("Wall collision at: %f x %f\n", BallPosition.x, BallPosition.y);
         printf("GAME OVER - ball fell down\n");
@@ -153,16 +153,16 @@ void CheckBallPadCol()
 {
     if (BallPosition.y <= -6.2f && (BallPosition.x >= CursorX-2.0f && BallPosition.x <= CursorX+2.0f))
     {
-        if (BallPosition.x > CursorX - 0.5f && BallPosition.x < CursorX + 0.5f)
+        if (BallPosition.x > CursorX - 0.15f && BallPosition.x < CursorX + 0.15f)
         {
-            BallVelocity.x = BallVelocity.x / 1.5f;
-            BallVelocity.y = glm::clamp(BallVelocity.y * 1.25f, -0.5f, 0.5f);
+            BallVelocity.x -= 0.025f;
+            BallVelocity.y = glm::clamp(BallVelocity.y + 0.025f, -0.3f, 0.3f);
         }
         else
         {
-            BallVelocity.x = glm::clamp(BallVelocity.x * 1.25f, -0.5f, 0.5f);
+            BallVelocity.x = glm::clamp(BallVelocity.x + 0.025f, -0.3f, 0.3f);
         }
-        if ((BallVelocity.x < 0 && BallPosition.x > CursorX+1.0f) || (BallVelocity.x > 0 && BallPosition.x < CursorX-1.0f))
+        if ((BallVelocity.x < 0 && BallPosition.x > CursorX+0.8f) || (BallVelocity.x > 0 && BallPosition.x < CursorX-0.8f))
         {
             BallVelocity.x = -BallVelocity.x;
         }
@@ -173,25 +173,20 @@ void CheckBallPadCol()
 
 bool CheckBallBrickCol(float brickX, float brickY)
 {
-    // top
-    if (BallPosition.y - 0.25f > brickY + 0.25f)
+        // No ollision
+        // top || right || bottom || left
+    if (BallPosition.y - 0.3f > brickY + 0.3f || BallPosition.x + 0.3f < brickX - 0.6f || BallPosition.y + 0.3f < brickY - 0.3f || BallPosition.x - 0.3f > brickX + 0.6f)
     {
         return false;
     }
-    // left
-    if (BallPosition.x - 0.25f > brickX + 0.5f)
+        // Collision
+    if (BallPosition.x < brickX - 0.65f || BallPosition.x > brickX + 0.65f)
     {
-        return false;
+        BallVelocity.x = -BallVelocity.x;
     }
-    // bottom
-    if (BallPosition.y + 0.25f < brickY - 0.25f)
+    if (BallPosition.y < brickY - 0.4f || BallPosition.y > brickY + 0.4f)
     {
-        return false;
-    }
-    // right
-    if (BallPosition.x + 0.25f < brickX - 0.5f)
-    {
-        return false;
+        BallVelocity.y = -BallVelocity.y;
     }
     ++Points;
     printf("Points: %d\n", Points);
@@ -200,7 +195,7 @@ bool CheckBallBrickCol(float brickX, float brickY)
 
 void CheckGameWin()
 {
-    if (Points == 20)
+    if (Points == 70)
     {
         printf("=== YOU WON! ===\n");
         ResetGame();
@@ -370,7 +365,7 @@ int main( void ) {
     CreateVBO(g_vertex_buffer_data, 108, g_color_buffer_data, 108, vertexbuffers, colorbuffers, 0);
 
     glm::mat4 tmpModel, tmpMVP;
-    for (int i = 0; i < 100; i++)
+    for (int i = 0; i < 500; i++)
     {
         bricks[i] = false;
     }
@@ -383,8 +378,8 @@ int main( void ) {
 
             // Bricks
         int brick_i = 0;
-        for (float i = -12.0f; i <= 12.2f; i += 2.2f) {
-            for (float j = 0.0f; j <= 8.0f; j += 1.1f)
+        for (float i = -12.0f; i <= 12.0f; i += 2.0f) {
+            for (float j = 0.0f; j <= 7.0f; j += 1.0f)
             {
                 if (!bricks[brick_i])
                 {
@@ -402,7 +397,6 @@ int main( void ) {
                     {
                         printf("Brick nr. %d destroyed\n", brick_i);
                         bricks[brick_i] = true;
-                        BallVelocity.y = -BallVelocity.y;
                     }
                 }
                 ++brick_i;
