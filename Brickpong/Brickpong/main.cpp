@@ -81,7 +81,41 @@ void cursorPositionChanged(GLFWwindow *window, double x, double y)
 }
 
 glm::vec3 BallPosition = glm::vec3(1.0f, -6.0f, 0);
-glm::vec3 BallVelocity = glm::vec3(0.2f, -0.1f, 0);
+glm::vec3 BallVelocity = glm::vec3(0.05f, 0.1f, 0);
+
+glm::vec3 PauseBallVelocity = glm::vec3(0, 0, 0);
+bool bricks[100];
+
+void KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mods)
+{
+    if (action == GLFW_RELEASE && key == GLFW_KEY_SPACE)
+    {
+        glm::vec3 tmp = BallVelocity;
+        tmp = BallVelocity;
+        BallVelocity = PauseBallVelocity;
+        PauseBallVelocity = tmp;
+    }
+    if (action == GLFW_PRESS || action == GLFW_REPEAT)
+    {
+        if (key == GLFW_KEY_A || key == GLFW_KEY_LEFT)
+        {
+            CursorX += 1.0f;
+        }
+        else if (key == GLFW_KEY_D || key == GLFW_KEY_RIGHT)
+        {
+            CursorX -= 1.0f;
+        }
+        if (key == GLFW_KEY_R)
+        {
+            BallPosition = glm::vec3(1.0f, -6.0f, 0);
+            BallVelocity = glm::vec3(0.05f, 0.1f, 0);
+            for (int i = 0; i < 100; i++)
+            {
+                bricks[i] = false;
+            }
+        }
+    }
+}
 
 void CheckBallBoundsCol()
 {
@@ -91,18 +125,39 @@ void CheckBallBoundsCol()
         BallVelocity.x = -BallVelocity.x;
         printf("Wall collision at: %f x %f\n", BallPosition.x, BallPosition.y);
     }
-        // Vertical
-    else if (BallPosition.y <= -7.0f || BallPosition.y >= 7.0f)
+        // Top
+    else if (BallPosition.y >= 8.0f)
     {
         BallVelocity.y = -BallVelocity.y;
         printf("Wall collision at: %f x %f\n", BallPosition.x, BallPosition.y);
+    }
+        // Bottom
+    else if (BallPosition.y <= -8.0f)
+    {
+        printf("Wall collision at: %f x %f\n", BallPosition.x, BallPosition.y);
+        printf("GAME OVER - ball fell down");
+        BallPosition = glm::vec3(1.0f, -6.0f, 0);
+        BallVelocity = glm::vec3(0.05f, 0.1f, 0);
+        for (int i = 0; i < 100; i++)
+        {
+            bricks[i] = false;
+        }
     }
 }
 
 void CheckBallPadCol()
 {
-    if (BallPosition.y <= -6.5f && (BallPosition.x >= CursorX-2.0f && BallPosition.x <= CursorX+2.0f))
+    if (BallPosition.y <= -6.2f && (BallPosition.x >= CursorX-2.0f && BallPosition.x <= CursorX+2.0f))
     {
+        if (BallPosition.x > CursorX - 0.5f && BallPosition.x < CursorX + 0.5f)
+        {
+            BallVelocity.x = BallVelocity.x / 1.5f;
+            BallVelocity.y = glm::clamp(BallVelocity.y * 1.25f, -0.5f, 0.5f);
+        }
+        else
+        {
+            BallVelocity.x = glm::clamp(BallVelocity.x * 1.25f, -0.5f, 0.5f);
+        }
         if ((BallVelocity.x < 0 && BallPosition.x > CursorX+1.0f) || (BallVelocity.x > 0 && BallPosition.x < CursorX-1.0f))
         {
             BallVelocity.x = -BallVelocity.x;
@@ -137,38 +192,6 @@ bool CheckBallBrickCol(float brickX, float brickY)
     return true;
 }
 
-glm::vec3 PauseBallVelocity = glm::vec3(0, 0, 0);
-bool bricks[100];
-void KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mods)
-{
-    if (action == GLFW_RELEASE && key == GLFW_KEY_SPACE)
-    {
-        glm::vec3 tmp = BallVelocity;
-        tmp = BallVelocity;
-        BallVelocity = PauseBallVelocity;
-        PauseBallVelocity = tmp;
-    }
-    if (action == GLFW_PRESS || action == GLFW_REPEAT)
-    {
-        if (key == GLFW_KEY_A || key == GLFW_KEY_LEFT)
-        {
-            CursorX += 1.0f;
-        }
-        else if (key == GLFW_KEY_D || key == GLFW_KEY_RIGHT)
-        {
-            CursorX -= 1.0f;
-        }
-        if (key == GLFW_KEY_R)
-        {
-            BallPosition = glm::vec3(1.0f, -6.0f, 0);
-            BallVelocity = glm::vec3(0.2f, -0.1f, 0);
-            for (int i = 0; i < 100; i++)
-            {
-                bricks[i] = false;
-            }
-        }
-    }
-}
 int main( void ) {
         // Initialise GLFW
 	if( !glfwInit() ) {
