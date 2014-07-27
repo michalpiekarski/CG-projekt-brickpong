@@ -86,6 +86,8 @@ glm::vec3 BallVelocity = glm::vec3(0.05f, 0.1f, 0);
 glm::vec3 PauseBallVelocity = glm::vec3(0, 0, 0);
 bool bricks[100];
 
+int Points = 0;
+
 void ResetGame()
 {
     BallPosition = glm::vec3(1.0f, -6.0f, 0);
@@ -94,6 +96,8 @@ void ResetGame()
     {
         bricks[i] = false;
     }
+    Points = 0;
+    printf("Points: %d\n", Points);
 }
 
 void KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mods)
@@ -189,7 +193,18 @@ bool CheckBallBrickCol(float brickX, float brickY)
     {
         return false;
     }
+    ++Points;
+    printf("Points: %d\n", Points);
     return true;
+}
+
+void CheckGameWin()
+{
+    if (Points == 20)
+    {
+        printf("=== YOU WON! ===\n");
+        ResetGame();
+    }
 }
 
 int main( void ) {
@@ -385,7 +400,7 @@ int main( void ) {
                     }
                     else
                     {
-                        printf("Brick nr. %d collision", brick_i);
+                        printf("Brick nr. %d destroyed\n", brick_i);
                         bricks[brick_i] = true;
                         BallVelocity.y = -BallVelocity.y;
                     }
@@ -393,6 +408,8 @@ int main( void ) {
                 ++brick_i;
             }
         }
+
+        CheckGameWin();
 
             // Pad
             // Send our transformation to the currently bound shader,
