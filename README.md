@@ -14,3 +14,12 @@ Aby przygotować bilioteki **GLFW** oraz **GLM** do użycia, należy to zrobić 
 Jeżeli mają być użyte jakiekolwiek pliki z folderu `/OpenGL-Tutorial`, należy je skopiować do osobnego folderu roboczego - poza `/OpenGL-Tutorial`.
 
 <!-- TODO: Uzupełnić instrukcje o informacje jak odpowiednio "podpiąć" biblioteki do projektu w odpowiednich IDE. -->
+
+## Sterowanie w grze
+
+- `Mysz` - poruszanie paletką
+- `A`/`Strzałka w lewo` - przesuń paletkę w lewo
+- `D`/`Strzałka w prawo` - przesuń paletkę w prawo
+- `Spacja` - zatrzymaj piłkę
+- `R` - zrestartuj grę
+- `ESC` - zamknij grę

@@ -77,7 +77,7 @@ void cursorPositionChanged(GLFWwindow *window, double x, double y)
     int windowWidth;
     glfwGetWindowSize(window, &windowWidth, NULL);
     CursorX = glm::clamp(float(-(x - windowWidth / 2.0f)), -CurserOffset, CurserOffset)/CursorDamping;
-    printf("%f\n", CursorX);
+    printf("Cursor x position: %f\n", CursorX);
 }
 
 glm::vec3 BallPosition = glm::vec3(1.0f, -6.0f, 0);
@@ -117,6 +117,26 @@ void PauseBall(GLFWwindow *window, int key, int scancode, int action, int mods)
         BallVelocity = PauseBallVelocity;
         PauseBallVelocity = tmp;
     }
+    if (action == GLFW_PRESS || action == GLFW_REPEAT)
+    {
+        if (key == GLFW_KEY_A || key == GLFW_KEY_LEFT)
+        {
+            CursorX += 1.0f;
+        }
+        else if (key == GLFW_KEY_D || key == GLFW_KEY_RIGHT)
+        {
+            CursorX -= 1.0f;
+        }
+        if (key == GLFW_KEY_R)
+        {
+            BallPosition = glm::vec3(1.0f, -6.0f, 0);
+            BallVelocity = glm::vec3(0.2f, -0.1f, 0);
+            for (int i = 0; i < 100; i++)
+            {
+                bricks[i] = false;
+            }
+        }
+    }
 }
 int main( void ) {
         // Initialise GLFW
@@ -155,7 +175,7 @@ int main( void ) {
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 	glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
     glfwSetCursorPosCallback(window, cursorPositionChanged);
-    glfwSetKeyCallback(window, PauseBall);
+    glfwSetKeyCallback(window, KeyCallback);
 
         // Dark blue background
 	glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
@@ -180,7 +200,7 @@ int main( void ) {
 
         // View (Camera) matrix :
 	glm::mat4 View       = glm::lookAt(
-                                       glm::vec3(0,0,-20), // Camera is at (4,3,-3), in World Space
+                                       glm::vec3(0,0,-20), // Camera is at (0,0,-20), in World Space
                                        glm::vec3(0,0,0), // and looks at the origin
                                        glm::vec3(0,1,0)  // Head is up (set to 0,-1,0 to look upside-down)
                                        );
