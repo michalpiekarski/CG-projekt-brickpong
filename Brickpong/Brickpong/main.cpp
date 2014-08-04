@@ -236,8 +236,11 @@ int main(void) {
 
         glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
 
+        glEnable(GL_CULL_FACE);
         glEnable(GL_DEPTH_TEST);
         glDepthFunc(GL_LESS);
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
         GLuint MatrixID = shaderProgram->getUniformLoc("MVP");
 
