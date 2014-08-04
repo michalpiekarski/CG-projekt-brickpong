@@ -85,8 +85,8 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Program Files\glew\lib\Release\x64;C:\Program Files\GLFW\lib64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glew32.lib;glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\michalpiekarski\Documents\WSNHiD\CG-projekt-brickpong\biblioteki\GLEW_WIN\lib\Release\x64;C:\Users\michalpiekarski\Documents\WSNHiD\CG-projekt-brickpong\biblioteki\GLFW_WINx64\lib64;C:\Users\michalpiekarski\Documents\WSNHiD\CG-projekt-brickpong\biblioteki\GLM_WINx64\lib;C:\Users\michalpiekarski\Documents\WSNHiD\CG-projekt-brickpong\biblioteki\FREETYPE_WINx64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;glew32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>xcopy /y /d "$(ProjectDir)*.dll" "$(OutDir)"
@@ -123,8 +123,8 @@ xcopy /y /d "$(ProjectDir)*.*shader" "$(OutDir)"</Command>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>C:\Program Files\glew\lib\Release\x64;C:\Program Files\GLFW\lib64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glew32.lib;glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\michalpiekarski\Documents\WSNHiD\CG-projekt-brickpong\biblioteki\GLEW_WIN\lib\Release\x64;C:\Users\michalpiekarski\Documents\WSNHiD\CG-projekt-brickpong\biblioteki\GLFW_WINx64\lib64;C:\Users\michalpiekarski\Documents\WSNHiD\CG-projekt-brickpong\biblioteki\GLM_WINx64\lib;C:\Users\michalpiekarski\Documents\WSNHiD\CG-projekt-brickpong\biblioteki\FREETYPE_WINx64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;glew32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>xcopy /y /d "$(ProjectDir)*.dll" "$(OutDir)"
