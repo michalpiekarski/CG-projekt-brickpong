@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		E907F50E198F7938003FE113 /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E907F50D198F7938003FE113 /* libfreetype.a */; };
-		E907F50F198F7958003FE113 /* ColorFragmentShader.frag in CopyFiles */ = {isa = PBXBuildFile; fileRef = E907F50B198F773C003FE113 /* ColorFragmentShader.frag */; };
-		E907F510198F7958003FE113 /* TransformVertexShader.vert in CopyFiles */ = {isa = PBXBuildFile; fileRef = E907F50C198F773C003FE113 /* TransformVertexShader.vert */; };
+		E907F50F198F7958003FE113 /* Simple.frag in CopyFiles */ = {isa = PBXBuildFile; fileRef = E907F50B198F773C003FE113 /* Simple.frag */; };
+		E907F510198F7958003FE113 /* Simple.vert in CopyFiles */ = {isa = PBXBuildFile; fileRef = E907F50C198F773C003FE113 /* Simple.vert */; };
 		E9AD267119806B80001A6268 /* libglfw.3.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E9AD267019806B80001A6268 /* libglfw.3.1.dylib */; };
 		E9D9468D198FDCE20082E1C1 /* BrickpongException.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9D94682198FDCE20082E1C1 /* BrickpongException.cpp */; };
 		E9D9468E198FDCE20082E1C1 /* ShaderProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9D94685198FDCE20082E1C1 /* ShaderProgram.cpp */; };
@@ -29,16 +29,16 @@
 			dstPath = shaders;
 			dstSubfolderSpec = 16;
 			files = (
-				E907F50F198F7958003FE113 /* ColorFragmentShader.frag in CopyFiles */,
-				E907F510198F7958003FE113 /* TransformVertexShader.vert in CopyFiles */,
+				E907F50F198F7958003FE113 /* Simple.frag in CopyFiles */,
+				E907F510198F7958003FE113 /* Simple.vert in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		E907F50B198F773C003FE113 /* ColorFragmentShader.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ColorFragmentShader.frag; sourceTree = "<group>"; };
-		E907F50C198F773C003FE113 /* TransformVertexShader.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = TransformVertexShader.vert; sourceTree = "<group>"; };
+		E907F50B198F773C003FE113 /* Simple.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Simple.frag; sourceTree = "<group>"; };
+		E907F50C198F773C003FE113 /* Simple.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Simple.vert; sourceTree = "<group>"; };
 		E907F50D198F7938003FE113 /* libfreetype.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfreetype.a; path = ../biblioteki/FREETYPE_OSX/lib/libfreetype.a; sourceTree = "<group>"; };
 		E9AD267019806B80001A6268 /* libglfw.3.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglfw.3.1.dylib; path = ../biblioteki/GLFW_OSX/lib/libglfw.3.1.dylib; sourceTree = "<group>"; };
 		E9D94682198FDCE20082E1C1 /* BrickpongException.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BrickpongException.cpp; sourceTree = "<group>"; };
@@ -77,8 +77,8 @@
 		E907F50A198F773C003FE113 /* shaders */ = {
 			isa = PBXGroup;
 			children = (
-				E907F50B198F773C003FE113 /* ColorFragmentShader.frag */,
-				E907F50C198F773C003FE113 /* TransformVertexShader.vert */,
+				E907F50B198F773C003FE113 /* Simple.frag */,
+				E907F50C198F773C003FE113 /* Simple.vert */,
 			);
 			path = shaders;
 			sourceTree = "<group>";

@@ -220,8 +220,8 @@ int main(void) {
         window->setKeyCallback(KeyCallback);
 
         shaderProgram = new ShaderProgram();
-        vShader = new Shader("shaders/TransformVertexShader.vert", GL_VERTEX_SHADER);
-        fShader = new Shader("shaders/ColorFragmentShader.frag", GL_FRAGMENT_SHADER);
+        vShader = new Shader("shaders/Simple.vert", GL_VERTEX_SHADER);
+        fShader = new Shader("shaders/Simple.frag", GL_FRAGMENT_SHADER);
 
         shaderProgram->attachShader(vShader);
         shaderProgram->attachShader(fShader);
