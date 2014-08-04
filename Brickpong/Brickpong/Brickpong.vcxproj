@@ -90,6 +90,7 @@
     </Link>
     <PostBuildEvent>
       <Command>xcopy /y /d "$(ProjectDir)/shaders/*.(vert|frag)" "$(OutDir)"
+xcopy /y /d "$(ProjectDir)glew32.dll" "$(OutDir)"</Command>
     </PostBuildEvent>
     <PostBuildEvent>
       <Message>Copy GLEW DLL to product folder (where the .exe file ends up)</Message>
@@ -127,6 +128,7 @@
     </Link>
     <PostBuildEvent>
       <Command>xcopy /y /d "$(ProjectDir)/shaders/*.(vert|frag)" "$(OutDir)"
+xcopy /y /d "$(ProjectDir)glew32.dll" "$(OutDir)"</Command>
     </PostBuildEvent>
     <PostBuildEvent>
       <Message>Copy GLEW DLL to product folder (where the .exe file ends up)</Message>
