@@ -274,7 +274,21 @@ int main(void) {
 
         GLint viewportWidth, viewportHeight;
 
+#ifdef __Brickpong__DEBUG_LOG__
+        double lastTime = glfwGetTime();
+        int nbFrames = 0;
+#endif
+
         do{
+#ifdef __Brickpong__DEBUG_LOG__
+            double currentTime = glfwGetTime();
+            nbFrames++;
+            if ( currentTime - lastTime >= 1.0 ) {
+                std::cout << 1000.0/double(nbFrames) << "ms/frame" << std::endl;
+                nbFrames = 0;
+                lastTime += 1.0;
+            }
+#endif
 
             window->getFrameBufferSize(&viewportWidth, &viewportHeight);
             glViewport(0, 0, viewportWidth, viewportHeight);
