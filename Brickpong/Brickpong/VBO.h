@@ -20,6 +20,8 @@ public:
     void unbind();
     GLuint getID();
     void data(const GLvoid* data, GLsizeiptr dataSize, GLenum usage);
+    void createVertexAttribPointer(GLuint index, GLint size, GLenum type,
+                                   GLboolean normalized, GLsizei stride, const GLvoid* pointer);
 };
 
 #endif /* defined(__Brickpong__VBO__) */

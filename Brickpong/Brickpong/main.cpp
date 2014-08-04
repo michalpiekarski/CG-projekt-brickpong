@@ -31,26 +31,26 @@ void CreateBuffers(VBO* vVBO, VBO* cVBO, EBO* myEBO) {
     // Our vertices. Tree consecutive floats give a 3D vertex; Three consecutive vertices give a triangle.
     // A cube has 6 faces with 2 triangles each, so this makes 6*2=12 triangles, and 12*3 vertices
     GLfloat vertex_data[8][3] = {
-            {-1.0f, -1.0f, -1.0f, },
-            {-1.0f, -1.0f, +1.0f, },
-            {-1.0f, +1.0f, +1.0f, },
-            {+1.0f, +1.0f, -1.0f, },
-            {-1.0f, +1.0f, -1.0f, },
-            {+1.0f, -1.0f, +1.0f, },
-            {+1.0f, -1.0f, -1.0f, },
-            {+1.0f, +1.0f, +1.0f, },
+        {-1.0f, -1.0f, -1.0f, },
+        {-1.0f, -1.0f, +1.0f, },
+        {-1.0f, +1.0f, +1.0f, },
+        {+1.0f, +1.0f, -1.0f, },
+        {-1.0f, +1.0f, -1.0f, },
+        {+1.0f, -1.0f, +1.0f, },
+        {+1.0f, -1.0f, -1.0f, },
+        {+1.0f, +1.0f, +1.0f, },
     };
 
     // One color for each vertex. They were generated randomly.
     GLfloat color_data[8][3] = {
-            {0.583f, 0.771f, 0.014f, },
-            {0.609f, 0.115f, 0.436f, },
-            {0.327f, 0.483f, 0.844f, },
-            {0.822f, 0.569f, 0.201f, },
-            {0.435f, 0.602f, 0.223f, },
-            {0.310f, 0.747f, 0.185f, },
-            {0.597f, 0.770f, 0.761f, },
-            {0.559f, 0.436f, 0.730f, },
+        {0.583f, 0.771f, 0.014f, },
+        {0.609f, 0.115f, 0.436f, },
+        {0.327f, 0.483f, 0.844f, },
+        {0.822f, 0.569f, 0.201f, },
+        {0.435f, 0.602f, 0.223f, },
+        {0.310f, 0.747f, 0.185f, },
+        {0.597f, 0.770f, 0.761f, },
+        {0.559f, 0.436f, 0.730f, },
     };
 
     GLushort index_data[12][3] = {
@@ -73,39 +73,10 @@ void CreateBuffers(VBO* vVBO, VBO* cVBO, EBO* myEBO) {
     myEBO->data(index_data, sizeof(index_data), GL_STATIC_DRAW);
 }
 
-void Draw(VBO* vVBO, VBO* cVBO, EBO* myEBO) {
-    // 1rst attribute buffer : vertices
-    glEnableVertexAttribArray(0);
-    glBindBuffer(GL_ARRAY_BUFFER, vVBO->getID());
-    glVertexAttribPointer(
-        0,                  // attribute. No particular reason for 0, but must match the layout in the shader.
-        3,                  // size
-        GL_FLOAT,           // type
-        GL_FALSE,           // normalized?
-        0,                  // stride
-        (void*)0            // array buffer offset
-        );
-
-    // 2nd attribute buffer : colors
-    glEnableVertexAttribArray(1);
-    glBindBuffer(GL_ARRAY_BUFFER, cVBO->getID());
-    glVertexAttribPointer(
-        1,                                // attribute. No particular reason for 1, but must match the layout in the shader.
-        3,                                // size
-        GL_FLOAT,                         // type
-        GL_FALSE,                         // normalized?
-        0,                                // stride
-        (void*)0                          // array buffer offset
-        );
-
+void Draw(EBO* myEBO) {
     myEBO->bind();
-    // Draw the triangle !
     glDrawElements(GL_TRIANGLES, 12*3, GL_UNSIGNED_SHORT, NULL);
-
-
     myEBO->unbind();
-    glDisableVertexAttribArray(0);
-    glDisableVertexAttribArray(1);
 }
 
 void cursorPositionChanged(GLFWwindow *window, double x, double y) {
@@ -295,6 +266,12 @@ int main(void) {
         EBO* myEBO = new EBO();
         CreateBuffers(vVBO, cVBO, myEBO);
 
+        GLint positionAttribLoc = shaderProgram->getAttributeLoc("position");
+        GLint colorAttribLoc = shaderProgram->getAttributeLoc("color");
+
+        vVBO->createVertexAttribPointer(positionAttribLoc, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid*)0);
+        cVBO->createVertexAttribPointer(colorAttribLoc, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid*)0);
+
         for (int i = 0; i < 500; i++) {
             bricks[i] = false;
         }
@@ -317,7 +294,7 @@ int main(void) {
                             tmpMVP = Projection * View * tmpModel;
                             glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &tmpMVP[0][0]);
 
-                            Draw(vVBO, cVBO, myEBO);
+                            Draw(myEBO);
                         }
                         else {
 #ifdef __Brickpong__DEBUG_LOG__
@@ -339,7 +316,7 @@ int main(void) {
             tmpMVP = Projection * View * tmpModel;
             glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &tmpMVP[0][0]);
 
-            Draw(vVBO, cVBO, myEBO);
+            Draw(myEBO);
 
             // Ball
             // Send our transformation to the currently bound shader,
@@ -351,7 +328,7 @@ int main(void) {
             tmpMVP = Projection * View * tmpModel;
             glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &tmpMVP[0][0]);
 
-            Draw(vVBO, cVBO, myEBO);
+            Draw(myEBO);
 
             // Swap buffers
             window->swapBuffers();
@@ -359,6 +336,9 @@ int main(void) {
         } // Check if the ESC key was pressed or the window was closed
         while (window->getKey(GLFW_KEY_ESCAPE) != GLFW_PRESS && window->shouldClose() == 0);
 
+        glDisableVertexAttribArray(0);
+        glDisableVertexAttribArray(1);
+        
         delete myEBO;
         delete vVBO;
         delete cVBO;
