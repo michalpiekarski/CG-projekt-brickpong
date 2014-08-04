@@ -89,7 +89,7 @@
       <AdditionalDependencies>opengl32.lib;glew32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /y /d "$(ProjectDir)*.*shader" "$(OutDir)"</Command>
+      <Command>xcopy /y /d "$(ProjectDir)*.(vs|fs)" "$(OutDir)"</Command>
     </PostBuildEvent>
     <PostBuildEvent>
       <Message>Copy GLEW DLL to product folder (where the .exe file ends up)</Message>
@@ -126,15 +126,15 @@
       <AdditionalDependencies>opengl32.lib;glew32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /y /d "$(ProjectDir)*.*shader" "$(OutDir)"</Command>
+      <Command>xcopy /y /d "$(ProjectDir)*.(vs|fs)" "$(OutDir)"</Command>
     </PostBuildEvent>
     <PostBuildEvent>
       <Message>Copy GLEW DLL to product folder (where the .exe file ends up)</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <None Include="ColorFragmentShader.fragmentshader" />
-    <None Include="TransformVertexShader.vertexshader" />
+    <None Include="ColorFragmentShader.fs" />
+    <None Include="TransformVertexShader.vs" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />

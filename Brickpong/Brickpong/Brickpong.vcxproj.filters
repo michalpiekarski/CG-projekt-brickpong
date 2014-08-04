@@ -15,8 +15,8 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="ColorFragmentShader.fragmentshader" />
-    <None Include="TransformVertexShader.vertexshader" />
+    <None Include="ColorFragmentShader.fs" />
+    <None Include="TransformVertexShader.vs" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
