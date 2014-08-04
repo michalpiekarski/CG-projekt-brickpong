@@ -89,8 +89,7 @@
       <AdditionalDependencies>opengl32.lib;glew32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /y /d "$(ProjectDir)*.dll" "$(OutDir)"
-xcopy /y /d "$(ProjectDir)*.*shader" "$(OutDir)"</Command>
+      <Command>xcopy /y /d "$(ProjectDir)*.*shader" "$(OutDir)"</Command>
     </PostBuildEvent>
     <PostBuildEvent>
       <Message>Copy GLEW DLL to product folder (where the .exe file ends up)</Message>
@@ -127,8 +126,7 @@ xcopy /y /d "$(ProjectDir)*.*shader" "$(OutDir)"</Command>
       <AdditionalDependencies>opengl32.lib;glew32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /y /d "$(ProjectDir)*.dll" "$(OutDir)"
-xcopy /y /d "$(ProjectDir)*.*shader" "$(OutDir)"</Command>
+      <Command>xcopy /y /d "$(ProjectDir)*.*shader" "$(OutDir)"</Command>
     </PostBuildEvent>
     <PostBuildEvent>
       <Message>Copy GLEW DLL to product folder (where the .exe file ends up)</Message>
