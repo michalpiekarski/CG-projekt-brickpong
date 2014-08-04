@@ -4,7 +4,7 @@
     //Check if on Windows - both x86 and x64
 #ifdef _WIN32
     // Include GLEW
-#include "GL/glew.h"
+#include <GL/glew.h>
 #endif
 
     // Include GLFW
@@ -12,12 +12,12 @@
 #ifdef __APPLE__
 #define GLFW_INCLUDE_GLCOREARB
 #endif
-#include "GLFW/glfw3.h"
+#include <GLFW/glfw3.h>
 
 GLFWwindow* window;
 
     // Include GLM
-#include "glm/gtc/matrix_transform.hpp"
+#include <glm/gtc/matrix_transform.hpp>
 
     // Include Custom Headers
 #include "shader.hpp"

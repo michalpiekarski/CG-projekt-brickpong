@@ -81,7 +81,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Program Files\glew\include;C:\Program Files\glm\include;C:\Program Files\GLFW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\michalpiekarski\Documents\WSNHiD\CG-projekt-brickpong\biblioteki\GLEW_WIN\include;C:\Users\michalpiekarski\Documents\WSNHiD\CG-projekt-brickpong\biblioteki\GLFW_WINx64\include;C:\Users\michalpiekarski\Documents\WSNHiD\CG-projekt-brickpong\biblioteki\GLM_WINx64\include;C:\Users\michalpiekarski\Documents\WSNHiD\CG-projekt-brickpong\biblioteki\FREETYPE_WINx64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -117,7 +117,7 @@ xcopy /y /d "$(ProjectDir)*.*shader" "$(OutDir)"</Command>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Program Files\glew\include;C:\Program Files\glm\include;C:\Program Files\GLFW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\michalpiekarski\Documents\WSNHiD\CG-projekt-brickpong\biblioteki\GLEW_WIN\include;C:\Users\michalpiekarski\Documents\WSNHiD\CG-projekt-brickpong\biblioteki\GLFW_WINx64\include;C:\Users\michalpiekarski\Documents\WSNHiD\CG-projekt-brickpong\biblioteki\GLM_WINx64\include;C:\Users\michalpiekarski\Documents\WSNHiD\CG-projekt-brickpong\biblioteki\FREETYPE_WINx64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
