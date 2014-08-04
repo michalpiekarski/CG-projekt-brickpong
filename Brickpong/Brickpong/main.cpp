@@ -222,15 +222,13 @@ int main( void ) {
 		return -1;
     }
     
+#ifdef __APPLE__
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
-#ifdef BRICKPONG_DEBUG
-        // Print supported OpenGL version
-    printf("OpenGL version supported by this platform: %s\n", glGetString(GL_VERSION));
 #endif
+
         // Open a window and create its OpenGL context
 	window = glfwCreateWindow( 1024, 576, "Tutorial 04 - Colored Cube", NULL, NULL);
 	if(!window){
@@ -239,6 +237,11 @@ int main( void ) {
         exit(EXIT_FAILURE);
 	}
 	glfwMakeContextCurrent(window);
+
+#ifdef BRICKPONG_DEBUG
+    // Print supported OpenGL version
+    printf("OpenGL version supported by this platform: %s\n", glGetString(GL_VERSION));
+#endif
 
         //Check if on Windows - botx x86 and x64
 #ifdef _WIN32
