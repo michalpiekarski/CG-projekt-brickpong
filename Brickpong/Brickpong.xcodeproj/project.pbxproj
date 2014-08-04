@@ -10,8 +10,13 @@
 		E907F50E198F7938003FE113 /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E907F50D198F7938003FE113 /* libfreetype.a */; };
 		E907F50F198F7958003FE113 /* ColorFragmentShader.frag in CopyFiles */ = {isa = PBXBuildFile; fileRef = E907F50B198F773C003FE113 /* ColorFragmentShader.frag */; };
 		E907F510198F7958003FE113 /* TransformVertexShader.vert in CopyFiles */ = {isa = PBXBuildFile; fileRef = E907F50C198F773C003FE113 /* TransformVertexShader.vert */; };
-		E931B891198107CC0029CF8C /* shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E931B88F198107CC0029CF8C /* shader.cpp */; };
 		E9AD267119806B80001A6268 /* libglfw.3.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E9AD267019806B80001A6268 /* libglfw.3.1.dylib */; };
+		E9D9468D198FDCE20082E1C1 /* BrickpongException.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9D94682198FDCE20082E1C1 /* BrickpongException.cpp */; };
+		E9D9468E198FDCE20082E1C1 /* ShaderProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9D94685198FDCE20082E1C1 /* ShaderProgram.cpp */; };
+		E9D9468F198FDCE20082E1C1 /* VAO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9D94687198FDCE20082E1C1 /* VAO.cpp */; };
+		E9D94690198FDCE20082E1C1 /* VBO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9D94689198FDCE20082E1C1 /* VBO.cpp */; };
+		E9D94691198FDCE20082E1C1 /* Window.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9D9468B198FDCE20082E1C1 /* Window.cpp */; };
+		E9D94693198FDCF80082E1C1 /* Shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9D94692198FDCF80082E1C1 /* Shader.cpp */; };
 		E9F2A8761968F8690011EAAF /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9F2A8751968F8690011EAAF /* main.cpp */; };
 		E9F2A8851968FE310011EAAF /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9F2A8841968FE310011EAAF /* OpenGL.framework */; };
 /* End PBXBuildFile section */
@@ -34,9 +39,19 @@
 		E907F50B198F773C003FE113 /* ColorFragmentShader.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ColorFragmentShader.frag; sourceTree = "<group>"; };
 		E907F50C198F773C003FE113 /* TransformVertexShader.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = TransformVertexShader.vert; sourceTree = "<group>"; };
 		E907F50D198F7938003FE113 /* libfreetype.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfreetype.a; path = ../biblioteki/FREETYPE_OSX/lib/libfreetype.a; sourceTree = "<group>"; };
-		E931B88F198107CC0029CF8C /* shader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = shader.cpp; sourceTree = "<group>"; };
-		E931B890198107CC0029CF8C /* shader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = shader.hpp; sourceTree = "<group>"; };
 		E9AD267019806B80001A6268 /* libglfw.3.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglfw.3.1.dylib; path = ../biblioteki/GLFW_OSX/lib/libglfw.3.1.dylib; sourceTree = "<group>"; };
+		E9D94682198FDCE20082E1C1 /* BrickpongException.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BrickpongException.cpp; sourceTree = "<group>"; };
+		E9D94683198FDCE20082E1C1 /* BrickpongException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrickpongException.h; sourceTree = "<group>"; };
+		E9D94684198FDCE20082E1C1 /* Shader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Shader.h; sourceTree = "<group>"; };
+		E9D94685198FDCE20082E1C1 /* ShaderProgram.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ShaderProgram.cpp; sourceTree = "<group>"; };
+		E9D94686198FDCE20082E1C1 /* ShaderProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShaderProgram.h; sourceTree = "<group>"; };
+		E9D94687198FDCE20082E1C1 /* VAO.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VAO.cpp; sourceTree = "<group>"; };
+		E9D94688198FDCE20082E1C1 /* VAO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VAO.h; sourceTree = "<group>"; };
+		E9D94689198FDCE20082E1C1 /* VBO.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VBO.cpp; sourceTree = "<group>"; };
+		E9D9468A198FDCE20082E1C1 /* VBO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VBO.h; sourceTree = "<group>"; };
+		E9D9468B198FDCE20082E1C1 /* Window.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Window.cpp; sourceTree = "<group>"; };
+		E9D9468C198FDCE20082E1C1 /* Window.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Window.h; sourceTree = "<group>"; };
+		E9D94692198FDCF80082E1C1 /* Shader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Shader.cpp; sourceTree = "<group>"; };
 		E9F2A8721968F8690011EAAF /* Brickpong */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Brickpong; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9F2A8751968F8690011EAAF /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		E9F2A8841968FE310011EAAF /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
@@ -87,9 +102,19 @@
 		E9F2A8741968F8690011EAAF /* Brickpong */ = {
 			isa = PBXGroup;
 			children = (
+				E9D94692198FDCF80082E1C1 /* Shader.cpp */,
+				E9D94682198FDCE20082E1C1 /* BrickpongException.cpp */,
+				E9D94683198FDCE20082E1C1 /* BrickpongException.h */,
+				E9D94684198FDCE20082E1C1 /* Shader.h */,
+				E9D94685198FDCE20082E1C1 /* ShaderProgram.cpp */,
+				E9D94686198FDCE20082E1C1 /* ShaderProgram.h */,
+				E9D94687198FDCE20082E1C1 /* VAO.cpp */,
+				E9D94688198FDCE20082E1C1 /* VAO.h */,
+				E9D94689198FDCE20082E1C1 /* VBO.cpp */,
+				E9D9468A198FDCE20082E1C1 /* VBO.h */,
+				E9D9468B198FDCE20082E1C1 /* Window.cpp */,
+				E9D9468C198FDCE20082E1C1 /* Window.h */,
 				E907F50A198F773C003FE113 /* shaders */,
-				E931B88F198107CC0029CF8C /* shader.cpp */,
-				E931B890198107CC0029CF8C /* shader.hpp */,
 				E9F2A8751968F8690011EAAF /* main.cpp */,
 			);
 			path = Brickpong;
@@ -146,8 +171,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E931B891198107CC0029CF8C /* shader.cpp in Sources */,
+				E9D94690198FDCE20082E1C1 /* VBO.cpp in Sources */,
+				E9D94691198FDCE20082E1C1 /* Window.cpp in Sources */,
+				E9D9468E198FDCE20082E1C1 /* ShaderProgram.cpp in Sources */,
 				E9F2A8761968F8690011EAAF /* main.cpp in Sources */,
+				E9D94693198FDCF80082E1C1 /* Shader.cpp in Sources */,
+				E9D9468F198FDCE20082E1C1 /* VAO.cpp in Sources */,
+				E9D9468D198FDCE20082E1C1 /* BrickpongException.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -232,9 +262,9 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"/Applications/Xcode6-Beta4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include",
-					"/Users/michalpiekarski/Documents/WSNHiD/Projekty/CG-projekt-brickpong/biblioteki/GLFW_OSX/include",
-					"/Users/michalpiekarski/Documents/WSNHiD/Projekty/CG-projekt-brickpong/biblioteki/GLM_OSX/include",
-					"/Users/michalpiekarski/Documents/WSNHiD/Projekty/CG-projekt-brickpong/biblioteki/FREETYPE_OSX/include",
+					"/Users/michalpiekarski/Documents/WSNHiD/Projekty/CG-projekt-brickpong/biblioteki/GLFW_OSX/include/",
+					"/Users/michalpiekarski/Documents/WSNHiD/Projekty/CG-projekt-brickpong/biblioteki/GLM_OSX/include/",
+					"/Users/michalpiekarski/Documents/WSNHiD/Projekty/CG-projekt-brickpong/biblioteki/FREETYPE_OSX/include/",
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -255,9 +285,9 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"/Applications/Xcode6-Beta4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include",
-					"/Users/michalpiekarski/Documents/WSNHiD/Projekty/CG-projekt-brickpong/biblioteki/GLFW_OSX/include",
-					"/Users/michalpiekarski/Documents/WSNHiD/Projekty/CG-projekt-brickpong/biblioteki/GLM_OSX/include",
-					"/Users/michalpiekarski/Documents/WSNHiD/Projekty/CG-projekt-brickpong/biblioteki/FREETYPE_OSX/include",
+					"/Users/michalpiekarski/Documents/WSNHiD/Projekty/CG-projekt-brickpong/biblioteki/GLFW_OSX/include/",
+					"/Users/michalpiekarski/Documents/WSNHiD/Projekty/CG-projekt-brickpong/biblioteki/GLM_OSX/include/",
+					"/Users/michalpiekarski/Documents/WSNHiD/Projekty/CG-projekt-brickpong/biblioteki/FREETYPE_OSX/include/",
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
