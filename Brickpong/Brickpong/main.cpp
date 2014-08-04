@@ -1,470 +1,413 @@
-    // Include Sysytem Headers
+// Include Sysytem Headers
 #include <iostream>
 
-    //Check if on Windows - both x86 and x64
-#ifdef _WIN32
-    // Include GLEW
-#include <GL/glew.h>
-#endif
-
-    // Include GLFW
-    // Check if on OSX
-#ifdef __APPLE__
-#define GLFW_INCLUDE_GLCOREARB
-#endif
-#include <GLFW/glfw3.h>
-
-GLFWwindow* window;
-
-    // Include GLM
+// Include GLM
 #include <glm/gtc/matrix_transform.hpp>
 
-    // Include Custom Headers
-#include "shader.hpp"
+// Include Custom Headers
+#include "BrickpongException.h"
+#include "Window.h"
+#include "Shader.h"
+#include "ShaderProgram.h"
+#include "VAO.h"
+#include "VBO.h"
 
-//    // Comment out for debud output in console
-//#define BRICKPONG_DEBUG
+//    // Comment out for debut output in console
+//#define __Brickpong__DEBUG_LOG__
 
-void CreateVBO(GLfloat g_vertex_buffer_data[], int g_vertex_buffer_data_length, GLfloat g_color_buffer_data[], int g_color_buffer_data_length, GLuint vertexbuffers[], GLuint colorbuffers[], int i) {
-    GLuint vertexbuffer;
-    glGenBuffers(1, &vertexbuffer);
-    glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
-    glBufferData(GL_ARRAY_BUFFER, g_vertex_buffer_data_length*sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_STATIC_DRAW);
+float CursorX = 0.0f;
+float CurserOffset = 150.0f;
+float CursorDamping = 10.0f;
 
-    GLuint colorbuffer;
-	glGenBuffers(1, &colorbuffer);
-	glBindBuffer(GL_ARRAY_BUFFER, colorbuffer);
-	glBufferData(GL_ARRAY_BUFFER, g_color_buffer_data_length*sizeof(g_color_buffer_data), g_color_buffer_data, GL_STATIC_DRAW);
+glm::vec3 BallPosition = glm::vec3(1.0f, -6.0f, 0);
+glm::vec3 BallVelocity = glm::vec3(0.05f, 0.1f, 0);
+glm::vec3 PauseBallVelocity = glm::vec3(0, 0, 0);
 
-    vertexbuffers[i] = vertexbuffer;
-    colorbuffers[i] = colorbuffer;
+int Points = 0;
+bool bricks[500];
+
+void CreateVBOs(VBO* vVBO, VBO* cVBO) {
+    // Our vertices. Tree consecutive floats give a 3D vertex; Three consecutive vertices give a triangle.
+    // A cube has 6 faces with 2 triangles each, so this makes 6*2=12 triangles, and 12*3 vertices
+    GLfloat g_vertex_buffer_data[36][3] = {
+            {-1.0f, -1.0f, -1.0f, },
+            {-1.0f, -1.0f, 1.0f, },
+            {-1.0f, 1.0f, 1.0f, },
+            {1.0f, 1.0f, -1.0f, },
+            {-1.0f, -1.0f, -1.0f, },
+            {-1.0f, 1.0f, -1.0f, },
+            {1.0f, -1.0f, 1.0f, },
+            {-1.0f, -1.0f, -1.0f, },
+            {1.0f, -1.0f, -1.0f, },
+            {1.0f, 1.0f, -1.0f, },
+            {1.0f, -1.0f, -1.0f, },
+            {-1.0f, -1.0f, -1.0f, },
+            {-1.0f, -1.0f, -1.0f, },
+            {-1.0f, 1.0f, 1.0f, },
+            {-1.0f, 1.0f, -1.0f, },
+            {1.0f, -1.0f, 1.0f, },
+            {-1.0f, -1.0f, 1.0f, },
+            {-1.0f, -1.0f, -1.0f, },
+            {-1.0f, 1.0f, 1.0f, },
+            {-1.0f, -1.0f, 1.0f, },
+            {1.0f, -1.0f, 1.0f, },
+            {1.0f, 1.0f, 1.0f, },
+            {1.0f, -1.0f, -1.0f, },
+            {1.0f, 1.0f, -1.0f, },
+            {1.0f, -1.0f, -1.0f, },
+            {1.0f, 1.0f, 1.0f, },
+            {1.0f, -1.0f, 1.0f, },
+            {1.0f, 1.0f, 1.0f, },
+            {1.0f, 1.0f, -1.0f, },
+            {-1.0f, 1.0f, -1.0f, },
+            {1.0f, 1.0f, 1.0f, },
+            {-1.0f, 1.0f, -1.0f, },
+            {-1.0f, 1.0f, 1.0f, },
+            {1.0f, 1.0f, 1.0f, },
+            {-1.0f, 1.0f, 1.0f, },
+            {1.0f, -1.0f, 1.0f, },
+    };
+
+    // One color for each vertex. They were generated randomly.
+    GLfloat g_color_buffer_data[36][3] = {
+            {0.583f, 0.771f, 0.014f, },
+            {0.609f, 0.115f, 0.436f, },
+            {0.327f, 0.483f, 0.844f, },
+            {0.822f, 0.569f, 0.201f, },
+            {0.435f, 0.602f, 0.223f, },
+            {0.310f, 0.747f, 0.185f, },
+            {0.597f, 0.770f, 0.761f, },
+            {0.559f, 0.436f, 0.730f, },
+            {0.359f, 0.583f, 0.152f, },
+            {0.483f, 0.596f, 0.789f, },
+            {0.559f, 0.861f, 0.639f, },
+            {0.195f, 0.548f, 0.859f, },
+            {0.014f, 0.184f, 0.576f, },
+            {0.771f, 0.328f, 0.970f, },
+            {0.406f, 0.615f, 0.116f, },
+            {0.676f, 0.977f, 0.133f, },
+            {0.971f, 0.572f, 0.833f, },
+            {0.140f, 0.616f, 0.489f, },
+            {0.997f, 0.513f, 0.064f, },
+            {0.945f, 0.719f, 0.592f, },
+            {0.543f, 0.021f, 0.978f, },
+            {0.279f, 0.317f, 0.505f, },
+            {0.167f, 0.620f, 0.077f, },
+            {0.347f, 0.857f, 0.137f, },
+            {0.055f, 0.953f, 0.042f, },
+            {0.714f, 0.505f, 0.345f, },
+            {0.783f, 0.290f, 0.734f, },
+            {0.722f, 0.645f, 0.174f, },
+            {0.302f, 0.455f, 0.848f, },
+            {0.225f, 0.587f, 0.040f, },
+            {0.517f, 0.713f, 0.338f, },
+            {0.053f, 0.959f, 0.120f, },
+            {0.393f, 0.621f, 0.362f, },
+            {0.673f, 0.211f, 0.457f, },
+            {0.820f, 0.883f, 0.371f, },
+            {0.982f, 0.099f, 0.879f, },
+    };
+
+    vVBO->data(g_vertex_buffer_data, sizeof(g_vertex_buffer_data), GL_STATIC_DRAW);
+    cVBO->data(g_color_buffer_data, sizeof(g_color_buffer_data), GL_STATIC_DRAW);
 }
 
 void Draw(GLuint vertexbuffer, GLuint colorbuffer) {
-        // 1rst attribute buffer : vertices
+    // 1rst attribute buffer : vertices
     glEnableVertexAttribArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
     glVertexAttribPointer(
-                          0,                  // attribute. No particular reason for 0, but must match the layout in the shader.
-                          3,                  // size
-                          GL_FLOAT,           // type
-                          GL_FALSE,           // normalized?
-                          0,                  // stride
-                          (void*)0            // array buffer offset
-                          );
+        0,                  // attribute. No particular reason for 0, but must match the layout in the shader.
+        3,                  // size
+        GL_FLOAT,           // type
+        GL_FALSE,           // normalized?
+        0,                  // stride
+        (void*)0            // array buffer offset
+        );
 
-        // 2nd attribute buffer : colors
+    // 2nd attribute buffer : colors
     glEnableVertexAttribArray(1);
     glBindBuffer(GL_ARRAY_BUFFER, colorbuffer);
     glVertexAttribPointer(
-                          1,                                // attribute. No particular reason for 1, but must match the layout in the shader.
-                          3,                                // size
-                          GL_FLOAT,                         // type
-                          GL_FALSE,                         // normalized?
-                          0,                                // stride
-                          (void*)0                          // array buffer offset
-                          );
+        1,                                // attribute. No particular reason for 1, but must match the layout in the shader.
+        3,                                // size
+        GL_FLOAT,                         // type
+        GL_FALSE,                         // normalized?
+        0,                                // stride
+        (void*)0                          // array buffer offset
+        );
 
-        // Draw the triangle !
-    glDrawArrays(GL_TRIANGLES, 0, 12*3); // 12*3 indices starting at 0 -> 12 triangles
+    // Draw the triangle !
+    glDrawArrays(GL_TRIANGLES, 0, 12 * 3); // 12*3 indices starting at 0 -> 12 triangles
 
     glDisableVertexAttribArray(0);
     glDisableVertexAttribArray(1);
 }
 
-float CursorX = 0.0f;
-float CurserOffset = 150.0f;
-float CursorDamping = 10.0f;
-void cursorPositionChanged(GLFWwindow *window, double x, double y)
-{
+void cursorPositionChanged(GLFWwindow *window, double x, double y) {
     int windowWidth;
-    glfwGetWindowSize(window, &windowWidth, NULL);
-    CursorX = glm::clamp(float(-(x - windowWidth / 2.0f)), -CurserOffset, CurserOffset)/CursorDamping;
-#ifdef BRICKPONG_DEBUG
-    printf("Cursor x position: %f\n", CursorX);
+    glfwGetFramebufferSize(window, &windowWidth, NULL);
+    CursorX = glm::clamp(float(-(x - windowWidth / 2.0f)), -CurserOffset, CurserOffset) / CursorDamping;
+#ifdef __Brickpong__DEBUG_LOG__
+    std::cout << "Cursor x position: " << CursorX << std::endl;
 #endif
 }
 
-glm::vec3 BallPosition = glm::vec3(1.0f, -6.0f, 0);
-glm::vec3 BallVelocity = glm::vec3(0.05f, 0.1f, 0);
-
-glm::vec3 PauseBallVelocity = glm::vec3(0, 0, 0);
-bool bricks[500];
-
-int Points = 0;
-
-void ResetGame()
-{
+void ResetGame() {
     BallPosition = glm::vec3(1.0f, -6.0f, 0);
     BallVelocity = glm::vec3(0.05f, 0.1f, 0);
-    for (int i = 0; i < 500; i++)
-    {
+    for (int i = 0; i < 500; i++) {
         bricks[i] = false;
     }
     Points = 0;
-    printf("Points: %d\n", Points);
+    std::cout << "Points: " << Points <<std::endl;
 }
+bool gamePaused = false;
 
-void KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mods)
-{
-    if (action == GLFW_RELEASE && key == GLFW_KEY_SPACE)
-    {
+void KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mods) {
+    if (action == GLFW_RELEASE && key == GLFW_KEY_SPACE) {
         glm::vec3 tmp = BallVelocity;
         tmp = BallVelocity;
         BallVelocity = PauseBallVelocity;
         PauseBallVelocity = tmp;
+        if (!gamePaused) {
+            gamePaused = true;
+            glfwSetCursorPosCallback(window, NULL);
+            glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+#ifdef __Brickpong__DEBUG_LOG__
+            std::cout << "Game Paused" << std::endl;
+#endif
+        }
+        else {
+            gamePaused = false;
+            glfwSetCursorPosCallback(window, cursorPositionChanged);
+            glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+#ifdef __Brickpong__DEBUG_LOG__
+            std::cout << "Game Resumed" << std::endl;
+#endif
+        }
     }
-    if (action == GLFW_PRESS || action == GLFW_REPEAT)
-    {
-        if (key == GLFW_KEY_A || key == GLFW_KEY_LEFT)
-        {
+    if (action == GLFW_PRESS || action == GLFW_REPEAT) {
+        if (key == GLFW_KEY_A || key == GLFW_KEY_LEFT) {
             CursorX += 1.0f;
         }
-        else if (key == GLFW_KEY_D || key == GLFW_KEY_RIGHT)
-        {
+        else if (key == GLFW_KEY_D || key == GLFW_KEY_RIGHT) {
             CursorX -= 1.0f;
         }
-        if (key == GLFW_KEY_R)
-        {
+        if (key == GLFW_KEY_R) {
             ResetGame();
         }
     }
 }
 
-void CheckBallBoundsCol()
-{
-        // Horizontal
-    if (BallPosition.x < -14.0f || BallPosition.x > 14.0f)
-    {
+void CheckBallBoundsCol() {
+    // Horizontal
+    if (BallPosition.x < -14.0f || BallPosition.x > 14.0f) {
         BallVelocity.x = -BallVelocity.x;
-#ifdef BRICKPONG_DEBUG
-        printf("Wall collision at: %f x %f\n", BallPosition.x, BallPosition.y);
+#ifdef __Brickpong__DEBUG_LOG__
+        std::cout << "Wall collision at: (" << BallPosition.x << "; " << BallPosition.y << ")" << std::endl;
 #endif
     }
-        // Top
-    else if (BallPosition.y > 8.0f)
-    {
+    // Top
+    else if (BallPosition.y > 8.0f) {
         BallVelocity.y = -BallVelocity.y;
-#ifdef BRICKPONG_DEBUG
-        printf("Wall collision at: %f x %f\n", BallPosition.x, BallPosition.y);
+#ifdef __Brickpong__DEBUG_LOG__
+        std::cout << "Wall collision at: (" << BallPosition.x << "; " << BallPosition.y << ")" << std::endl;
 #endif
     }
-        // Bottom
-    else if (BallPosition.y < -8.0f)
-    {
-#ifdef BRICKPONG_DEBUG
-        printf("Wall collision at: %f x %f\n", BallPosition.x, BallPosition.y);
+    // Bottom
+    else if (BallPosition.y < -8.0f) {
+#ifdef __Brickpong__DEBUG_LOG__
+        std::cout << "Wall collision at: (" << BallPosition.x << "; " << BallPosition.y << ")" << std::endl;
 #endif
-        printf("##GAME OVER ##\n\n");
+        std::cout << "##GAME OVER ##" << std::endl << std::endl;
         ResetGame();
     }
 }
 
-void CheckBallPadCol()
-{
-    if (BallPosition.y <= -6.2f && (BallPosition.x >= CursorX-2.0f && BallPosition.x <= CursorX+2.0f))
-    {
-        if (BallPosition.x > CursorX - 0.15f && BallPosition.x < CursorX + 0.15f)
-        {
+void CheckBallPadCol() {
+    if (BallPosition.y <= -6.2f && (BallPosition.x >= CursorX - 2.0f && BallPosition.x <= CursorX + 2.0f)) {
+        if (BallPosition.x > CursorX - 0.15f && BallPosition.x < CursorX + 0.15f) {
             BallVelocity.x -= 0.025f;
             BallVelocity.y = glm::clamp(BallVelocity.y + 0.025f, -0.3f, 0.3f);
         }
-        else
-        {
+        else {
             BallVelocity.x = glm::clamp(BallVelocity.x + 0.025f, -0.3f, 0.3f);
         }
-        if ((BallVelocity.x < 0 && BallPosition.x > CursorX+0.8f) || (BallVelocity.x > 0 && BallPosition.x < CursorX-0.8f))
-        {
+        if ((BallVelocity.x < 0 && BallPosition.x > CursorX + 0.8f) || (BallVelocity.x > 0 && BallPosition.x < CursorX - 0.8f)) {
             BallVelocity.x = -BallVelocity.x;
         }
         BallVelocity.y = -BallVelocity.y;
-#ifdef BRICKPONG_DEBUG
-        printf("Pad collision at: %f x %f\n", BallPosition.x, BallPosition.y);
+#ifdef __Brickpong__DEBUG_LOG__
+        std::cout << "Pad collision at: (" << BallPosition.x << "; " << BallPosition.y << ")" << std::endl;
 #endif
     }
 }
 
-bool CheckBallBrickCol(float brickX, float brickY)
-{
-        // No ollision
-        // top || right || bottom || left
-    if (BallPosition.y - 0.3f > brickY + 0.3f || BallPosition.x + 0.3f < brickX - 0.6f || BallPosition.y + 0.3f < brickY - 0.3f || BallPosition.x - 0.3f > brickX + 0.6f)
-    {
+bool CheckBallBrickCol(float brickX, float brickY) {
+    // No collision
+    // top || right || bottom || left
+    if (BallPosition.y - 0.3f > brickY + 0.3f || BallPosition.x + 0.3f < brickX - 0.6f || BallPosition.y + 0.3f < brickY - 0.3f || BallPosition.x - 0.3f > brickX + 0.6f) {
         return false;
     }
-        // Collision
-    if (BallPosition.x < brickX - 0.65f || BallPosition.x > brickX + 0.65f)
-    {
+    // Collision
+    if (BallPosition.x < brickX - 0.65f || BallPosition.x > brickX + 0.65f) {
         BallVelocity.x = -BallVelocity.x;
     }
-    if (BallPosition.y < brickY - 0.4f || BallPosition.y > brickY + 0.4f)
-    {
+    if (BallPosition.y < brickY - 0.4f || BallPosition.y > brickY + 0.4f) {
         BallVelocity.y = -BallVelocity.y;
     }
     ++Points;
-    printf("Points: %d\n", Points);
+#ifdef __Brickpong__DEBUG_LOG__
+    std::cout << "Points: " << Points << std::endl;
+#endif
     return true;
 }
 
-void CheckGameWin()
-{
-    if (Points == 70)
-    {
-        printf("=== YOU WON! ===\n\n");
+void CheckGameWin() {
+    if (Points == 70) {
+        std::cout << "=== YOU WON! ===" << std::endl << std::endl;
         ResetGame();
     }
 }
 
-int main( void ) {
-        // Initialise GLFW
-	if( !glfwInit() ) {
-		fprintf( stderr, "Failed to initialize GLFW\n" );
-		return -1;
-    }
-    
-#ifdef __APPLE__
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-#endif
+int main(void) {
+    try {
+        Window* window = new Window(960, 540, "Brickpong", false);
+        ShaderProgram* shaderProgram;
+        Shader* vShader;
+        Shader* fShader;
 
-        // Open a window and create its OpenGL context
-	window = glfwCreateWindow( 1024, 576, "Tutorial 04 - Colored Cube", NULL, NULL);
-	if(!window){
-		fprintf( stderr, "Failed to open GLFW window!\nIf you have an Intel GPU and on Windows, they are not OpenGL 3.3 compatible.\n" );
-        glfwTerminate();
-        exit(EXIT_FAILURE);
-	}
-	glfwMakeContextCurrent(window);
+        window->makeContextCurrent();
+        window->setCursorMode(GLFW_CURSOR_HIDDEN);
+        window->setStickyKeys(GL_TRUE);
+        window->setCursorPosCallback(cursorPositionChanged);
+        window->setKeyCallback(KeyCallback);
 
-#ifdef BRICKPONG_DEBUG
-    // Print supported OpenGL version
-    printf("OpenGL version supported by this platform: %s\n", glGetString(GL_VERSION));
-#endif
+        shaderProgram = new ShaderProgram();
+        vShader = new Shader("shaders/TransformVertexShader.vert", GL_VERTEX_SHADER);
+        fShader = new Shader("shaders/ColorFragmentShader.frag", GL_FRAGMENT_SHADER);
 
-        //Check if on Windows - botx x86 and x64
-#ifdef _WIN32
-    // Initialize GLEW
-    glewExperimental = true; // Needed for core profile
-    if (glewInit() != GLEW_OK)
-    {
-        fprintf(stderr, "Failed to initialize GLEW\n");
-        return -1;
-    }
-#endif
+        shaderProgram->attachShader(vShader);
+        shaderProgram->attachShader(fShader);
 
-    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
-	glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
-    glfwSetCursorPosCallback(window, cursorPositionChanged);
-    glfwSetKeyCallback(window, KeyCallback);
+        shaderProgram->bindFragDataLocation(0, "fragData");
 
-        // Dark blue background
-	glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
+        shaderProgram->link();
+        shaderProgram->use();
 
-        // Enable depth test
-	glEnable(GL_DEPTH_TEST);
-        // Accept fragment if it closer to the camera than the former one
-	glDepthFunc(GL_LESS);
+        delete vShader;
+        delete fShader;
 
-	GLuint VertexArrayID;
-	glGenVertexArrays(1, &VertexArrayID);
-	glBindVertexArray(VertexArrayID);
+        glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
 
-        // Create and compile our GLSL program from the shaders
-	GLuint programID = LoadShaders( "shaders/TransformVertexShader.vert", "shaders/ColorFragmentShader.frag" );
+        glEnable(GL_DEPTH_TEST);
+        glDepthFunc(GL_LESS);
 
-        // Get a handle for our "MVP" uniform
-	GLuint MatrixID = glGetUniformLocation(programID, "MVP");
+        GLuint MatrixID = shaderProgram->getUniformLoc("MVP");
 
-        // Model matrix : an identity matrix (model will be at the origin)
-	glm::mat4 Model      = glm::mat4(1.0f);
+        glm::mat4 Model = glm::mat4(1.0f);
+        glm::mat4 View = glm::lookAt(
+            glm::vec3(0, 0, -20), // Camera is at (0,0,-20), in World Space
+            glm::vec3(0, 0, 0), // and looks at the origin
+            glm::vec3(0, 1, 0)  // Head is up (set to 0,-1,0 to look upside-down)
+            );
+        glm::mat4 Projection = glm::perspective(
+            45.0f, // 45° Field of View
+            16.0f / 9.0f, // 16:9 ratio
+            0.1f, 100.0f // display range : 0.1 unit <-> 100 units
+            );
 
-        // View (Camera) matrix :
-	glm::mat4 View       = glm::lookAt(
-                                       glm::vec3(0,0,-20), // Camera is at (0,0,-20), in World Space
-                                       glm::vec3(0,0,0), // and looks at the origin
-                                       glm::vec3(0,1,0)  // Head is up (set to 0,-1,0 to look upside-down)
-                                       );
+        //        // Our ModelViewProjection : multiplication of our 3 matrices
+        //	glm::mat4 MVP        = Projection * View * Model; // Remember, matrix multiplication is the other way around
 
-        // Projection matrix :
-    glm::mat4 Projection = glm::perspective(
-                                            45.0f, // 45° Field of View
-                                            16.0f / 9.0f, // 16:9 ratio
-                                            0.1f, 100.0f // display range : 0.1 unit <-> 100 units
-                                            );
+        glm::mat4 tmpModel, tmpMVP;
 
-//        // Our ModelViewProjection : multiplication of our 3 matrices
-//	glm::mat4 MVP        = Projection * View * Model; // Remember, matrix multiplication is the other way around
-//
-        // Our vertices. Tree consecutive floats give a 3D vertex; Three consecutive vertices give a triangle.
-        // A cube has 6 faces with 2 triangles each, so this makes 6*2=12 triangles, and 12*3 vertices
-	static GLfloat g_vertex_buffer_data[] = {
-		-1.0f,-1.0f,-1.0f,
-		-1.0f,-1.0f, 1.0f,
-		-1.0f, 1.0f, 1.0f,
-        1.0f, 1.0f,-1.0f,
-		-1.0f,-1.0f,-1.0f,
-		-1.0f, 1.0f,-1.0f,
-        1.0f,-1.0f, 1.0f,
-		-1.0f,-1.0f,-1.0f,
-        1.0f,-1.0f,-1.0f,
-        1.0f, 1.0f,-1.0f,
-        1.0f,-1.0f,-1.0f,
-		-1.0f,-1.0f,-1.0f,
-		-1.0f,-1.0f,-1.0f,
-		-1.0f, 1.0f, 1.0f,
-		-1.0f, 1.0f,-1.0f,
-        1.0f,-1.0f, 1.0f,
-		-1.0f,-1.0f, 1.0f,
-		-1.0f,-1.0f,-1.0f,
-		-1.0f, 1.0f, 1.0f,
-		-1.0f,-1.0f, 1.0f,
-        1.0f,-1.0f, 1.0f,
-        1.0f, 1.0f, 1.0f,
-        1.0f,-1.0f,-1.0f,
-        1.0f, 1.0f,-1.0f,
-        1.0f,-1.0f,-1.0f,
-        1.0f, 1.0f, 1.0f,
-        1.0f,-1.0f, 1.0f,
-        1.0f, 1.0f, 1.0f,
-        1.0f, 1.0f,-1.0f,
-		-1.0f, 1.0f,-1.0f,
-        1.0f, 1.0f, 1.0f,
-		-1.0f, 1.0f,-1.0f,
-		-1.0f, 1.0f, 1.0f,
-        1.0f, 1.0f, 1.0f,
-		-1.0f, 1.0f, 1.0f,
-        1.0f,-1.0f, 1.0f
-	};
+        VAO* VertexArray = new VAO();
+        VertexArray->bind();
 
-        // One color for each vertex. They were generated randomly.
-	static GLfloat g_color_buffer_data[] = {
-		0.583f,  0.771f,  0.014f,
-		0.609f,  0.115f,  0.436f,
-		0.327f,  0.483f,  0.844f,
-		0.822f,  0.569f,  0.201f,
-		0.435f,  0.602f,  0.223f,
-		0.310f,  0.747f,  0.185f,
-		0.597f,  0.770f,  0.761f,
-		0.559f,  0.436f,  0.730f,
-		0.359f,  0.583f,  0.152f,
-		0.483f,  0.596f,  0.789f,
-		0.559f,  0.861f,  0.639f,
-		0.195f,  0.548f,  0.859f,
-		0.014f,  0.184f,  0.576f,
-		0.771f,  0.328f,  0.970f,
-		0.406f,  0.615f,  0.116f,
-		0.676f,  0.977f,  0.133f,
-		0.971f,  0.572f,  0.833f,
-		0.140f,  0.616f,  0.489f,
-		0.997f,  0.513f,  0.064f,
-		0.945f,  0.719f,  0.592f,
-		0.543f,  0.021f,  0.978f,
-		0.279f,  0.317f,  0.505f,
-		0.167f,  0.620f,  0.077f,
-		0.347f,  0.857f,  0.137f,
-		0.055f,  0.953f,  0.042f,
-		0.714f,  0.505f,  0.345f,
-		0.783f,  0.290f,  0.734f,
-		0.722f,  0.645f,  0.174f,
-		0.302f,  0.455f,  0.848f,
-		0.225f,  0.587f,  0.040f,
-		0.517f,  0.713f,  0.338f,
-		0.053f,  0.959f,  0.120f,
-		0.393f,  0.621f,  0.362f,
-		0.673f,  0.211f,  0.457f,
-		0.820f,  0.883f,  0.371f,
-		0.982f,  0.099f,  0.879f
-	};
+        VBO* vVBO = new VBO();
+        VBO* cVBO = new VBO();
+        CreateVBOs(vVBO, cVBO);
 
-    GLuint vertexbuffers[1] = {};
-    GLuint colorbuffers[1] = {};
-    CreateVBO(g_vertex_buffer_data, 108, g_color_buffer_data, 108, vertexbuffers, colorbuffers, 0);
-
-    glm::mat4 tmpModel, tmpMVP;
-    for (int i = 0; i < 500; i++)
-    {
-        bricks[i] = false;
-    }
-
-    printf("Points: %d\n", Points);
-
-	do{
-            // Clear the screen
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-            // Use our shader
-		glUseProgram(programID);
-
-            // Bricks
-        int brick_i = 0;
-        for (float i = -12.0f; i <= 12.0f; i += 2.0f) {
-            for (float j = 0.0f; j <= 7.0f; j += 1.0f)
-            {
-                if (!bricks[brick_i])
-                {
-                    if (!CheckBallBrickCol(i, j))
-                    {
-                        // Send our transformation to the currently bound shader,
-                        // in the "MVP" uniform
-                        tmpModel = glm::scale(glm::translate(Model, glm::vec3(i, j, 0)), glm::vec3(1.0f, 0.5f, 0.5f));
-                        tmpMVP = Projection * View * tmpModel;
-                        glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &tmpMVP[0][0]);
-
-                        Draw(vertexbuffers[0], colorbuffers[0]);
-                    }
-                    else
-                    {
-#ifdef BRICKPONG_DEBUG
-                        printf("Brick nr. %d destroyed\n", brick_i);
-#endif
-                        bricks[brick_i] = true;
-                    }
-                }
-                ++brick_i;
-            }
+        for (int i = 0; i < 500; i++) {
+            bricks[i] = false;
         }
 
-        CheckGameWin();
+        std::cout << "Points: " << Points << std::endl;
+
+        do {
+            // Clear the screen
+            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+            // Bricks
+            int brick_i = 0;
+            for (float i = -12.0f; i <= 12.0f; i += 2.0f) {
+                for (float j = 0.0f; j <= 7.0f; j += 1.0f) {
+                    if (!bricks[brick_i]) {
+                        if (!CheckBallBrickCol(i, j)) {
+                            // Send our transformation to the currently bound shader,
+                            // in the "MVP" uniform
+                            tmpModel = glm::scale(glm::translate(Model, glm::vec3(i, j, 0)), glm::vec3(1.0f, 0.5f, 0.5f));
+                            tmpMVP = Projection * View * tmpModel;
+                            glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &tmpMVP[0][0]);
+
+                            Draw(vVBO->getID(), cVBO->getID());
+                        }
+                        else {
+#ifdef __Brickpong__DEBUG_LOG__
+                            std::cout << "Brick nr. " << brick_i << " destroyed" << std::endl;
+#endif
+                            bricks[brick_i] = true;
+                        }
+                    }
+                    ++brick_i;
+                }
+            }
+
+            CheckGameWin();
 
             // Pad
             // Send our transformation to the currently bound shader,
             // in the "MVP" uniform
-        tmpModel = glm::scale(glm::translate(Model, glm::vec3(CursorX,-7.0f,0)), glm::vec3(2.0f,0.25f,2.0f));
-        tmpMVP = Projection * View * tmpModel;
-        glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &tmpMVP[0][0]);
+            tmpModel = glm::scale(glm::translate(Model, glm::vec3(CursorX, -7.0f, 0)), glm::vec3(2.0f, 0.25f, 2.0f));
+            tmpMVP = Projection * View * tmpModel;
+            glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &tmpMVP[0][0]);
 
-        Draw(vertexbuffers[0], colorbuffers[0]);
+            Draw(vVBO->getID(), cVBO->getID());
 
             // Ball
             // Send our transformation to the currently bound shader,
             // in the "MVP" uniform
-        tmpModel = glm::scale(glm::translate(Model, BallPosition), glm::vec3(0.25f,0.25f,0.25f));
-        BallPosition += BallVelocity;
-        CheckBallBoundsCol();
-        CheckBallPadCol();
-        tmpMVP = Projection * View * tmpModel;
-        glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &tmpMVP[0][0]);
+            tmpModel = glm::scale(glm::translate(Model, BallPosition), glm::vec3(0.25f, 0.25f, 0.25f));
+            BallPosition += BallVelocity;
+            CheckBallBoundsCol();
+            CheckBallPadCol();
+            tmpMVP = Projection * View * tmpModel;
+            glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &tmpMVP[0][0]);
 
-        Draw(vertexbuffers[0], colorbuffers[0]);
+            Draw(vVBO->getID(), cVBO->getID());
 
             // Swap buffers
-		glfwSwapBuffers(window);
-		glfwPollEvents();
-	} // Check if the ESC key was pressed or the window was closed
-	while( glfwGetKey(window, GLFW_KEY_ESCAPE ) != GLFW_PRESS &&
-          glfwWindowShouldClose(window) == 0 );
-    
+            window->swapBuffers();
+            glfwPollEvents();
+        } // Check if the ESC key was pressed or the window was closed
+        while (window->getKey(GLFW_KEY_ESCAPE) != GLFW_PRESS && window->shouldClose() == 0);
+
         // Cleanup VBO and shader
-	glDeleteBuffers(1, &vertexbuffers[0]);
-	glDeleteBuffers(1, &colorbuffers[0]);
-	glDeleteProgram(programID);
-	glDeleteVertexArrays(1, &VertexArrayID);
-    
-        // Close OpenGL window and terminate GLFW
-	glfwTerminate();
-    
-	return 0;
+        delete vVBO;
+        delete cVBO;
+
+        delete VertexArray;
+
+        delete shaderProgram;
+        delete window;
+
+        return 0;
+    }
+    catch (std::exception &e) {
+        std::cerr << "ERROR: " << e.what() << std::endl;
+        exit(EXIT_FAILURE);
+    }
 }
 
