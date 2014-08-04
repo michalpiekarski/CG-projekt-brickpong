@@ -1,10 +1,14 @@
-// Include Sysytem Headers
 #include <iostream>
 
-// Include GLM
+#ifdef _WIN32
+#include <GL/glew.h>
+#endif
+#ifdef __APPLE__
+#define GLFW_INCLUDE_GLCOREARB
+#endif
+#include <GLFW/glfw3.h>
 #include <glm/gtc/matrix_transform.hpp>
 
-// Include Custom Headers
 #include "BrickpongException.h"
 #include "Window.h"
 #include "Shader.h"
@@ -28,8 +32,6 @@ int Points = 0;
 bool bricks[500];
 
 void CreateBuffers(VBO* vVBO, VBO* cVBO, EBO* myEBO) {
-    // Our vertices. Tree consecutive floats give a 3D vertex; Three consecutive vertices give a triangle.
-    // A cube has 6 faces with 2 triangles each, so this makes 6*2=12 triangles, and 12*3 vertices
     GLfloat vertex_data[8][3] = {
         {-1.0f, -1.0f, -1.0f, },
         {-1.0f, -1.0f, +1.0f, },
@@ -40,8 +42,6 @@ void CreateBuffers(VBO* vVBO, VBO* cVBO, EBO* myEBO) {
         {+1.0f, -1.0f, -1.0f, },
         {+1.0f, +1.0f, +1.0f, },
     };
-
-    // One color for each vertex. They were generated randomly.
     GLfloat color_data[8][3] = {
         {0.583f, 0.771f, 0.014f, },
         {0.609f, 0.115f, 0.436f, },
@@ -52,7 +52,6 @@ void CreateBuffers(VBO* vVBO, VBO* cVBO, EBO* myEBO) {
         {0.597f, 0.770f, 0.761f, },
         {0.559f, 0.436f, 0.730f, },
     };
-
     GLushort index_data[12][3] = {
         {0, 1, 2,},
         {3, 0, 4,},
@@ -97,6 +96,7 @@ void ResetGame() {
     Points = 0;
     std::cout << "Points: " << Points <<std::endl;
 }
+
 bool gamePaused = false;
 
 void KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mods) {
@@ -136,21 +136,21 @@ void KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mods
 }
 
 void CheckBallBoundsCol() {
-    // Horizontal
+        // Horizontal
     if (BallPosition.x < -14.0f || BallPosition.x > 14.0f) {
         BallVelocity.x = -BallVelocity.x;
 #ifdef __Brickpong__DEBUG_LOG__
         std::cout << "Wall collision at: (" << BallPosition.x << "; " << BallPosition.y << ")" << std::endl;
 #endif
     }
-    // Top
+        // Top
     else if (BallPosition.y > 8.0f) {
         BallVelocity.y = -BallVelocity.y;
 #ifdef __Brickpong__DEBUG_LOG__
         std::cout << "Wall collision at: (" << BallPosition.x << "; " << BallPosition.y << ")" << std::endl;
 #endif
     }
-    // Bottom
+        // Bottom
     else if (BallPosition.y < -8.0f) {
 #ifdef __Brickpong__DEBUG_LOG__
         std::cout << "Wall collision at: (" << BallPosition.x << "; " << BallPosition.y << ")" << std::endl;
@@ -180,12 +180,12 @@ void CheckBallPadCol() {
 }
 
 bool CheckBallBrickCol(float brickX, float brickY) {
-    // No collision
-    // top || right || bottom || left
+        // No collision
+        // top || right || bottom || left
     if (BallPosition.y - 0.3f > brickY + 0.3f || BallPosition.x + 0.3f < brickX - 0.6f || BallPosition.y + 0.3f < brickY - 0.3f || BallPosition.x - 0.3f > brickX + 0.6f) {
         return false;
     }
-    // Collision
+        // Collision
     if (BallPosition.x < brickX - 0.65f || BallPosition.x > brickX + 0.65f) {
         BallVelocity.x = -BallVelocity.x;
     }
@@ -242,19 +242,10 @@ int main(void) {
         GLuint MatrixID = shaderProgram->getUniformLoc("MVP");
 
         glm::mat4 Model = glm::mat4(1.0f);
-        glm::mat4 View = glm::lookAt(
-            glm::vec3(0, 0, -20), // Camera is at (0,0,-20), in World Space
-            glm::vec3(0, 0, 0), // and looks at the origin
-            glm::vec3(0, 1, 0)  // Head is up (set to 0,-1,0 to look upside-down)
-            );
-        glm::mat4 Projection = glm::perspective(
-            45.0f, // 45° Field of View
-            16.0f / 9.0f, // 16:9 ratio
-            0.1f, 100.0f // display range : 0.1 unit <-> 100 units
-            );
+        glm::mat4 View = glm::lookAt(glm::vec3(0, 0, -20), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
+        glm::mat4 Projection = glm::perspective(45.0f, 16.0f / 9.0f, 0.1f, 100.0f);
 
-        //        // Our ModelViewProjection : multiplication of our 3 matrices
-        //	glm::mat4 MVP        = Projection * View * Model; // Remember, matrix multiplication is the other way around
+//        	glm::mat4 MVP = Projection * View * Model;
 
         glm::mat4 tmpModel, tmpMVP;
 
@@ -278,18 +269,21 @@ int main(void) {
 
         std::cout << "Points: " << Points << std::endl;
 
-        do {
-            // Clear the screen
+        GLint viewportWidth, viewportHeight;
+
+        do{
+
+            window->getFrameBufferSize(&viewportWidth, &viewportHeight);
+            glViewport(0, 0, viewportWidth, viewportHeight);
+
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-            // Bricks
+                // Bricks
             int brick_i = 0;
             for (float i = -12.0f; i <= 12.0f; i += 2.0f) {
                 for (float j = 0.0f; j <= 7.0f; j += 1.0f) {
                     if (!bricks[brick_i]) {
                         if (!CheckBallBrickCol(i, j)) {
-                            // Send our transformation to the currently bound shader,
-                            // in the "MVP" uniform
                             tmpModel = glm::scale(glm::translate(Model, glm::vec3(i, j, 0)), glm::vec3(1.0f, 0.5f, 0.5f));
                             tmpMVP = Projection * View * tmpModel;
                             glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &tmpMVP[0][0]);
@@ -309,18 +303,14 @@ int main(void) {
 
             CheckGameWin();
 
-            // Pad
-            // Send our transformation to the currently bound shader,
-            // in the "MVP" uniform
+                // Pad
             tmpModel = glm::scale(glm::translate(Model, glm::vec3(CursorX, -7.0f, 0)), glm::vec3(2.0f, 0.25f, 2.0f));
             tmpMVP = Projection * View * tmpModel;
             glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &tmpMVP[0][0]);
 
             Draw(myEBO);
 
-            // Ball
-            // Send our transformation to the currently bound shader,
-            // in the "MVP" uniform
+                // Ball
             tmpModel = glm::scale(glm::translate(Model, BallPosition), glm::vec3(0.25f, 0.25f, 0.25f));
             BallPosition += BallVelocity;
             CheckBallBoundsCol();
@@ -330,24 +320,22 @@ int main(void) {
 
             Draw(myEBO);
 
-            // Swap buffers
             window->swapBuffers();
             glfwPollEvents();
-        } // Check if the ESC key was pressed or the window was closed
-        while (window->getKey(GLFW_KEY_ESCAPE) != GLFW_PRESS && window->shouldClose() == 0);
+        } while (window->getKey(GLFW_KEY_ESCAPE) != GLFW_PRESS && window->shouldClose() == 0);
 
         glDisableVertexAttribArray(0);
         glDisableVertexAttribArray(1);
-        
+
         delete myEBO;
         delete vVBO;
         delete cVBO;
-
+        
         delete VertexArray;
-
+        
         delete shaderProgram;
         delete window;
-
+        
         return 0;
     }
     catch (std::exception &e) {
