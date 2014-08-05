@@ -154,8 +154,8 @@ xcopy /y /d "$(ProjectDir)glew32.dll" "$(OutDir)"</Command>
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="shaders\ColorFragmentShader.frag" />
-    <None Include="shaders\TransformVertexShader.vert" />
+    <None Include="shaders\Simple.frag" />
+    <None Include="shaders\Simple.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
