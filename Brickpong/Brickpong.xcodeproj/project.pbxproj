@@ -43,18 +43,18 @@
 		E9AD267019806B80001A6268 /* libglfw.3.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglfw.3.1.dylib; path = ../biblioteki/GLFW_OSX/lib/libglfw.3.1.dylib; sourceTree = "<group>"; };
 		E9D94682198FDCE20082E1C1 /* BrickpongException.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BrickpongException.cpp; sourceTree = "<group>"; };
 		E9D94683198FDCE20082E1C1 /* BrickpongException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrickpongException.h; sourceTree = "<group>"; };
-		E9D94684198FDCE20082E1C1 /* Shader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Shader.h; sourceTree = "<group>"; };
-		E9D94685198FDCE20082E1C1 /* ShaderProgram.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ShaderProgram.cpp; sourceTree = "<group>"; };
-		E9D94686198FDCE20082E1C1 /* ShaderProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShaderProgram.h; sourceTree = "<group>"; };
-		E9D94687198FDCE20082E1C1 /* VAO.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VAO.cpp; sourceTree = "<group>"; };
-		E9D94688198FDCE20082E1C1 /* VAO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VAO.h; sourceTree = "<group>"; };
-		E9D94689198FDCE20082E1C1 /* VBO.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VBO.cpp; sourceTree = "<group>"; };
-		E9D9468A198FDCE20082E1C1 /* VBO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VBO.h; sourceTree = "<group>"; };
-		E9D9468B198FDCE20082E1C1 /* Window.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Window.cpp; sourceTree = "<group>"; };
-		E9D9468C198FDCE20082E1C1 /* Window.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Window.h; sourceTree = "<group>"; };
-		E9D94692198FDCF80082E1C1 /* Shader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Shader.cpp; sourceTree = "<group>"; };
-		E9D9F57E198FEDF900F86DCE /* EBO.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EBO.cpp; sourceTree = "<group>"; };
-		E9D9F57F198FEDF900F86DCE /* EBO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EBO.h; sourceTree = "<group>"; };
+		E9D94684198FDCE20082E1C1 /* Shader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Shader.h; path = "Graphics Engine/Shader.h"; sourceTree = "<group>"; };
+		E9D94685198FDCE20082E1C1 /* ShaderProgram.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ShaderProgram.cpp; path = "Graphics Engine/ShaderProgram.cpp"; sourceTree = "<group>"; };
+		E9D94686198FDCE20082E1C1 /* ShaderProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShaderProgram.h; path = "Graphics Engine/ShaderProgram.h"; sourceTree = "<group>"; };
+		E9D94687198FDCE20082E1C1 /* VAO.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = VAO.cpp; path = "Graphics Engine/VAO.cpp"; sourceTree = "<group>"; };
+		E9D94688198FDCE20082E1C1 /* VAO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VAO.h; path = "Graphics Engine/VAO.h"; sourceTree = "<group>"; };
+		E9D94689198FDCE20082E1C1 /* VBO.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = VBO.cpp; path = "Graphics Engine/VBO.cpp"; sourceTree = "<group>"; };
+		E9D9468A198FDCE20082E1C1 /* VBO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VBO.h; path = "Graphics Engine/VBO.h"; sourceTree = "<group>"; };
+		E9D9468B198FDCE20082E1C1 /* Window.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Window.cpp; path = "Graphics Engine/Window.cpp"; sourceTree = "<group>"; };
+		E9D9468C198FDCE20082E1C1 /* Window.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Window.h; path = "Graphics Engine/Window.h"; sourceTree = "<group>"; };
+		E9D94692198FDCF80082E1C1 /* Shader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Shader.cpp; path = "Graphics Engine/Shader.cpp"; sourceTree = "<group>"; };
+		E9D9F57E198FEDF900F86DCE /* EBO.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = EBO.cpp; path = "Graphics Engine/EBO.cpp"; sourceTree = "<group>"; };
+		E9D9F57F198FEDF900F86DCE /* EBO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EBO.h; path = "Graphics Engine/EBO.h"; sourceTree = "<group>"; };
 		E9F2A8721968F8690011EAAF /* Brickpong */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Brickpong; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9F2A8751968F8690011EAAF /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		E9F2A8841968FE310011EAAF /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
@@ -83,6 +83,25 @@
 			path = shaders;
 			sourceTree = "<group>";
 		};
+		E908155F1992D98F00885AD0 /* Graphics Engine */ = {
+			isa = PBXGroup;
+			children = (
+				E9D9468C198FDCE20082E1C1 /* Window.h */,
+				E9D9468B198FDCE20082E1C1 /* Window.cpp */,
+				E9D94684198FDCE20082E1C1 /* Shader.h */,
+				E9D94692198FDCF80082E1C1 /* Shader.cpp */,
+				E9D94686198FDCE20082E1C1 /* ShaderProgram.h */,
+				E9D94685198FDCE20082E1C1 /* ShaderProgram.cpp */,
+				E9D94688198FDCE20082E1C1 /* VAO.h */,
+				E9D94687198FDCE20082E1C1 /* VAO.cpp */,
+				E9D9468A198FDCE20082E1C1 /* VBO.h */,
+				E9D94689198FDCE20082E1C1 /* VBO.cpp */,
+				E9D9F57F198FEDF900F86DCE /* EBO.h */,
+				E9D9F57E198FEDF900F86DCE /* EBO.cpp */,
+			);
+			name = "Graphics Engine";
+			sourceTree = "<group>";
+		};
 		E9F2A8691968F8680011EAAF = {
 			isa = PBXGroup;
 			children = (
@@ -105,22 +124,11 @@
 		E9F2A8741968F8690011EAAF /* Brickpong */ = {
 			isa = PBXGroup;
 			children = (
-				E9D94692198FDCF80082E1C1 /* Shader.cpp */,
 				E9D94682198FDCE20082E1C1 /* BrickpongException.cpp */,
 				E9D94683198FDCE20082E1C1 /* BrickpongException.h */,
-				E9D94684198FDCE20082E1C1 /* Shader.h */,
-				E9D94685198FDCE20082E1C1 /* ShaderProgram.cpp */,
-				E9D94686198FDCE20082E1C1 /* ShaderProgram.h */,
-				E9D94687198FDCE20082E1C1 /* VAO.cpp */,
-				E9D94688198FDCE20082E1C1 /* VAO.h */,
-				E9D94689198FDCE20082E1C1 /* VBO.cpp */,
-				E9D9468A198FDCE20082E1C1 /* VBO.h */,
-				E9D9468B198FDCE20082E1C1 /* Window.cpp */,
-				E9D9468C198FDCE20082E1C1 /* Window.h */,
+				E908155F1992D98F00885AD0 /* Graphics Engine */,
 				E907F50A198F773C003FE113 /* shaders */,
 				E9F2A8751968F8690011EAAF /* main.cpp */,
-				E9D9F57E198FEDF900F86DCE /* EBO.cpp */,
-				E9D9F57F198FEDF900F86DCE /* EBO.h */,
 			);
 			path = Brickpong;
 			sourceTree = "<group>";

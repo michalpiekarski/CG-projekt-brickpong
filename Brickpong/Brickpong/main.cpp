@@ -10,12 +10,12 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 #include "BrickpongException.h"
-#include "Window.h"
-#include "Shader.h"
-#include "ShaderProgram.h"
-#include "VAO.h"
-#include "VBO.h"
-#include "EBO.h"
+#include "Graphics Engine/Window.h"
+#include "Graphics Engine/Shader.h"
+#include "Graphics Engine/ShaderProgram.h"
+#include "Graphics Engine/VAO.h"
+#include "Graphics Engine/VBO.h"
+#include "Graphics Engine/EBO.h"
 
 //    // Comment out for debut output in console
 //#define __Brickpong__DEBUG_LOG__
