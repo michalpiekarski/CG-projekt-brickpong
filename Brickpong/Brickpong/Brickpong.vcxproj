@@ -135,6 +135,7 @@ xcopy /y /d "$(ProjectDir)glew32.dll" "$(OutDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Physics Engine\Body.cpp" />
     <ClCompile Include="BrickpongException.cpp" />
     <ClCompile Include="Graphics Engine\EBO.cpp" />
     <ClCompile Include="main.cpp" />
@@ -143,8 +144,10 @@ xcopy /y /d "$(ProjectDir)glew32.dll" "$(OutDir)"</Command>
     <ClCompile Include="Graphics Engine\VAO.cpp" />
     <ClCompile Include="Graphics Engine\VBO.cpp" />
     <ClCompile Include="Graphics Engine\Window.cpp" />
+    <ClCompile Include="Physics Engine\PhysicMaterial.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Physics Engine\Body.h" />
     <ClInclude Include="BrickpongException.h" />
     <ClInclude Include="Graphics Engine\EBO.h" />
     <ClInclude Include="Graphics Engine\Shader.h" />
@@ -152,6 +155,7 @@ xcopy /y /d "$(ProjectDir)glew32.dll" "$(OutDir)"</Command>
     <ClInclude Include="Graphics Engine\VAO.h" />
     <ClInclude Include="Graphics Engine\VBO.h" />
     <ClInclude Include="Graphics Engine\Window.h" />
+    <ClInclude Include="Physics Engine\PhysicMaterial.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\Simple.frag" />

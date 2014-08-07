@@ -25,6 +25,15 @@
     <Filter Include="Graphics Engine\Source Files">
       <UniqueIdentifier>{1c8d16c4-e0b9-4b80-b9ff-236e54c7e92a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Physics Engine">
+      <UniqueIdentifier>{637e6c3f-14f1-4212-aabf-7dece046c79b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Physics Engine\Header Files">
+      <UniqueIdentifier>{91278ef5-7cd0-45f8-bd09-03128bf488a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Physics Engine\Source Files">
+      <UniqueIdentifier>{a216dad7-f766-493a-ab1b-fcaeae93bad0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -51,6 +60,11 @@
     <ClCompile Include="Graphics Engine\Window.cpp">
       <Filter>Graphics Engine\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Physics Engine\Body.cpp">
+      <Filter>Physics Engine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics Engine\PhysicMaterial.cpp">
+      <Filter>Physics Engine\Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -75,6 +89,11 @@
     <ClInclude Include="Graphics Engine\Window.h">
       <Filter>Graphics Engine\Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Physics Engine\Body.h">
+      <Filter>Physics Engine\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics Engine\PhysicMaterial.h">
+      <Filter>Physics Engine\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
