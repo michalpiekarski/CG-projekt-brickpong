@@ -63,7 +63,13 @@
     <ClCompile Include="Physics Engine\Body.cpp">
       <Filter>Physics Engine\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Physics Engine\PhysicMaterial.cpp">
+    <ClCompile Include="Physics Engine\PhysicsMaterial.cpp">
+      <Filter>Physics Engine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics Engine\AABB.cpp">
+      <Filter>Physics Engine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics Engine\Circle.cpp">
       <Filter>Physics Engine\Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -92,7 +98,13 @@
     <ClInclude Include="Physics Engine\Body.h">
       <Filter>Physics Engine\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Physics Engine\PhysicMaterial.h">
+    <ClInclude Include="Physics Engine\PhysicsMaterial.h">
+      <Filter>Physics Engine\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics Engine\AABB.h">
+      <Filter>Physics Engine\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics Engine\Circle.h">
       <Filter>Physics Engine\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
