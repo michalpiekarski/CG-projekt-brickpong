@@ -6,7 +6,7 @@
 #include "PhysicsMaterial.h"
 
 class Body {
-private:
+protected:
     glm::vec2 _position;
     glm::vec2 _velocity;
     float _mass;
@@ -16,8 +16,8 @@ public:
     Body();
     Body(glm::vec2 position, glm::vec2 velocity, float mass, PhysicsMaterial physicsMaterial);
     virtual ~Body();
-    void setPosition(glm::vec2 position);
-    glm::vec2 getPosition();
+    virtual void setPosition(glm::vec2 position);
+    virtual glm::vec2 getPosition();
     void setVelocity(glm::vec2 velocity);
     glm::vec2 getVelocity();
     void setMass(float mass);
