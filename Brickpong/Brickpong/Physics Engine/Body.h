@@ -1,5 +1,5 @@
 #ifndef __Brickpong__Body__
-#define __Brick__Body__
+#define __Brickpong__Body__
 
 #include <glm/glm.hpp>
 
@@ -27,4 +27,4 @@ public:
     void setPhysicsMaterial(PhysicsMaterial physicsMaterial);
 };
 
-#endif /* defined(__Brickpong__Boby__) */
+#endif /* defined(__Brickpong__Body__) */
