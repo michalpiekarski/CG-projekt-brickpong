@@ -36,8 +36,13 @@ void Body::setMass(float mass) {
 float Body::getMass() {
     return _mass;
 }
-float Body::getHalfMass() {
-    return _mass / 2.0f;
+float Body::getInverseMass() {
+    if (_mass == 0.0f) {
+        return 0.0f;
+    }
+    else {
+        return 1.0f / _mass;
+    }
 }
  PhysicsMaterial Body::getPhysicsMaterial() {
      return _physicsMaterial;

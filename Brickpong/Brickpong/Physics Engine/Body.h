@@ -22,7 +22,7 @@ public:
     glm::vec2 getVelocity();
     void setMass(float mass);
     float getMass();
-    float getHalfMass();
+    float getInverseMass();
     PhysicsMaterial getPhysicsMaterial();
     void setPhysicsMaterial(PhysicsMaterial physicsMaterial);
 };
