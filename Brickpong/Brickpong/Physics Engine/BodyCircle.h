@@ -5,6 +5,7 @@
 #include "Circle.h"
 
 class BodyAABB;
+class Collision;
 
 class BodyCircle : public Body {
 private:
@@ -17,6 +18,8 @@ public:
     virtual glm::vec2 getPosition();
     Circle getCollider();
     void setCollider(Circle collider);
+    bool checkCollision(BodyCircle& other, Collision* collision);
+    bool checkCollisionCrosstype(BodyAABB& other, Collision* collision);
 };
 
 #endif /* defined(__Brickpong__BodyCircle__) */

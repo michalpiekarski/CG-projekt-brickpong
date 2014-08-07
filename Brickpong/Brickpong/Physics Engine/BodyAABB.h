@@ -5,6 +5,7 @@
 #include "AABB.h"
 
 class BodyCircle;
+class Collision;
 
 class BodyAABB : public Body {
 private:
@@ -15,6 +16,8 @@ public:
     virtual ~BodyAABB();
     AABB getCollider();
     void setCollider(AABB collider);
+    bool checkCollision(BodyAABB& other, Collision* collision);
+    bool checkCollisionCrosstype(BodyCircle& other, Collision* collision);
 };
 
 #endif /* defined(__Brickpong__Body__AABB__) */
