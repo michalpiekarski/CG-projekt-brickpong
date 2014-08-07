@@ -1,5 +1,5 @@
 #include "Window.h"
-#include "BrickpongException.h"
+#include "../BrickpongException.h"
 
 GLint Window::instanceCount = 0;
 

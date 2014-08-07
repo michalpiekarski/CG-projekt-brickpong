@@ -136,22 +136,22 @@ xcopy /y /d "$(ProjectDir)glew32.dll" "$(OutDir)"</Command>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BrickpongException.cpp" />
-    <ClCompile Include="EBO.cpp" />
+    <ClCompile Include="Graphics Engine\EBO.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Shader.cpp" />
-    <ClCompile Include="ShaderProgram.cpp" />
-    <ClCompile Include="VAO.cpp" />
-    <ClCompile Include="VBO.cpp" />
-    <ClCompile Include="Window.cpp" />
+    <ClCompile Include="Graphics Engine\Shader.cpp" />
+    <ClCompile Include="Graphics Engine\ShaderProgram.cpp" />
+    <ClCompile Include="Graphics Engine\VAO.cpp" />
+    <ClCompile Include="Graphics Engine\VBO.cpp" />
+    <ClCompile Include="Graphics Engine\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BrickpongException.h" />
-    <ClInclude Include="EBO.h" />
-    <ClInclude Include="Shader.h" />
-    <ClInclude Include="ShaderProgram.h" />
-    <ClInclude Include="VAO.h" />
-    <ClInclude Include="VBO.h" />
-    <ClInclude Include="Window.h" />
+    <ClInclude Include="Graphics Engine\EBO.h" />
+    <ClInclude Include="Graphics Engine\Shader.h" />
+    <ClInclude Include="Graphics Engine\ShaderProgram.h" />
+    <ClInclude Include="Graphics Engine\VAO.h" />
+    <ClInclude Include="Graphics Engine\VBO.h" />
+    <ClInclude Include="Graphics Engine\Window.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\Simple.frag" />

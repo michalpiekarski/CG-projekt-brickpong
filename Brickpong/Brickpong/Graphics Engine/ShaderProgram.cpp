@@ -1,6 +1,6 @@
 #include "ShaderProgram.h"
 #include "Shader.h"
-#include "BrickpongException.h"
+#include "../BrickpongException.h"
 
 ShaderProgram::ShaderProgram()
 {

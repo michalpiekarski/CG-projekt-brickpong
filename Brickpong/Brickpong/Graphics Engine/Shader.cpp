@@ -1,5 +1,5 @@
 #include "Shader.h"
-#include "BrickpongException.h"
+#include "../BrickpongException.h"
 
 Shader::Shader(std::string path, GLenum type)
 {
