@@ -12,7 +12,7 @@ private:
     Circle _collider;
 public:
     BodyCircle();
-    BodyCircle(glm::vec2 position, glm::vec2 velocity, float mass, PhysicsMaterial physicsMaterial, Circle collider);
+    BodyCircle(glm::vec2 position, glm::vec2 velocity, float mass, PhysicsMaterial& physicsMaterial, Circle collider);
     virtual ~BodyCircle();
     virtual void setPosition(glm::vec2 position);
     virtual glm::vec2 getPosition();

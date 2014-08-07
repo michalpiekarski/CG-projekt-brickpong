@@ -7,7 +7,7 @@ Body::Body() {
     _physicsMaterial = PhysicsMaterial();
 }
 
-Body::Body(glm::vec2 position, glm::vec2 velocity, float mass, PhysicsMaterial physicsMaterial) {
+Body::Body(glm::vec2 position, glm::vec2 velocity, float mass, PhysicsMaterial& physicsMaterial) {
     _position = position;
     _velocity = velocity;
     _mass = mass;

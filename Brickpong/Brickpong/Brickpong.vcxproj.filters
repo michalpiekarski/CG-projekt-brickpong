@@ -72,6 +72,15 @@
     <ClCompile Include="Physics Engine\Circle.cpp">
       <Filter>Physics Engine\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Physics Engine\BodyAABB.cpp">
+      <Filter>Physics Engine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics Engine\BodyCircle.cpp">
+      <Filter>Physics Engine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics Engine\Collision.cpp">
+      <Filter>Physics Engine\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BrickpongException.h">
@@ -105,6 +114,15 @@
       <Filter>Physics Engine\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Physics Engine\Circle.h">
+      <Filter>Physics Engine\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics Engine\BodyAABB.h">
+      <Filter>Physics Engine\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics Engine\BodyCircle.h">
+      <Filter>Physics Engine\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics Engine\Collision.h">
       <Filter>Physics Engine\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="main.h">

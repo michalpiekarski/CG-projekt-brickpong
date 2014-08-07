@@ -6,7 +6,7 @@ BodyAABB::BodyAABB() : Body() {
     _collider = AABB();
 }
 
-BodyAABB::BodyAABB(glm::vec2 position, glm::vec2 velocity, float mass, PhysicsMaterial physicsMaterial, AABB collider) : Body::Body(position, velocity, mass, physicsMaterial) {
+BodyAABB::BodyAABB(glm::vec2 position, glm::vec2 velocity, float mass, PhysicsMaterial& physicsMaterial, AABB collider) : Body(position, velocity, mass, physicsMaterial) {
     _collider = collider;
 }
 

@@ -14,7 +14,7 @@ protected:
 
 public:
     Body();
-    Body(glm::vec2 position, glm::vec2 velocity, float mass, PhysicsMaterial physicsMaterial);
+    Body(glm::vec2 position, glm::vec2 velocity, float mass, PhysicsMaterial& physicsMaterial);
     virtual ~Body();
     virtual void setPosition(glm::vec2 position);
     virtual glm::vec2 getPosition();

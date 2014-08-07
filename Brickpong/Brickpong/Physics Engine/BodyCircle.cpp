@@ -6,7 +6,7 @@ BodyCircle::BodyCircle() : Body() {
     _collider = Circle();
 }
 
-BodyCircle::BodyCircle(glm::vec2 position, glm::vec2 velocity, float mass, PhysicsMaterial physicsMaterial, Circle collider) : Body::Body(position, velocity, mass, physicsMaterial) {
+BodyCircle::BodyCircle(glm::vec2 position, glm::vec2 velocity, float mass, PhysicsMaterial& physicsMaterial, Circle collider) : Body(position, velocity, mass, physicsMaterial) {
     _collider = collider;
 }
 
