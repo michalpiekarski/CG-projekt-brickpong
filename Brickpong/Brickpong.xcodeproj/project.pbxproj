@@ -11,6 +11,13 @@
 		E907F50F198F7958003FE113 /* Simple.frag in CopyFiles */ = {isa = PBXBuildFile; fileRef = E907F50B198F773C003FE113 /* Simple.frag */; };
 		E907F510198F7958003FE113 /* Simple.vert in CopyFiles */ = {isa = PBXBuildFile; fileRef = E907F50C198F773C003FE113 /* Simple.vert */; };
 		E9AD267119806B80001A6268 /* libglfw.3.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E9AD267019806B80001A6268 /* libglfw.3.1.dylib */; };
+		E9C72889199401C800D91BB0 /* AABB.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9C7287A199401C800D91BB0 /* AABB.cpp */; };
+		E9C7288A199401C800D91BB0 /* Body.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9C7287C199401C800D91BB0 /* Body.cpp */; };
+		E9C7288B199401C800D91BB0 /* BodyAABB.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9C7287E199401C800D91BB0 /* BodyAABB.cpp */; };
+		E9C7288C199401C800D91BB0 /* BodyCircle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9C72880199401C800D91BB0 /* BodyCircle.cpp */; };
+		E9C7288D199401C800D91BB0 /* Circle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9C72882199401C800D91BB0 /* Circle.cpp */; };
+		E9C7288E199401C800D91BB0 /* Collision.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9C72884199401C800D91BB0 /* Collision.cpp */; };
+		E9C7288F199401C800D91BB0 /* PhysicsMaterial.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9C72887199401C800D91BB0 /* PhysicsMaterial.cpp */; };
 		E9D9468D198FDCE20082E1C1 /* BrickpongException.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9D94682198FDCE20082E1C1 /* BrickpongException.cpp */; };
 		E9D9468E198FDCE20082E1C1 /* ShaderProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9D94685198FDCE20082E1C1 /* ShaderProgram.cpp */; };
 		E9D9468F198FDCE20082E1C1 /* VAO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9D94687198FDCE20082E1C1 /* VAO.cpp */; };
@@ -41,6 +48,23 @@
 		E907F50C198F773C003FE113 /* Simple.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Simple.vert; sourceTree = "<group>"; };
 		E907F50D198F7938003FE113 /* libfreetype.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfreetype.a; path = ../biblioteki/FREETYPE_OSX/lib/libfreetype.a; sourceTree = "<group>"; };
 		E9AD267019806B80001A6268 /* libglfw.3.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglfw.3.1.dylib; path = ../biblioteki/GLFW_OSX/lib/libglfw.3.1.dylib; sourceTree = "<group>"; };
+		E9C72878199401BC00D91BB0 /* main.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = main.h; sourceTree = "<group>"; };
+		E9C7287A199401C800D91BB0 /* AABB.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AABB.cpp; sourceTree = "<group>"; };
+		E9C7287B199401C800D91BB0 /* AABB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AABB.h; sourceTree = "<group>"; };
+		E9C7287C199401C800D91BB0 /* Body.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Body.cpp; sourceTree = "<group>"; };
+		E9C7287D199401C800D91BB0 /* Body.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Body.h; sourceTree = "<group>"; };
+		E9C7287E199401C800D91BB0 /* BodyAABB.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BodyAABB.cpp; sourceTree = "<group>"; };
+		E9C7287F199401C800D91BB0 /* BodyAABB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BodyAABB.h; sourceTree = "<group>"; };
+		E9C72880199401C800D91BB0 /* BodyCircle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BodyCircle.cpp; sourceTree = "<group>"; };
+		E9C72881199401C800D91BB0 /* BodyCircle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BodyCircle.h; sourceTree = "<group>"; };
+		E9C72882199401C800D91BB0 /* Circle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Circle.cpp; sourceTree = "<group>"; };
+		E9C72883199401C800D91BB0 /* Circle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Circle.h; sourceTree = "<group>"; };
+		E9C72884199401C800D91BB0 /* Collision.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Collision.cpp; sourceTree = "<group>"; };
+		E9C72885199401C800D91BB0 /* Collision.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Collision.h; sourceTree = "<group>"; };
+		E9C72886199401C800D91BB0 /* Physics Engine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Physics Engine.h"; sourceTree = "<group>"; };
+		E9C72887199401C800D91BB0 /* PhysicsMaterial.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PhysicsMaterial.cpp; sourceTree = "<group>"; };
+		E9C72888199401C800D91BB0 /* PhysicsMaterial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhysicsMaterial.h; sourceTree = "<group>"; };
+		E9C72890199401E500D91BB0 /* Graphics Engine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Graphics Engine.h"; path = "Graphics Engine/Graphics Engine.h"; sourceTree = "<group>"; };
 		E9D94682198FDCE20082E1C1 /* BrickpongException.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BrickpongException.cpp; sourceTree = "<group>"; };
 		E9D94683198FDCE20082E1C1 /* BrickpongException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrickpongException.h; sourceTree = "<group>"; };
 		E9D94684198FDCE20082E1C1 /* Shader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Shader.h; path = "Graphics Engine/Shader.h"; sourceTree = "<group>"; };
@@ -86,6 +110,7 @@
 		E908155F1992D98F00885AD0 /* Graphics Engine */ = {
 			isa = PBXGroup;
 			children = (
+				E9C72890199401E500D91BB0 /* Graphics Engine.h */,
 				E9D9468C198FDCE20082E1C1 /* Window.h */,
 				E9D9468B198FDCE20082E1C1 /* Window.cpp */,
 				E9D94684198FDCE20082E1C1 /* Shader.h */,
@@ -100,6 +125,28 @@
 				E9D9F57E198FEDF900F86DCE /* EBO.cpp */,
 			);
 			name = "Graphics Engine";
+			sourceTree = "<group>";
+		};
+		E9C72879199401C800D91BB0 /* Physics Engine */ = {
+			isa = PBXGroup;
+			children = (
+				E9C7287A199401C800D91BB0 /* AABB.cpp */,
+				E9C7287B199401C800D91BB0 /* AABB.h */,
+				E9C7287C199401C800D91BB0 /* Body.cpp */,
+				E9C7287D199401C800D91BB0 /* Body.h */,
+				E9C7287E199401C800D91BB0 /* BodyAABB.cpp */,
+				E9C7287F199401C800D91BB0 /* BodyAABB.h */,
+				E9C72880199401C800D91BB0 /* BodyCircle.cpp */,
+				E9C72881199401C800D91BB0 /* BodyCircle.h */,
+				E9C72882199401C800D91BB0 /* Circle.cpp */,
+				E9C72883199401C800D91BB0 /* Circle.h */,
+				E9C72884199401C800D91BB0 /* Collision.cpp */,
+				E9C72885199401C800D91BB0 /* Collision.h */,
+				E9C72886199401C800D91BB0 /* Physics Engine.h */,
+				E9C72887199401C800D91BB0 /* PhysicsMaterial.cpp */,
+				E9C72888199401C800D91BB0 /* PhysicsMaterial.h */,
+			);
+			path = "Physics Engine";
 			sourceTree = "<group>";
 		};
 		E9F2A8691968F8680011EAAF = {
@@ -124,6 +171,8 @@
 		E9F2A8741968F8690011EAAF /* Brickpong */ = {
 			isa = PBXGroup;
 			children = (
+				E9C72879199401C800D91BB0 /* Physics Engine */,
+				E9C72878199401BC00D91BB0 /* main.h */,
 				E9D94682198FDCE20082E1C1 /* BrickpongException.cpp */,
 				E9D94683198FDCE20082E1C1 /* BrickpongException.h */,
 				E908155F1992D98F00885AD0 /* Graphics Engine */,
@@ -184,14 +233,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E9C7288E199401C800D91BB0 /* Collision.cpp in Sources */,
+				E9C72889199401C800D91BB0 /* AABB.cpp in Sources */,
 				E9D94690198FDCE20082E1C1 /* VBO.cpp in Sources */,
 				E9D94691198FDCE20082E1C1 /* Window.cpp in Sources */,
+				E9C7288F199401C800D91BB0 /* PhysicsMaterial.cpp in Sources */,
 				E9D9468E198FDCE20082E1C1 /* ShaderProgram.cpp in Sources */,
+				E9C7288B199401C800D91BB0 /* BodyAABB.cpp in Sources */,
 				E9F2A8761968F8690011EAAF /* main.cpp in Sources */,
 				E9D94693198FDCF80082E1C1 /* Shader.cpp in Sources */,
+				E9C7288D199401C800D91BB0 /* Circle.cpp in Sources */,
 				E9D9468F198FDCE20082E1C1 /* VAO.cpp in Sources */,
 				E9D9F580198FEDF900F86DCE /* EBO.cpp in Sources */,
 				E9D9468D198FDCE20082E1C1 /* BrickpongException.cpp in Sources */,
+				E9C7288A199401C800D91BB0 /* Body.cpp in Sources */,
+				E9C7288C199401C800D91BB0 /* BodyCircle.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
