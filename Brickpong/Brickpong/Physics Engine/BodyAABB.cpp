@@ -66,6 +66,49 @@ bool BodyAABB::checkCollision(BodyAABB& other, Collision* collision) {
 
 bool BodyAABB::checkCollisionCrosstype(BodyCircle& other, Collision* collision) {
     if (_collider.checkCollisionCrosstype(other.getCollider())) {
-        // TODO: Genereate AABBCircle collision object
+        collision = new Collision(this, &other);
+
+        glm::vec2 n = other.getPosition() - _position;
+        glm::vec2 closest = n;
+        float x_extent = (_collider.getMax().x - _collider.getWidth()) / 2.0f;
+        float y_extent = (_collider.getMax().y - _collider.getHeight()) / 2.0f;
+        closest.x = glm::clamp(-x_extent, x_extent, closest.x);
+        closest.y = glm::clamp(-y_extent, y_extent, closest.y);
+        bool inside = false;
+        if (n == closest) {
+            inside = true;
+            if (glm::abs(n.x) > glm::abs(n.y)) {
+                if (closest.x > 0) {
+                    closest.x = x_extent;
+                }
+                else {
+                    closest.x = -x_extent;
+                }
+            }
+            else {
+                if (closest.y > 0) {
+                    closest.y = y_extent;
+                }
+                else {
+                    closest.y = -y_extent;
+                }
+            }
+        }
+        glm::vec2 normal = n - closest;
+        int d = normal.length();
+        int r = other.getCollider().getRadius();
+
+        if (d > r&&!inside) {
+            return false;
+        }
+        if (inside) {
+            collision->setNormal(-n);
+        }
+        else {
+            collision->setNormal(n);
+        }
+        collision->setPenetration(r + d);
+        return true;
     }
+    return false;
 }
