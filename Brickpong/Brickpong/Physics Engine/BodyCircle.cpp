@@ -22,7 +22,7 @@ glm::vec2 BodyCircle::getPosition() {
     return _collider.getPosition();
 }
 
-Circle BodyCircle::getCollider() {
+Circle& BodyCircle::getCollider() {
     return _collider;
 }
 

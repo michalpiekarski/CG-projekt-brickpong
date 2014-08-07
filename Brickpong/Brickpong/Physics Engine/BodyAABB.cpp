@@ -13,7 +13,7 @@ BodyAABB::BodyAABB(glm::vec2 position, glm::vec2 velocity, float mass, PhysicsMa
 BodyAABB::~BodyAABB() {
 }
 
-AABB BodyAABB::getCollider() {
+AABB& BodyAABB::getCollider() {
     return _collider;
 }
 

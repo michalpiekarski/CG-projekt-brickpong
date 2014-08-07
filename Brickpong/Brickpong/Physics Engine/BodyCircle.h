@@ -16,7 +16,7 @@ public:
     virtual ~BodyCircle();
     virtual void setPosition(glm::vec2 position);
     virtual glm::vec2 getPosition();
-    Circle getCollider();
+    Circle& getCollider();
     void setCollider(Circle collider);
     bool checkCollision(BodyCircle& other, Collision* collision);
     bool checkCollisionCrosstype(BodyAABB& other, Collision* collision);
