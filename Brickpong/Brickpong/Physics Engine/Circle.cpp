@@ -32,10 +32,8 @@ void Circle::setPosition(glm::vec2 position) {
 
 bool Circle::checkCollision(Circle& other) {
     float r = _radius + other.getRadius();
-    r *= r;
-    glm::vec2 otherPosition = other.getPosition();
-    float distanceSquare = glm::pow((_position.x + otherPosition.x), 2.0f) + glm::pow((_position.y + otherPosition.y), 2.0f);
-    return r < distanceSquare;
+    float distance = glm::distance(_position, other.getPosition());
+    return r < distance;
 }
 
 bool Circle::checkCollisionCrosstype(AABB& other) {
