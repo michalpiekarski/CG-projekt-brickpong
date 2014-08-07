@@ -107,6 +107,15 @@
     <ClInclude Include="Physics Engine\Circle.h">
       <Filter>Physics Engine\Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="main.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics Engine\Graphics Engine.h">
+      <Filter>Graphics Engine\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics Engine\Physics Engine.h">
+      <Filter>Physics Engine\Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\Simple.frag">

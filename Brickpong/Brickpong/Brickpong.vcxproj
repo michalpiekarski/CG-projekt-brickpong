@@ -149,6 +149,8 @@ xcopy /y /d "$(ProjectDir)glew32.dll" "$(OutDir)"</Command>
     <ClCompile Include="Physics Engine\PhysicsMaterial.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Graphics Engine\Graphics Engine.h" />
+    <ClInclude Include="main.h" />
     <ClInclude Include="Physics Engine\AABB.h" />
     <ClInclude Include="Physics Engine\Body.h" />
     <ClInclude Include="BrickpongException.h" />
@@ -159,6 +161,7 @@ xcopy /y /d "$(ProjectDir)glew32.dll" "$(OutDir)"</Command>
     <ClInclude Include="Graphics Engine\VBO.h" />
     <ClInclude Include="Graphics Engine\Window.h" />
     <ClInclude Include="Physics Engine\Circle.h" />
+    <ClInclude Include="Physics Engine\Physics Engine.h" />
     <ClInclude Include="Physics Engine\PhysicsMaterial.h" />
   </ItemGroup>
   <ItemGroup>

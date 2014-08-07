@@ -1,21 +1,4 @@
-#include <iostream>
-
-#ifdef _WIN32
-#include <GL/glew.h>
-#endif
-#ifdef __APPLE__
-#define GLFW_INCLUDE_GLCOREARB
-#endif
-#include <GLFW/glfw3.h>
-#include <glm/gtc/matrix_transform.hpp>
-
-#include "BrickpongException.h"
-#include "Graphics Engine/Window.h"
-#include "Graphics Engine/Shader.h"
-#include "Graphics Engine/ShaderProgram.h"
-#include "Graphics Engine/VAO.h"
-#include "Graphics Engine/VBO.h"
-#include "Graphics Engine/EBO.h"
+#include "main.h"
 
 //    // Comment out for debut output in console
 //#define __Brickpong__DEBUG_LOG__
@@ -360,4 +343,3 @@ int main(void) {
         exit(EXIT_FAILURE);
     }
 }
-
