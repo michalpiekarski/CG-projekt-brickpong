@@ -8,5 +8,6 @@
 #include "AABB.h"
 #include "Circle.h"
 #include "Collision.h"
+#include "PhysicsSolver.h"
 
 #endif /* defined(__Brickpong__Physics_Engine__) */

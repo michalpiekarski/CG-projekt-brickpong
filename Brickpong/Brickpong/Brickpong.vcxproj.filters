@@ -81,6 +81,9 @@
     <ClCompile Include="Physics Engine\Collision.cpp">
       <Filter>Physics Engine\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Physics Engine\PhysicsSolver.cpp">
+      <Filter>Physics Engine\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BrickpongException.h">
@@ -132,6 +135,9 @@
       <Filter>Graphics Engine\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Physics Engine\Physics Engine.h">
+      <Filter>Physics Engine\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics Engine\PhysicsSolver.h">
       <Filter>Physics Engine\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
