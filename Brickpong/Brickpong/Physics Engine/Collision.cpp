@@ -55,8 +55,13 @@ void Collision::resolve() {
 
     float e = glm::min(_B->getPhysicsMaterial().getBounciness(), _A->getPhysicsMaterial().getBounciness());
 
+    float A_inverseMass = _A->getInverseMass();
+    float B_inverseMass = _B->getInverseMass();
     float j = -(1 + e) * velocityAlongNormal;
-    j /= _A->getInverseMass() + _B->getInverseMass();
+    float inverseMassSum = A_inverseMass + B_inverseMass;
+    if (inverseMassSum != 0.0f) {
+        j /= inverseMassSum;
+    }
 
     glm::vec2 impulse = j*_normal;
 
@@ -64,8 +69,16 @@ void Collision::resolve() {
     float B_mass = _B->getMass();
     float mass_sum = A_mass + B_mass;
 
-    float ratio = A_mass / mass_sum;
+    float ratio;
+    if (mass_sum != 0.0f) {
+        ratio = A_mass / mass_sum;
+    }
+    else {
+        ratio = 0.0f;
+    }
     _A->setVelocity(A_velocity - (ratio * impulse));
-    ratio = B_mass / mass_sum;
+    if (mass_sum != 0.0f) {
+        ratio = B_mass / mass_sum;
+    }
     _B->setVelocity(B_velocity + (ratio * impulse));
 }
