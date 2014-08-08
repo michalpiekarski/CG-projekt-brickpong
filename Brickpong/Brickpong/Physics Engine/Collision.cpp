@@ -6,6 +6,7 @@ Collision::Collision(Body* A, Body* B) {
     _B = B;
     _penetration = 0.0f;
     _normal = glm::vec2();
+    _tangent = glm::vec2();
 }
 
 Collision::~Collision() {
@@ -34,6 +35,12 @@ glm::vec2 Collision::getNormal() {
 }
 void Collision::setNormal(glm::vec2 normal) {
     _normal = normal;
+}
+glm::vec2 Collision::getTangent() {
+    return _tangent;
+}
+void Collision::setTangent(glm::vec2 tangent) {
+    _tangent = tangent;
 }
 void Collision::resolve() {
     glm::vec2 A_velocity = _A->getVelocity();

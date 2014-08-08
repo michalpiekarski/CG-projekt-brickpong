@@ -11,6 +11,7 @@ private:
     Body* _B;
     float _penetration;
     glm::vec2 _normal;
+    glm::vec2 _tangent;
 public:
     Collision(Body* A, Body* B);
     virtual ~Collision();
@@ -22,6 +23,8 @@ public:
     void setPenetration(float penetration);
     glm::vec2 getNormal();
     void setNormal(glm::vec2 normal);
+    glm::vec2 getTangent();
+    void setTangent(glm::vec2 tangent);
     void resolve();
 };
 
