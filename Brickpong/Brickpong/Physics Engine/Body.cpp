@@ -5,13 +5,17 @@ Body::Body() {
     _velocity = glm::vec2();
     _physicsMaterial = PhysicsMaterial();
     _mass = 1.0f;
+    _isStatic = true;
+    _gravityScale = 0.0f;
 }
 
-Body::Body(glm::vec2 position, glm::vec2 velocity, float mass, PhysicsMaterial& physicsMaterial) {
+Body::Body(glm::vec2 position, glm::vec2 velocity, PhysicsMaterial& physicsMaterial, float mass, bool isStatic = true, float gravityScale = 0.0f) {
     _position = position;
     _velocity = velocity;
     _physicsMaterial = physicsMaterial;
     _mass = mass;
+    _isStatic = isStatic;
+    _gravityScale = gravityScale;
 }
 
 Body::~Body() {
@@ -51,5 +55,28 @@ float Body::getInverseMass() {
         return 1.0f / _mass;
     }
 }
+bool Body::getIsStatic() {
+    return _isStatic;
+}
+void Body::setIsStatic(bool isStatic) {
+    _isStatic = isStatic;
+    if (isStatic) {
+        _gravityScale = 0.0f;
+        _velocity = glm::vec2();
+    }
+    else {
 
+    }
+}
+float Body::getGravityScale() {
+    return _gravityScale;
+}
+void Body::setGravityScale(float gravityScale) {
+    _gravityScale = gravityScale;
+}
+ void Body::move(glm::vec2 gravity) {
+     if (_isStatic == false) {
+         _velocity += gravity * _gravityScale;
+         _position += _velocity;
+     }
  }

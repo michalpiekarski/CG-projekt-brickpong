@@ -12,7 +12,7 @@ private:
     AABB _collider;
 public:
     BodyAABB();
-    BodyAABB(glm::vec2 position, glm::vec2 velocity, float mass, PhysicsMaterial& physicsMaterial, AABB collider);
+    BodyAABB(glm::vec2 position, glm::vec2 velocity, PhysicsMaterial& physicsMaterial, float mass, bool isStatic, float gravityScale, AABB collider);
     virtual ~BodyAABB();
     AABB& getCollider();
     void setCollider(AABB collider);
