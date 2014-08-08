@@ -81,4 +81,34 @@ void Collision::resolve() {
         ratio = B_mass / mass_sum;
     }
     _B->setVelocity(B_velocity + (ratio * impulse));
+
+    A_velocity = _A->getVelocity();
+    B_velocity = _B->getVelocity();
+    relativeVelocity = B_velocity - A_velocity;
+
+    _tangent = relativeVelocity - glm::dot(relativeVelocity, _normal) * _normal;
+    _tangent = glm::normalize(_tangent);
+
+    float jt = -glm::dot(relativeVelocity, _tangent);
+    if (inverseMassSum != 0.0f) {
+        jt /= inverseMassSum;
+    }
+
+    float A_staticFriction = _A->getPhysicsMaterial().getStaticFriction();
+    float B_staticFriction = _B->getPhysicsMaterial().getStaticFriction();
+    float mu = glm::sqrt(glm::pow(A_staticFriction, 2.0f) + glm::pow(B_staticFriction, 2.0f));
+    glm::vec2 frictionImpulse;
+
+    if (glm::abs(jt) < j * mu) {
+        frictionImpulse = jt * _tangent;
+    }
+    else {
+        float A_dynamicFriction = _A->getPhysicsMaterial().getDynamicFriction();
+        float B_dynamicFriction = _B->getPhysicsMaterial().getDynamicFriction();
+        float dynamicFriction = glm::sqrt(glm::pow(A_dynamicFriction, 2.0f) + glm::pow(B_dynamicFriction, 2.0f));
+        frictionImpulse = -j * _tangent * dynamicFriction;
+    }
+
+    _A->setVelocity(A_velocity-(A_inverseMass*frictionImpulse));
+    _B->setVelocity(B_velocity-(B_inverseMass*frictionImpulse));
 }
