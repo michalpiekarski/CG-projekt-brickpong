@@ -1,9 +1,12 @@
 #ifndef __Brickpong__PhysicsSolver__
 #define __Brickpong__PhysicsSolver__
 
+#include <list>
+
 #include <glm/glm.hpp>
 
 class Body;
+class Collision;
 
 class PhysicsSolver {
 private:
@@ -25,7 +28,9 @@ public:
     void setFrameStartTime(float frameStartTime);
     int getBodyCount();
     void setBodyList(int bodyCount, std::list<Body*> bodyList);
+    bool colideBodies(Body* A, int A_colliderType, Body* B, int B_colliderType, Collision* collision);
     void step();
+    void run();
 };
 
 #endif /* defined(__Brickpong__PhysicsSolver__) */

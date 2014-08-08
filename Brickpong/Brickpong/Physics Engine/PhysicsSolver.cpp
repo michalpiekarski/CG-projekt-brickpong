@@ -1,5 +1,6 @@
 #include "PhysicsSolver.h"
 #include "Body.h"
+#include "Collision.h"
 
 PhysicsSolver::PhysicsSolver() {
     _dt = 1.0f / 60.0f;
@@ -46,8 +47,41 @@ void PhysicsSolver::setBodyList(int bodyCount, std::list<Body*> bodyList) {
     _bodyCount = bodyCount;
     _bodyList = bodyList;
 }
+bool PhysicsSolver::colideBodies(Body* A, int A_colliderType, Body* B, int B_colliderType, Collision* collision) {
+    if (A_colliderType + B_colliderType == 2 || A_colliderType + B_colliderType == 4) {
+        return A->checkCollision(B, collision);
+    }
+    else {
+        return A->checkCollisionCrosstype(B, collision);
+    }
+}
 void PhysicsSolver::step() {
-    //collide
-    //resolve
-    //apply gravity and move
+    if (_bodyCount > 1) {
+        for (std::list<Body*>::iterator A = _bodyList.begin(); A != _bodyList.end(); ++A) {
+            if ((*A)->getIsStatic()) {
+                continue;
+            }
+            else {
+                int A_colliderType = (*A)->getColliderType();
+
+                for (std::list<Body*>::iterator B = _bodyList.begin(); B != _bodyList.end(); ++B) {
+                    if ((*A) == (*B)) {
+                        continue;
+                    }
+                    else {
+                        int B_colliderType = (*B)->getColliderType();
+                        Collision* c = new Collision();
+                        if (colideBodies((*A), A_colliderType, (*B), B_colliderType, c)) {
+                            c->resolve();
+                        }
+                    }
+                }
+                (*A)->move(_gravity);
+            }
+        }
+    }
+}
+
+void PhysicsSolver::run() {
+    // TODO: implement main physics loop
 }
