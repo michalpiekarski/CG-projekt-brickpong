@@ -3,15 +3,15 @@
 Body::Body() {
     _position = glm::vec2();
     _velocity = glm::vec2();
-    _mass = 1.0f;
     _physicsMaterial = PhysicsMaterial();
+    _mass = 1.0f;
 }
 
 Body::Body(glm::vec2 position, glm::vec2 velocity, float mass, PhysicsMaterial& physicsMaterial) {
     _position = position;
     _velocity = velocity;
-    _mass = mass;
     _physicsMaterial = physicsMaterial;
+    _mass = mass;
 }
 
 Body::~Body() {
@@ -30,6 +30,13 @@ void Body::setVelocity(glm::vec2 velocity) {
 glm::vec2 Body::getVelocity() {
     return _velocity;
 }
+PhysicsMaterial Body::getPhysicsMaterial() {
+    return _physicsMaterial;
+}
+
+void Body::setPhysicsMaterial(PhysicsMaterial physicsMaterial) {
+    _physicsMaterial = physicsMaterial;
+}
 void Body::setMass(float mass) {
     _mass = mass;
 }
@@ -44,10 +51,5 @@ float Body::getInverseMass() {
         return 1.0f / _mass;
     }
 }
- PhysicsMaterial Body::getPhysicsMaterial() {
-     return _physicsMaterial;
- }
 
- void Body::setPhysicsMaterial(PhysicsMaterial physicsMaterial) {
-     _physicsMaterial = physicsMaterial;
  }

@@ -9,8 +9,8 @@ class Body {
 protected:
     glm::vec2 _position;
     glm::vec2 _velocity;
-    float _mass;
     PhysicsMaterial _physicsMaterial;
+    float _mass;
 
 public:
     Body();
@@ -20,11 +20,11 @@ public:
     virtual glm::vec2 getPosition();
     void setVelocity(glm::vec2 velocity);
     glm::vec2 getVelocity();
+    PhysicsMaterial getPhysicsMaterial();
+    void setPhysicsMaterial(PhysicsMaterial physicsMaterial);
     void setMass(float mass);
     float getMass();
     float getInverseMass();
-    PhysicsMaterial getPhysicsMaterial();
-    void setPhysicsMaterial(PhysicsMaterial physicsMaterial);
 };
 
 #endif /* defined(__Brickpong__Body__) */
