@@ -17,8 +17,8 @@ public:
     void setRadius(float radius);
     glm::vec2 getPosition();
     void setPosition(glm::vec2 position);
-    bool checkCollision(Circle& other);
-    bool checkCollisionCrosstype(AABB& other);
+    bool checkCollision(Circle* other);
+    bool checkCollisionCrosstype(AABB* other);
 };
 
 #endif /* define(__Brickpong__Circle__) */

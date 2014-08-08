@@ -3,14 +3,14 @@
 Body::Body() {
     _position = glm::vec2();
     _velocity = glm::vec2();
-    _physicsMaterial = PhysicsMaterial();
+    _physicsMaterial = new PhysicsMaterial();
     _mass = 1.0f;
     _isStatic = true;
     _gravityScale = 0.0f;
     _colliderType = 0;
 }
 
-Body::Body(glm::vec2 position, glm::vec2 velocity, PhysicsMaterial& physicsMaterial, float mass, bool isStatic = true, float gravityScale = 0.0f) {
+Body::Body(glm::vec2 position, glm::vec2 velocity, PhysicsMaterial* physicsMaterial, float mass, bool isStatic = true, float gravityScale = 0.0f) {
     _position = position;
     _velocity = velocity;
     _physicsMaterial = physicsMaterial;
@@ -21,7 +21,7 @@ Body::Body(glm::vec2 position, glm::vec2 velocity, PhysicsMaterial& physicsMater
 }
 
 Body::~Body() {
-
+    delete _physicsMaterial;
 }
 
 void Body::setPosition(glm::vec2 position) {
@@ -36,11 +36,11 @@ void Body::setVelocity(glm::vec2 velocity) {
 glm::vec2 Body::getVelocity() {
     return _velocity;
 }
-PhysicsMaterial Body::getPhysicsMaterial() {
+PhysicsMaterial* Body::getPhysicsMaterial() {
     return _physicsMaterial;
 }
 
-void Body::setPhysicsMaterial(PhysicsMaterial physicsMaterial) {
+void Body::setPhysicsMaterial(PhysicsMaterial* physicsMaterial) {
     _physicsMaterial = physicsMaterial;
 }
 void Body::setMass(float mass) {

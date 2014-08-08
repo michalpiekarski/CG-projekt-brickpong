@@ -9,15 +9,15 @@ class Collision;
 
 class BodyAABB : public Body {
 private:
-    AABB _collider;
+    AABB* _collider;
 public:
     BodyAABB();
-    BodyAABB(glm::vec2 position, glm::vec2 velocity, PhysicsMaterial& physicsMaterial, float mass, bool isStatic, float gravityScale, AABB collider);
+    BodyAABB(glm::vec2 position, glm::vec2 velocity, PhysicsMaterial* physicsMaterial, float mass, bool isStatic, float gravityScale, AABB* collider);
     virtual ~BodyAABB();
-    AABB& getCollider();
-    void setCollider(AABB collider);
-    bool checkCollision(BodyAABB& other, Collision* collision);
-    bool checkCollisionCrosstype(BodyCircle& other, Collision* collision);
+    AABB* getCollider();
+    void setCollider(AABB* collider);
+    bool checkCollision(BodyAABB* other, Collision* collision);
+    bool checkCollisionCrosstype(BodyCircle* other, Collision* collision);
 };
 
 #endif /* defined(__Brickpong__Body__AABB__) */

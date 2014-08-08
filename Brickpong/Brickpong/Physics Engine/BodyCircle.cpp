@@ -4,41 +4,42 @@
 
 BodyCircle::BodyCircle() : Body() {
     _colliderType = 2;
-    _collider = Circle();
+    _collider = new Circle();
 }
 
-BodyCircle::BodyCircle(glm::vec2 position, glm::vec2 velocity, PhysicsMaterial& physicsMaterial, float mass, bool isStatic, float gravityScale, Circle collider) : Body(position, velocity, physicsMaterial, mass, isStatic, gravityScale) {
+BodyCircle::BodyCircle(glm::vec2 position, glm::vec2 velocity, PhysicsMaterial* physicsMaterial, float mass, bool isStatic, float gravityScale, Circle* collider) : Body(position, velocity, physicsMaterial, mass, isStatic, gravityScale) {
     _colliderType = 2;
     _collider = collider;
 }
 
 BodyCircle::~BodyCircle() {
+    delete _collider;
 }
 
 void BodyCircle::setPosition(glm::vec2 position) {
-    _collider.setPosition(position);
-    _position = _collider.getPosition();
+    _collider->setPosition(position);
+    _position = _collider->getPosition();
 }
 
 glm::vec2 BodyCircle::getPosition() {
-    return _collider.getPosition();
+    return _collider->getPosition();
 }
 
-Circle& BodyCircle::getCollider() {
+Circle* BodyCircle::getCollider() {
     return _collider;
 }
 
-void BodyCircle::setCollider(Circle collider) {
+void BodyCircle::setCollider(Circle* collider) {
     _collider = collider;
 }
 
-bool BodyCircle::checkCollision(BodyCircle& other, Collision* collision) {
-    if (_collider.checkCollision(other.getCollider())) {
-        collision = new Collision(this, &other);
+bool BodyCircle::checkCollision(BodyCircle* other, Collision* collision) {
+    if (_collider->checkCollision(other->getCollider())) {
+        collision = new Collision(this, other);
 
-        glm::vec2 n = other.getPosition() - _position;
+        glm::vec2 n = other->getPosition() - _position;
 
-        float r = _collider.getRadius() + other.getCollider().getRadius();
+        float r = _collider->getRadius() + other->getCollider()->getRadius();
         float d = glm::length(n);
 
         if (d > r) {
@@ -50,7 +51,7 @@ bool BodyCircle::checkCollision(BodyCircle& other, Collision* collision) {
             collision->setNormal(n / d);
         }
         else {
-            collision->setPenetration(getCollider().getRadius());
+            collision->setPenetration(getCollider()->getRadius());
             collision->setNormal(glm::vec2(1.0f, 0.0f));
         }
         return true;
@@ -58,14 +59,14 @@ bool BodyCircle::checkCollision(BodyCircle& other, Collision* collision) {
     return false;
 }
 
-bool BodyCircle::checkCollisionCrosstype(BodyAABB& other, Collision* collision) {
-    if (_collider.checkCollisionCrosstype(other.getCollider())) {
-        collision = new Collision(this, &other);
+bool BodyCircle::checkCollisionCrosstype(BodyAABB* other, Collision* collision) {
+    if (_collider->checkCollisionCrosstype(other->getCollider())) {
+        collision = new Collision(this, other);
 
-        glm::vec2 n = other.getPosition() - _position;
+        glm::vec2 n = other->getPosition() - _position;
         glm::vec2 closest = n;
-        float x_extent = (other.getCollider().getMax().x - other.getCollider().getWidth()) / 2.0f;
-        float y_extent = (other.getCollider().getMax().y - other.getCollider().getHeight()) / 2.0f;
+        float x_extent = (other->getCollider()->getMax().x - other->getCollider()->getWidth()) / 2.0f;
+        float y_extent = (other->getCollider()->getMax().y - other->getCollider()->getHeight()) / 2.0f;
         closest.x = glm::clamp(-x_extent, x_extent, closest.x);
         closest.y = glm::clamp(-y_extent, y_extent, closest.y);
         bool inside = false;
@@ -90,7 +91,7 @@ bool BodyCircle::checkCollisionCrosstype(BodyAABB& other, Collision* collision) 
         }
         glm::vec2 normal = n - closest;
         int d = normal.length();
-        int r = _collider.getRadius();
+        int r = _collider->getRadius();
 
         if (d > r&&!inside) {
             return false;

@@ -55,7 +55,7 @@ void Collision::resolve() {
         return;
     }
 
-    float e = glm::min(_B->getPhysicsMaterial().getBounciness(), _A->getPhysicsMaterial().getBounciness());
+    float e = glm::min(_B->getPhysicsMaterial()->getBounciness(), _A->getPhysicsMaterial()->getBounciness());
 
     float A_inverseMass = _A->getInverseMass();
     float B_inverseMass = _B->getInverseMass();
@@ -96,8 +96,8 @@ void Collision::resolve() {
         jt /= inverseMassSum;
     }
 
-    float A_staticFriction = _A->getPhysicsMaterial().getStaticFriction();
-    float B_staticFriction = _B->getPhysicsMaterial().getStaticFriction();
+    float A_staticFriction = _A->getPhysicsMaterial()->getStaticFriction();
+    float B_staticFriction = _B->getPhysicsMaterial()->getStaticFriction();
     float mu = glm::sqrt(glm::pow(A_staticFriction, 2.0f) + glm::pow(B_staticFriction, 2.0f));
     glm::vec2 frictionImpulse;
 
@@ -105,8 +105,8 @@ void Collision::resolve() {
         frictionImpulse = jt * _tangent;
     }
     else {
-        float A_dynamicFriction = _A->getPhysicsMaterial().getDynamicFriction();
-        float B_dynamicFriction = _B->getPhysicsMaterial().getDynamicFriction();
+        float A_dynamicFriction = _A->getPhysicsMaterial()->getDynamicFriction();
+        float B_dynamicFriction = _B->getPhysicsMaterial()->getDynamicFriction();
         float dynamicFriction = glm::sqrt(glm::pow(A_dynamicFriction, 2.0f) + glm::pow(B_dynamicFriction, 2.0f));
         frictionImpulse = -j * _tangent * dynamicFriction;
     }

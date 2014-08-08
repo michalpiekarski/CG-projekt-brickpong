@@ -30,13 +30,13 @@ void Circle::setPosition(glm::vec2 position) {
     _position = position;
 }
 
-bool Circle::checkCollision(Circle& other) {
-    float r = _radius + other.getRadius();
-    float distance = glm::distance(_position, other.getPosition());
+bool Circle::checkCollision(Circle* other) {
+    float r = _radius + other->getRadius();
+    float distance = glm::distance(_position, other->getPosition());
     return r < distance;
 }
 
-bool Circle::checkCollisionCrosstype(AABB& other) {
-    AABB thisAABB(getPosition(), getRadius());
-    return thisAABB.checkCollision(other);
+bool Circle::checkCollisionCrosstype(AABB* other) {
+    AABB* thisAABB = new AABB(getPosition(), getRadius());
+    return thisAABB->checkCollision(other);
 }

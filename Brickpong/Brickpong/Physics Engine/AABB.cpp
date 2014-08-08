@@ -64,9 +64,9 @@ void AABB::setMax(glm::vec2 max) {
     _min = max;
 }
 
-bool AABB::checkCollision(AABB& other) {
-    glm::vec2 otherMin = other.getMin();
-    glm::vec2 otherMax = other.getMax();
+bool AABB::checkCollision(AABB* other) {
+    glm::vec2 otherMin = other->getMin();
+    glm::vec2 otherMax = other->getMax();
 
     if (_max.x < otherMin.x || _min.x > otherMax.x) {
         return false;
@@ -78,7 +78,7 @@ bool AABB::checkCollision(AABB& other) {
     return true;
 }
 
-bool AABB::checkCollisionCrosstype(Circle& other) {
-    AABB otherAABB(other.getPosition(), other.getRadius());
+bool AABB::checkCollisionCrosstype(Circle* other) {
+    AABB* otherAABB = new AABB(other->getPosition(), other->getRadius());
     return checkCollision(otherAABB);
 }

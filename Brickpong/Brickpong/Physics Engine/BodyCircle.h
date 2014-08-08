@@ -9,17 +9,17 @@ class Collision;
 
 class BodyCircle : public Body {
 private:
-    Circle _collider;
+    Circle* _collider;
 public:
     BodyCircle();
-    BodyCircle(glm::vec2 position, glm::vec2 velocity, PhysicsMaterial& physicsMaterial, float mass, bool isStatic, float gravityScale, Circle collider);
+    BodyCircle(glm::vec2 position, glm::vec2 velocity, PhysicsMaterial* physicsMaterial, float mass, bool isStatic, float gravityScale, Circle* collider);
     virtual ~BodyCircle();
     virtual void setPosition(glm::vec2 position);
     virtual glm::vec2 getPosition();
-    Circle& getCollider();
-    void setCollider(Circle collider);
-    bool checkCollision(BodyCircle& other, Collision* collision);
-    bool checkCollisionCrosstype(BodyAABB& other, Collision* collision);
+    Circle* getCollider();
+    void setCollider(Circle* collider);
+    bool checkCollision(BodyCircle* other, Collision* collision);
+    bool checkCollisionCrosstype(BodyAABB* other, Collision* collision);
 };
 
 #endif /* defined(__Brickpong__BodyCircle__) */

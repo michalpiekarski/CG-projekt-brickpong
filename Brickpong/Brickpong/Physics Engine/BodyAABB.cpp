@@ -4,39 +4,40 @@
 
 BodyAABB::BodyAABB() : Body() {
     _colliderType = 1;
-    _collider = AABB();
+    _collider = new AABB();
 }
 
-BodyAABB::BodyAABB(glm::vec2 position, glm::vec2 velocity, PhysicsMaterial& physicsMaterial, float mass, bool isStatic, float gravityScale, AABB collider) : Body(position, velocity, physicsMaterial, mass, isStatic, gravityScale) {
+BodyAABB::BodyAABB(glm::vec2 position, glm::vec2 velocity, PhysicsMaterial* physicsMaterial, float mass, bool isStatic, float gravityScale, AABB* collider) : Body(position, velocity, physicsMaterial, mass, isStatic, gravityScale) {
     _colliderType = 1;
     _collider = collider;
 }
 
 BodyAABB::~BodyAABB() {
+    delete _collider;
 }
 
-AABB& BodyAABB::getCollider() {
+AABB* BodyAABB::getCollider() {
     return _collider;
 }
 
-void BodyAABB::setCollider(AABB collider) {
+void BodyAABB::setCollider(AABB* collider) {
     _collider = collider;
 }
 
-bool BodyAABB::checkCollision(BodyAABB& other, Collision* collision) {
-    if (_collider.checkCollision(other.getCollider())) {
-        collision = new Collision(this, &other);
+bool BodyAABB::checkCollision(BodyAABB* other, Collision* collision) {
+    if (_collider->checkCollision(other->getCollider())) {
+        collision = new Collision(this, other);
 
-        glm::vec2 n = other.getPosition() - _position;
+        glm::vec2 n = other->getPosition() - _position;
 
-        float a_extent_x = (_collider.getMax().x - _collider.getWidth()) / 2.0f;
-        float b_extent_x = (other.getCollider().getMax().x - other.getCollider().getWidth()) / 2.0f;
+        float a_extent_x = (_collider->getMax().x - _collider->getWidth()) / 2.0f;
+        float b_extent_x = ( other->getCollider()->getMax().x - other->getCollider()->getWidth()) / 2.0f;
 
         float x_overlap = a_extent_x + b_extent_x - glm::abs(n.x);
 
         if (x_overlap > 0) {
-            float a_extent_y = (_collider.getMax().y - _collider.getHeight()) / 2.0f;
-            float b_extent_y = (other.getCollider().getMax().y - other.getCollider().getHeight()) / 2.0f;
+            float a_extent_y = (_collider->getMax().y - _collider->getHeight()) / 2.0f;
+            float b_extent_y = (other->getCollider()->getMax().y - other->getCollider()->getHeight()) / 2.0f;
 
             float y_overlap = a_extent_y + b_extent_y - glm::abs(n.y);
 
@@ -66,14 +67,14 @@ bool BodyAABB::checkCollision(BodyAABB& other, Collision* collision) {
     return false;
 }
 
-bool BodyAABB::checkCollisionCrosstype(BodyCircle& other, Collision* collision) {
-    if (_collider.checkCollisionCrosstype(other.getCollider())) {
-        collision = new Collision(this, &other);
+bool BodyAABB::checkCollisionCrosstype(BodyCircle* other, Collision* collision) {
+    if (_collider->checkCollisionCrosstype(other->getCollider())) {
+        collision = new Collision(this, other);
 
-        glm::vec2 n = other.getPosition() - _position;
+        glm::vec2 n = other->getPosition() - _position;
         glm::vec2 closest = n;
-        float x_extent = (_collider.getMax().x - _collider.getWidth()) / 2.0f;
-        float y_extent = (_collider.getMax().y - _collider.getHeight()) / 2.0f;
+        float x_extent = (_collider->getMax().x - _collider->getWidth()) / 2.0f;
+        float y_extent = (_collider->getMax().y - _collider->getHeight()) / 2.0f;
         closest.x = glm::clamp(-x_extent, x_extent, closest.x);
         closest.y = glm::clamp(-y_extent, y_extent, closest.y);
         bool inside = false;
@@ -98,7 +99,7 @@ bool BodyAABB::checkCollisionCrosstype(BodyCircle& other, Collision* collision) 
         }
         glm::vec2 normal = n - closest;
         int d = normal.length();
-        int r = other.getCollider().getRadius();
+        int r = other->getCollider()->getRadius();
 
         if (d > r&&!inside) {
             return false;

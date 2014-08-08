@@ -26,8 +26,8 @@ public:
     void setMin(glm::vec2 min);
     glm::vec2 getMax();
     void setMax(glm::vec2 max);
-    bool checkCollision(AABB& other);
-    bool checkCollisionCrosstype(Circle& other);
+    bool checkCollision(AABB* other);
+    bool checkCollisionCrosstype(Circle* other);
 };
 
 #endif /* defined(__Brickpong__AABB__) */
