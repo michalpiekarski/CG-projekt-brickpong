@@ -3,10 +3,12 @@
 #include "Collision.h"
 
 BodyCircle::BodyCircle() : Body() {
+    _colliderType = 2;
     _collider = Circle();
 }
 
 BodyCircle::BodyCircle(glm::vec2 position, glm::vec2 velocity, PhysicsMaterial& physicsMaterial, float mass, bool isStatic, float gravityScale, Circle collider) : Body(position, velocity, physicsMaterial, mass, isStatic, gravityScale) {
+    _colliderType = 2;
     _collider = collider;
 }
 

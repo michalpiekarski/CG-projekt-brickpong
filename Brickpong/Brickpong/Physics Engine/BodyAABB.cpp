@@ -3,10 +3,12 @@
 #include "Collision.h"
 
 BodyAABB::BodyAABB() : Body() {
+    _colliderType = 1;
     _collider = AABB();
 }
 
 BodyAABB::BodyAABB(glm::vec2 position, glm::vec2 velocity, PhysicsMaterial& physicsMaterial, float mass, bool isStatic, float gravityScale, AABB collider) : Body(position, velocity, physicsMaterial, mass, isStatic, gravityScale) {
+    _colliderType = 1;
     _collider = collider;
 }
 

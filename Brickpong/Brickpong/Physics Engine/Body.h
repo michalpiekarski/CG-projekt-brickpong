@@ -13,6 +13,7 @@ protected:
     float _mass;
     bool _isStatic;
     float _gravityScale;
+    int _colliderType; // 0 - none; 1 - AABB; 2 - Circle;
 
 public:
     Body();
@@ -31,6 +32,7 @@ public:
     void setIsStatic(bool isStatic);
     float getGravityScale();
     void setGravityScale(float gravityScale);
+    int getColliderType();
     void move(glm::vec2 gravity);
 };
 

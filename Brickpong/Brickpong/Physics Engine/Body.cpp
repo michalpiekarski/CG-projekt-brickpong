@@ -7,6 +7,7 @@ Body::Body() {
     _mass = 1.0f;
     _isStatic = true;
     _gravityScale = 0.0f;
+    _colliderType = 0;
 }
 
 Body::Body(glm::vec2 position, glm::vec2 velocity, PhysicsMaterial& physicsMaterial, float mass, bool isStatic = true, float gravityScale = 0.0f) {
@@ -16,6 +17,7 @@ Body::Body(glm::vec2 position, glm::vec2 velocity, PhysicsMaterial& physicsMater
     _mass = mass;
     _isStatic = isStatic;
     _gravityScale = gravityScale;
+    _colliderType = 0;
 }
 
 Body::~Body() {
@@ -73,6 +75,9 @@ float Body::getGravityScale() {
 }
 void Body::setGravityScale(float gravityScale) {
     _gravityScale = gravityScale;
+}
+int Body::getColliderType() {
+    return _colliderType;
 }
  void Body::move(glm::vec2 gravity) {
      if (_isStatic == false) {
