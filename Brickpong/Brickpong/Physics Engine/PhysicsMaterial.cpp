@@ -2,11 +2,13 @@
 
 PhysicsMaterial::PhysicsMaterial() {
     _bounciness = 0.0f;
-    _friction = -1.0f;
+    _staticFriction = 0.0f;
+    _dynamicFriction = 0.0f;
 }
-PhysicsMaterial::PhysicsMaterial(float bounciness, float friction) {
+PhysicsMaterial::PhysicsMaterial(float bounciness, float staticFriction, float dynamicFriction) {
     _bounciness = bounciness;
-    _friction = friction;
+    _staticFriction = staticFriction;
+    _dynamicFriction = dynamicFriction;
 }
 PhysicsMaterial::~PhysicsMaterial() {
 
@@ -17,9 +19,15 @@ void PhysicsMaterial::setBounciness(float bounciness) {
 float PhysicsMaterial::getBounciness() {
     return _bounciness;
 }
-void PhysicsMaterial::setFriction(float friction) {
-    _friction = friction;
+void PhysicsMaterial::setStaticFriction(float staticFriction) {
+    _staticFriction = staticFriction;
 }
-float PhysicsMaterial::getFriction() {
-    return _friction;
+float PhysicsMaterial::getStaticFriction() {
+    return _staticFriction;
+}
+void PhysicsMaterial::setDynamicFriction(float dynamicFriction) {
+    _dynamicFriction = dynamicFriction;
+}
+float PhysicsMaterial::getDynamicFriction() {
+    return _dynamicFriction;
 }

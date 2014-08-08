@@ -4,15 +4,18 @@
 class PhysicsMaterial {
 private:
     float _bounciness;
-    float _friction;
+    float _staticFriction;
+    float _dynamicFriction;
 public:
     PhysicsMaterial();
-    PhysicsMaterial(float bounciness, float friction);
+    PhysicsMaterial(float bounciness, float staticFriction, float dynamicFriction);
     virtual ~PhysicsMaterial();
     void setBounciness(float bounciness);
     float getBounciness();
-    void setFriction(float friction);
-    float getFriction();
+    void setStaticFriction(float staticFriction);
+    float getStaticFriction();
+    void setDynamicFriction(float dynamicFriction);
+    float getDynamicFriction();
 };
 
 #endif /* defined(__Brickpong__PhysicsMaterial__) */
