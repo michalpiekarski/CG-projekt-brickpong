@@ -1,12 +1,14 @@
 #include "Collision.h"
 #include "Body.h"
 
-Collision::Collision(Body* A, Body* B) {
-    _A = A;
-    _B = B;
+Collision::Collision() {
     _penetration = 0.0f;
     _normal = glm::vec2();
     _tangent = glm::vec2();
+}
+Collision::Collision(Body* A, Body* B) : Collision() {
+    _A = A;
+    _B = B;
 }
 
 Collision::~Collision() {

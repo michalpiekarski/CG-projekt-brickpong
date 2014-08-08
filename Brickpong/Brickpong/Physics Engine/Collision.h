@@ -13,6 +13,7 @@ private:
     glm::vec2 _normal;
     glm::vec2 _tangent;
 public:
+    Collision();
     Collision(Body* A, Body* B);
     virtual ~Collision();
     Body* getA();
