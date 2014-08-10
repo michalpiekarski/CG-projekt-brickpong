@@ -14,6 +14,8 @@ public:
     BodyAABB();
     BodyAABB(glm::vec2 position, glm::vec2 velocity, PhysicsMaterial* physicsMaterial, float mass, bool isStatic, float gravityScale, AABB* collider);
     virtual ~BodyAABB();
+    virtual void setPosition(glm::vec2 position);
+    virtual glm::vec2 getPosition();
     AABB* getCollider();
     void setCollider(AABB* collider);
     bool checkCollision(BodyAABB* other, Collision* collision);

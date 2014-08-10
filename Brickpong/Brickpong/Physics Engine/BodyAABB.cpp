@@ -10,10 +10,18 @@ BodyAABB::BodyAABB() : Body() {
 BodyAABB::BodyAABB(glm::vec2 position, glm::vec2 velocity, PhysicsMaterial* physicsMaterial, float mass, bool isStatic, float gravityScale, AABB* collider) : Body(position, velocity, physicsMaterial, mass, isStatic, gravityScale) {
     _colliderType = 1;
     _collider = collider;
+    _position = _collider->getPosition();
 }
 
 BodyAABB::~BodyAABB() {
-    delete _collider;
+}
+
+void BodyAABB::setPosition(glm::vec2 position) {
+    _collider->setPosition(position);
+    _position = _collider->getPosition();
+}
+glm::vec2 BodyAABB::getPosition() {
+    return _collider->getPosition();
 }
 
 AABB* BodyAABB::getCollider() {
