@@ -18,6 +18,8 @@ public:
     virtual glm::vec2 getPosition();
     AABB* getCollider();
     void setCollider(AABB* collider);
+    virtual bool checkCollision(Body* other, Collision* collision);
+    virtual bool checkCollisionCrosstype(Body* other, Collision* collision);
     bool checkCollision(BodyAABB* other, Collision* collision);
     bool checkCollisionCrosstype(BodyCircle* other, Collision* collision);
 };

@@ -32,6 +32,14 @@ void BodyAABB::setCollider(AABB* collider) {
     _collider = collider;
 }
 
+bool BodyAABB::checkCollision(Body* other, Collision* collision) {
+    return BodyAABB::checkCollision(static_cast<BodyAABB*>(other), collision);
+}
+
+bool BodyAABB::checkCollisionCrosstype(Body* other, Collision* collision) {
+    return BodyAABB::checkCollisionCrosstype(static_cast<BodyCircle*>(other), collision);
+}
+
 bool BodyAABB::checkCollision(BodyAABB* other, Collision* collision) {
     if (_collider->checkCollision(other->getCollider())) {
         collision = new Collision(this, other);

@@ -33,6 +33,14 @@ void BodyCircle::setCollider(Circle* collider) {
     _collider = collider;
 }
 
+bool BodyCircle::checkCollision(Body* other, Collision* collision) {
+    return BodyCircle::checkCollision(static_cast<BodyCircle*>(other), collision);
+}
+
+bool BodyCircle::checkCollisionCrosstype(Body* other, Collision* collision) {
+    return BodyCircle::checkCollisionCrosstype(static_cast<BodyAABB*>(other), collision);
+}
+
 bool BodyCircle::checkCollision(BodyCircle* other, Collision* collision) {
     if (_collider->checkCollision(other->getCollider())) {
         collision = new Collision(this, other);
