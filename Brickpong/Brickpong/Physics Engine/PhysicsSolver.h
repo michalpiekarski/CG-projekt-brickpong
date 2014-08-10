@@ -12,6 +12,7 @@ class PhysicsSolver {
 private:
     float _dt; // Delta time
     float _frameStartTime;
+    float _accumulator;
     glm::vec2 _gravity;
     int _bodyCount;
     std::list<Body*> _bodyList;

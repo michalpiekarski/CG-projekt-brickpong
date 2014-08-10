@@ -5,17 +5,21 @@
 PhysicsSolver::PhysicsSolver() {
     _dt = 1.0f / 60.0f;
     _frameStartTime = 0.0f;
+    _accumulator = 0.0f;
     _gravity = glm::vec2(1.0f,0.0f);
     _bodyCount = 0;
 }
 PhysicsSolver::PhysicsSolver(glm::vec2 gravity, float dt) {
     _dt = dt;
     _frameStartTime = 0.0f;
+    _accumulator = 0.0f;
     _gravity = gravity;
+    _bodyCount = 0;
 }
 PhysicsSolver::PhysicsSolver(glm::vec2 gravity, float dt, int bodyCount, std::list<Body*> bodyList) {
     _dt = dt;
     _frameStartTime = 0.0f;
+    _accumulator = 0.0f;
     _gravity = gravity;
     _bodyCount = bodyCount;
     _bodyList = bodyList;
