@@ -62,7 +62,7 @@ bool BodyAABB::checkCollision(BodyAABB* other, Collision* collision) {
                         collision->setNormal(glm::vec2(-1, 0));
                     }
                     else {
-                        collision->setNormal(glm::vec2(0, 0));
+                        collision->setNormal(glm::vec2(1, 0));
                     }
                     collision->setPenetration(x_overlap);
                 }
