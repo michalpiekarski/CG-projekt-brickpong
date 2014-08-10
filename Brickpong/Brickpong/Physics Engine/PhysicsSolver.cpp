@@ -76,11 +76,11 @@ void PhysicsSolver::step() {
                         int B_colliderType = (*B)->getColliderType();
                         Collision* c = new Collision();
                         if (colideBodies((*A), A_colliderType, (*B), B_colliderType, c)) {
-                            c->resolve();
+                            c->resolve(_gravity);
                         }
                     }
                 }
-                (*A)->move(_gravity);
+                (*A)->move();
             }
         }
     }

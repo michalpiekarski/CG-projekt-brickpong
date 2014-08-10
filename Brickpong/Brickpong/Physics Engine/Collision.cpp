@@ -44,7 +44,7 @@ glm::vec2 Collision::getTangent() {
 void Collision::setTangent(glm::vec2 tangent) {
     _tangent = tangent;
 }
-void Collision::resolve() {
+void Collision::resolve(glm::vec2 gravity) {
     glm::vec2 A_velocity = _A->getVelocity();
     glm::vec2 B_velocity = _B->getVelocity();
     glm::vec2 relativeVelocity = B_velocity - A_velocity;
@@ -113,4 +113,7 @@ void Collision::resolve() {
 
     _A->setVelocity(A_velocity-(A_inverseMass*frictionImpulse));
     _B->setVelocity(B_velocity-(B_inverseMass*frictionImpulse));
+
+    _A->setVelocity(gravity * _A->getGravityScale() + _A->getVelocity());
+    _B->setVelocity(gravity * _B->getGravityScale() + _B->getVelocity());
 }

@@ -26,7 +26,7 @@ public:
     void setNormal(glm::vec2 normal);
     glm::vec2 getTangent();
     void setTangent(glm::vec2 tangent);
-    void resolve();
+    void resolve(glm::vec2 gravity);
 };
 
 #endif /* defined(__Brickpong__Collision__) */
