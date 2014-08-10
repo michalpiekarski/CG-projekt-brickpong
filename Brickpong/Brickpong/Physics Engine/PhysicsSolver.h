@@ -31,7 +31,7 @@ public:
     void setBodyList(int bodyCount, std::list<Body*> bodyList);
     bool colideBodies(Body* A, int A_colliderType, Body* B, int B_colliderType, Collision* collision);
     void step();
-    void run();
+    void run(float currentTime);
 };
 
 #endif /* defined(__Brickpong__PhysicsSolver__) */

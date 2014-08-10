@@ -86,6 +86,16 @@ void PhysicsSolver::step() {
     }
 }
 
-void PhysicsSolver::run() {
-    // TODO: implement main physics loop
+void PhysicsSolver::run(float currentTime) {
+    _accumulator += currentTime - _frameStartTime;
+    _frameStartTime = currentTime;
+
+    if (_accumulator > 0.2f) {
+        _accumulator = 0.2f;
+    }
+
+    while (_accumulator > _dt) {
+        step();
+        _accumulator -= _dt;
+    }
 }
