@@ -22,6 +22,7 @@ public:
     virtual bool checkCollisionCrosstype(Body* other, Collision* collision);
     bool checkCollision(BodyAABB* other, Collision* collision);
     bool checkCollisionCrosstype(BodyCircle* other, Collision* collision);
+    virtual void move();
 };
 
 #endif /* defined(__Brickpong__Body__AABB__) */

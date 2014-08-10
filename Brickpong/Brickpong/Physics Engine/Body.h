@@ -37,7 +37,7 @@ public:
     float getGravityScale();
     void setGravityScale(float gravityScale);
     int getColliderType();
-    void move();
+    virtual void move();
 };
 
 #endif /* defined(__Brickpong__Body__) */

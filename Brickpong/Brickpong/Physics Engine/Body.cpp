@@ -79,8 +79,8 @@ void Body::setGravityScale(float gravityScale) {
 int Body::getColliderType() {
     return _colliderType;
 }
- void Body::move() {
-     if (_isStatic == false) {
-         _position += _velocity;
-     }
- }
+void Body::move() {
+    if (_isStatic == false) {
+        _position += _velocity;
+    }
+}

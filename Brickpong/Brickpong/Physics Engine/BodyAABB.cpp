@@ -42,7 +42,6 @@ bool BodyAABB::checkCollisionCrosstype(Body* other, Collision* collision) {
 
 bool BodyAABB::checkCollision(BodyAABB* other, Collision* collision) {
     if (_collider->checkCollision(other->getCollider())) {
-        collision = new Collision(this, other);
 
         glm::vec2 n = other->getPosition() - _position;
 
@@ -85,7 +84,6 @@ bool BodyAABB::checkCollision(BodyAABB* other, Collision* collision) {
 
 bool BodyAABB::checkCollisionCrosstype(BodyCircle* other, Collision* collision) {
     if (_collider->checkCollisionCrosstype(other->getCollider())) {
-        collision = new Collision(this, other);
 
         glm::vec2 n = other->getPosition() - _position;
         glm::vec2 closest = n;
@@ -130,4 +128,9 @@ bool BodyAABB::checkCollisionCrosstype(BodyCircle* other, Collision* collision) 
         return true;
     }
     return false;
+}
+
+void BodyAABB::move() {
+    Body::move();
+    _collider->setPosition(_position);
 }
