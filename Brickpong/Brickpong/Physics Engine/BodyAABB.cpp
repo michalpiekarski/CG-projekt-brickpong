@@ -46,14 +46,14 @@ bool BodyAABB::checkCollision(BodyAABB* other, Collision* collision) {
 
         glm::vec2 n = other->getPosition() - _position;
 
-        float a_extent_x = (_collider->getMax().x - _collider->getWidth()) / 2.0f;
-        float b_extent_x = ( other->getCollider()->getMax().x - other->getCollider()->getWidth()) / 2.0f;
+        float a_extent_x = (_collider->getMax().x - _collider->getMin().x) / 2.0f;
+        float b_extent_x = ( other->getCollider()->getMax().x - other->getCollider()->getMin().x) / 2.0f;
 
         float x_overlap = a_extent_x + b_extent_x - glm::abs(n.x);
 
         if (x_overlap > 0) {
-            float a_extent_y = (_collider->getMax().y - _collider->getHeight()) / 2.0f;
-            float b_extent_y = (other->getCollider()->getMax().y - other->getCollider()->getHeight()) / 2.0f;
+            float a_extent_y = (_collider->getMax().y - _collider->getMin().y) / 2.0f;
+            float b_extent_y = (other->getCollider()->getMax().y - other->getCollider()->getMin().y) / 2.0f;
 
             float y_overlap = a_extent_y + b_extent_y - glm::abs(n.y);
 
@@ -89,8 +89,8 @@ bool BodyAABB::checkCollisionCrosstype(BodyCircle* other, Collision* collision) 
 
         glm::vec2 n = other->getPosition() - _position;
         glm::vec2 closest = n;
-        float x_extent = (_collider->getMax().x - _collider->getWidth()) / 2.0f;
-        float y_extent = (_collider->getMax().y - _collider->getHeight()) / 2.0f;
+        float x_extent = (_collider->getMax().x - _collider->getMin().x) / 2.0f;
+        float y_extent = (_collider->getMax().y - _collider->getMin().y) / 2.0f;
         closest.x = glm::clamp(-x_extent, x_extent, closest.x);
         closest.y = glm::clamp(-y_extent, y_extent, closest.y);
         bool inside = false;
