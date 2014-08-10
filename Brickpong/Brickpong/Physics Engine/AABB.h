@@ -10,6 +10,7 @@ class AABB {
 private:
     float _width;
     float _height;
+    glm::vec2 _position;
     glm::vec2 _min;
     glm::vec2 _max;
 public:
@@ -22,6 +23,8 @@ public:
     void setWidth(float width);
     float getHeight();
     void setHeight(float height);
+    glm::vec2 getPosition();
+    void setPosition(glm::vec2 position);
     glm::vec2 getMin();
     void setMin(glm::vec2 min);
     glm::vec2 getMax();
