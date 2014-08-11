@@ -7,3 +7,6 @@
 [submodule "freetype"]
 	path = freetype
 	url = git://git.sv.gnu.org/freetype/freetype2.git
+[submodule "box2d"]
+	path = box2d
+	url = https://github.com/ansman/box2d.git
