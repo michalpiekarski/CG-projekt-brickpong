@@ -50,31 +50,41 @@ bool BodyAABB::checkCollision(BodyAABB* other, Collision* collision) {
 
         float x_overlap = a_extent_x + b_extent_x - glm::abs(n.x);
 
-        if (x_overlap > 0) {
+        if (x_overlap > 0.0f) {
             float a_extent_y = (_collider->getMax().y - _collider->getMin().y) / 2.0f;
             float b_extent_y = (other->getCollider()->getMax().y - other->getCollider()->getMin().y) / 2.0f;
 
             float y_overlap = a_extent_y + b_extent_y - glm::abs(n.y);
 
-            if (y_overlap > 0) {
-                if (x_overlap > y_overlap) {
-                    if (n.x < 0) {
-                        collision->setNormal(glm::vec2(-1, 0));
-                    }
-                    else {
-                        collision->setNormal(glm::vec2(1, 0));
-                    }
-                    collision->setPenetration(x_overlap);
+            if (y_overlap > 0.0f) {
+                float normal_x;
+                if (n.x < 0.0f) {
+                    normal_x = -1.0f;
                 }
-                else {
-                    if (n.y < 0) {
-                        collision->setNormal(glm::vec2(0, -1));
-                    }
-                    else {
-                        collision->setNormal(glm::vec2(0, 1));
-                    }
+                else if(n.x > 0.0f){
+                    normal_x = 1.0f;
+                } else {
+                    normal_x = 0.0f;
+                }
+
+                float normal_y;
+                if (n.y < 0.0f) {
+                    normal_y = -1.0f;
+                }
+                else if(n.y > 0.0f){
+                    normal_y = 1.0f;
+                } else {
+                    normal_y = 0.0f;
+                }
+
+                collision->setNormal(glm::vec2(normal_x, normal_y));
+
+                if(x_overlap > y_overlap){
+                    collision->setPenetration(x_overlap);
+                } else {
                     collision->setPenetration(y_overlap);
                 }
+                
                 return true;
             }
         }
