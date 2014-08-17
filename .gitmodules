@@ -1,6 +1,3 @@
-[submodule "biblioteki/source/glew"]
-	path = biblioteki/source/glew
-	url = https://github.com/nigels-com/glew.git
 [submodule "biblioteki/source/glfw"]
 	path = biblioteki/source/glfw
 	url = https://github.com/glfw/glfw.git
