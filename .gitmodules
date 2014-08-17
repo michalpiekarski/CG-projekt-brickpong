@@ -1,0 +1,18 @@
+[submodule "biblioteki/source/glew"]
+	path = biblioteki/source/glew
+	url = https://github.com/nigels-com/glew.git
+[submodule "biblioteki/source/glfw"]
+	path = biblioteki/source/glfw
+	url = https://github.com/glfw/glfw.git
+[submodule "biblioteki/source/assimp"]
+	path = biblioteki/source/assimp
+	url = https://github.com/assimp/assimp.git
+[submodule "biblioteki/source/glm"]
+	path = biblioteki/source/glm
+	url = https://github.com/g-truc/glm.git
+[submodule "biblioteki/source/box2d"]
+	path = biblioteki/source/box2d
+	url = https://github.com/ansman/box2d.git
+[submodule "biblioteki/source/freetype"]
+	path = biblioteki/source/freetype
+	url = git://git.sv.gnu.org/freetype/freetype2.git
