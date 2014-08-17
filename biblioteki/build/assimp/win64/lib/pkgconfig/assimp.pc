@@ -1,0 +1,10 @@
+prefix=C:/Users/michalpiekarski/Documents/WSNHiD/CG-projekt-brickpong/biblioteki/build/assimp/win64
+exec_prefix=C:/Users/michalpiekarski/Documents/WSNHiD/CG-projekt-brickpong/biblioteki/build/assimp/win64/bin
+libdir=C:/Users/michalpiekarski/Documents/WSNHiD/CG-projekt-brickpong/biblioteki/build/assimp/win64/lib
+includedir=C:/Users/michalpiekarski/Documents/WSNHiD/CG-projekt-brickpong/biblioteki/build/assimp/win64/include/assimp
+
+Name: Assimp
+Description: Import various well-known 3D model formats in an uniform manner.
+Version: 3.1.1
+Libs: -L${libdir} -lassimp64
+Cflags: -I${includedir}
