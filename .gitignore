@@ -1,7 +1,6 @@
 ## General
 
-biblioteki/*
-!biblioteki/biblioteki.md
+biblioteki/tmp/
 
 ## C++
 
