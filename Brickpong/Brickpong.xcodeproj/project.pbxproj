@@ -9,12 +9,11 @@
 /* Begin PBXBuildFile section */
 		E907F50F198F7958003FE113 /* Simple.frag in CopyFiles */ = {isa = PBXBuildFile; fileRef = E907F50B198F773C003FE113 /* Simple.frag */; };
 		E907F510198F7958003FE113 /* Simple.vert in CopyFiles */ = {isa = PBXBuildFile; fileRef = E907F50C198F773C003FE113 /* Simple.vert */; };
+		E96D6F8219A2A6F4004C6BEB /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E96D6F8119A2A6F4004C6BEB /* libfreetype.a */; };
 		E97CE0BE1996B29800FEA53C /* PhysicsSolver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E97CE0BC1996B29800FEA53C /* PhysicsSolver.cpp */; };
 		E9A1BA7719A1357D00CE01B1 /* libglfw.3.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E9A1BA7619A1357D00CE01B1 /* libglfw.3.1.dylib */; };
 		E9A1BA7919A1359100CE01B1 /* libassimp64d.3.1.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E9A1BA7819A1359100CE01B1 /* libassimp64d.3.1.1.dylib */; };
 		E9A1BA7B19A135A800CE01B1 /* libBox2D.2.3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E9A1BA7A19A135A800CE01B1 /* libBox2D.2.3.0.dylib */; };
-		E9A1BA7D19A135B400CE01B1 /* libfreetype.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E9A1BA7C19A135B400CE01B1 /* libfreetype.dylib */; };
-		E9A1BA7F19A135EA00CE01B1 /* libfreetype.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = E9A1BA7C19A135B400CE01B1 /* libfreetype.dylib */; };
 		E9A1BA8019A135EA00CE01B1 /* libBox2D.2.3.0.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = E9A1BA7A19A135A800CE01B1 /* libBox2D.2.3.0.dylib */; };
 		E9A1BA8119A135EA00CE01B1 /* libassimp64d.3.1.1.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = E9A1BA7819A1359100CE01B1 /* libassimp64d.3.1.1.dylib */; };
 		E9A1BA8219A135EA00CE01B1 /* libglfw.3.1.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = E9A1BA7619A1357D00CE01B1 /* libglfw.3.1.dylib */; };
@@ -43,7 +42,6 @@
 			dstPath = lib;
 			dstSubfolderSpec = 16;
 			files = (
-				E9A1BA7F19A135EA00CE01B1 /* libfreetype.dylib in CopyFiles */,
 				E9A1BA8019A135EA00CE01B1 /* libBox2D.2.3.0.dylib in CopyFiles */,
 				E9A1BA8119A135EA00CE01B1 /* libassimp64d.3.1.1.dylib in CopyFiles */,
 				E9A1BA8219A135EA00CE01B1 /* libglfw.3.1.dylib in CopyFiles */,
@@ -66,12 +64,12 @@
 /* Begin PBXFileReference section */
 		E907F50B198F773C003FE113 /* Simple.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Simple.frag; sourceTree = "<group>"; };
 		E907F50C198F773C003FE113 /* Simple.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Simple.vert; sourceTree = "<group>"; };
+		E96D6F8119A2A6F4004C6BEB /* libfreetype.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfreetype.a; path = ../biblioteki/build/freetype/osx/lib/libfreetype.a; sourceTree = "<group>"; };
 		E97CE0BC1996B29800FEA53C /* PhysicsSolver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PhysicsSolver.cpp; sourceTree = "<group>"; };
 		E97CE0BD1996B29800FEA53C /* PhysicsSolver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhysicsSolver.h; sourceTree = "<group>"; };
 		E9A1BA7619A1357D00CE01B1 /* libglfw.3.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglfw.3.1.dylib; path = ../biblioteki/build/glfw/osx/lib64/libglfw.3.1.dylib; sourceTree = "<group>"; };
 		E9A1BA7819A1359100CE01B1 /* libassimp64d.3.1.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libassimp64d.3.1.1.dylib; path = ../biblioteki/build/assimp/osx/lib/libassimp64d.3.1.1.dylib; sourceTree = "<group>"; };
 		E9A1BA7A19A135A800CE01B1 /* libBox2D.2.3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libBox2D.2.3.0.dylib; path = ../biblioteki/build/box2d/osx/lib/libBox2D.2.3.0.dylib; sourceTree = "<group>"; };
-		E9A1BA7C19A135B400CE01B1 /* libfreetype.dylib */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfreetype.dylib; path = ../biblioteki/build/freetype/osx/lib/libfreetype.dylib; sourceTree = "<group>"; };
 		E9C72878199401BC00D91BB0 /* main.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = main.h; sourceTree = "<group>"; };
 		E9C7287A199401C800D91BB0 /* AABB.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AABB.cpp; sourceTree = "<group>"; };
 		E9C7287B199401C800D91BB0 /* AABB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AABB.h; sourceTree = "<group>"; };
@@ -117,7 +115,7 @@
 				E9A1BA7719A1357D00CE01B1 /* libglfw.3.1.dylib in Frameworks */,
 				E9A1BA7919A1359100CE01B1 /* libassimp64d.3.1.1.dylib in Frameworks */,
 				E9A1BA7B19A135A800CE01B1 /* libBox2D.2.3.0.dylib in Frameworks */,
-				E9A1BA7D19A135B400CE01B1 /* libfreetype.dylib in Frameworks */,
+				E96D6F8219A2A6F4004C6BEB /* libfreetype.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -180,7 +178,7 @@
 		E9F2A8691968F8680011EAAF = {
 			isa = PBXGroup;
 			children = (
-				E9A1BA7C19A135B400CE01B1 /* libfreetype.dylib */,
+				E96D6F8119A2A6F4004C6BEB /* libfreetype.a */,
 				E9A1BA7A19A135A800CE01B1 /* libBox2D.2.3.0.dylib */,
 				E9A1BA7819A1359100CE01B1 /* libassimp64d.3.1.1.dylib */,
 				E9A1BA7619A1357D00CE01B1 /* libglfw.3.1.dylib */,
@@ -359,16 +357,16 @@
 		E9F2A87C1968F8690011EAAF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				FRAMEWORK_SEARCH_PATHS = "";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"/Applications/Xcode6-Beta4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include",
-					../biblioteki/build/glfw/osx/include,
-					../biblioteki/build/glm/osx/include,
-					../biblioteki/build/assimp/osx/include,
-					../biblioteki/build/box2d/osx/include,
-					../biblioteki/build/freetype/osx/include,
+					"../biblioteki/build/glfw/osx/include/**",
+					"../biblioteki/build/glm/osx/include/**",
+					"../biblioteki/build/assimp/osx/include/**",
+					"../biblioteki/build/box2d/osx/include/**",
+					"../biblioteki/build/freetype/osx/include/**",
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -376,10 +374,6 @@
 					../biblioteki/build/assimp/osx/lib,
 					../biblioteki/build/box2d/osx/lib,
 					../biblioteki/build/freetype/osx/lib,
-					"/Users/michalpiekarski/Documents/WSNHiD/Projekty/CG-projekt-brickpong/biblioteki/build/glfw/osx/lib64",
-					"/Users/michalpiekarski/Documents/WSNHiD/Projekty/CG-projekt-brickpong/biblioteki/build/assimp/osx/lib",
-					"/Users/michalpiekarski/Documents/WSNHiD/Projekty/CG-projekt-brickpong/biblioteki/build/box2d/osx/lib",
-					"/Users/michalpiekarski/Documents/WSNHiD/Projekty/CG-projekt-brickpong/biblioteki/build/freetype/osx/lib",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "";
@@ -389,16 +383,16 @@
 		E9F2A87D1968F8690011EAAF /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				FRAMEWORK_SEARCH_PATHS = "";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"/Applications/Xcode6-Beta4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include",
-					../biblioteki/build/glfw/osx/include,
-					../biblioteki/build/glm/osx/include,
-					../biblioteki/build/assimp/osx/include,
-					../biblioteki/build/box2d/osx/include,
-					../biblioteki/build/freetype/osx/include,
+					"../biblioteki/build/glfw/osx/include/**",
+					"../biblioteki/build/glm/osx/include/**",
+					"../biblioteki/build/assimp/osx/include/**",
+					"../biblioteki/build/box2d/osx/include/**",
+					"../biblioteki/build/freetype/osx/include/**",
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -406,10 +400,6 @@
 					../biblioteki/build/assimp/osx/lib,
 					../biblioteki/build/box2d/osx/lib,
 					../biblioteki/build/freetype/osx/lib,
-					"/Users/michalpiekarski/Documents/WSNHiD/Projekty/CG-projekt-brickpong/biblioteki/build/glfw/osx/lib64",
-					"/Users/michalpiekarski/Documents/WSNHiD/Projekty/CG-projekt-brickpong/biblioteki/build/assimp/osx/lib",
-					"/Users/michalpiekarski/Documents/WSNHiD/Projekty/CG-projekt-brickpong/biblioteki/build/box2d/osx/lib",
-					"/Users/michalpiekarski/Documents/WSNHiD/Projekty/CG-projekt-brickpong/biblioteki/build/freetype/osx/lib",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "";
