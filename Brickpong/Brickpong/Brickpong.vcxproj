@@ -65,35 +65,54 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\biblioteki\build\glew\win\include;$(SolutionDir)..\biblioteki\build\glfw\win\include;$(SolutionDir)..\biblioteki\build\assimp\win\include;$(SolutionDir)..\biblioteki\build\glm\win\include;$(SolutionDir)..\biblioteki\build\box2d\win\include;$(SolutionDir)..\biblioteki\build\freetype\win\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\biblioteki\build\glew\win\lib;$(SolutionDir)..\biblioteki\build\glfw\win\lib;$(SolutionDir)..\biblioteki\build\assimp\win\lib;$(SolutionDir)..\biblioteki\build\box2d\win\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glew32.lib;opengl32.lib;glfw3dll.lib;assimpd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>copy "$(SolutionDir)..\biblioteki\build\glew\win\bin\glew32.dll" "$(OutDir)" /y
+copy "$(SolutionDir)..\biblioteki\build\glfw\win\lib\glfw3.dll" "$(OutDir)" /y
+copy "$(SolutionDir)..\biblioteki\build\assimp\win\bin\assimpd.dll" "$(OutDir)" /y
+copy "$(SolutionDir)..\biblioteki\build\box2d\win\bin\Box2D.dll" "$(OutDir)" /y
+copy "$(SolutionDir)..\biblioteki\build\freetype\win\lib\freetype.dll" "$(OutDir)" /y
+
+xcopy "$(ProjectDir)shaders" "$(OutDir)shaders" /f /y /i</Command>
+      <Message>Copy DLL and shader files to output directory.</Message>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Users\michalpiekarski\Documents\WSNHiD\CG-projekt-brickpong\biblioteki\GLEW_WIN\include;C:\Users\michalpiekarski\Documents\WSNHiD\CG-projekt-brickpong\biblioteki\GLFW_WINx64\include;C:\Users\michalpiekarski\Documents\WSNHiD\CG-projekt-brickpong\biblioteki\GLM_WINx64\include;C:\Users\michalpiekarski\Documents\WSNHiD\CG-projekt-brickpong\biblioteki\FREETYPE_WINx64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\biblioteki\build\glew\win64\include;$(SolutionDir)..\biblioteki\build\glfw\win64\include;$(SolutionDir)..\biblioteki\build\assimp\win64\include;$(SolutionDir)..\biblioteki\build\glm\win64\include;$(SolutionDir)..\biblioteki\build\box2d\win64\include;$(SolutionDir)..\biblioteki\build\freetype\win64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\michalpiekarski\Documents\WSNHiD\CG-projekt-brickpong\biblioteki\GLEW_WIN\lib\Release\x64;C:\Users\michalpiekarski\Documents\WSNHiD\CG-projekt-brickpong\biblioteki\GLFW_WINx64\lib64;C:\Users\michalpiekarski\Documents\WSNHiD\CG-projekt-brickpong\biblioteki\GLM_WINx64\lib;C:\Users\michalpiekarski\Documents\WSNHiD\CG-projekt-brickpong\biblioteki\FREETYPE_WINx64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;glew32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\biblioteki\build\glew\win64\lib;$(SolutionDir)..\biblioteki\build\glfw\win64\lib64;$(SolutionDir)..\biblioteki\build\assimp\win64\lib;$(SolutionDir)..\biblioteki\build\glm\win64\lib;$(SolutionDir)..\biblioteki\build\box2d\win64\lib;$(SolutionDir)..\biblioteki\build\freetype\win64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glew32.lib;opengl32.lib;glfw3dll.lib;assimp64d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /y /d "$(ProjectDir)/shaders/*.(vert|frag)" "$(OutDir)"
-xcopy /y /d "$(ProjectDir)glew32.dll" "$(OutDir)"</Command>
+      <Command>copy "$(SolutionDir)..\biblioteki\build\glew\win64\bin\glew32.dll" "$(OutDir)" /y
+copy "$(SolutionDir)..\biblioteki\build\glfw\win64\lib64\glfw3.dll" "$(OutDir)" /y
+copy "$(SolutionDir)..\biblioteki\build\assimp\win64\bin\assimp64d.dll" "$(OutDir)" /y
+copy "$(SolutionDir)..\biblioteki\build\box2d\win64\bin\Box2D.dll" "$(OutDir)" /y
+copy "$(SolutionDir)..\biblioteki\build\freetype\win64\lib\freetype.dll" "$(OutDir)" /y
+
+xcopy "$(ProjectDir)shaders" "$(OutDir)shaders" /f /y /i</Command>
     </PostBuildEvent>
     <PostBuildEvent>
-      <Message>Copy GLEW DLL to product folder (where the .exe file ends up)</Message>
+      <Message>Copy DLL and shader files to output directory.</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -103,12 +122,25 @@ xcopy /y /d "$(ProjectDir)glew32.dll" "$(OutDir)"</Command>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\biblioteki\build\glew\win\include;$(SolutionDir)..\biblioteki\build\glfw\win\include;$(SolutionDir)..\biblioteki\build\assimp\win\include;$(SolutionDir)..\biblioteki\build\glm\win\include;$(SolutionDir)..\biblioteki\build\box2d\win\include;$(SolutionDir)..\biblioteki\build\freetype\win\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\biblioteki\build\glew\win\lib;$(SolutionDir)..\biblioteki\build\glfw\win\lib;$(SolutionDir)..\biblioteki\build\assimp\win\lib;$(SolutionDir)..\biblioteki\build\box2d\win\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glew32.lib;opengl32.lib;glfw3dll.lib;assimpd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>copy "$(SolutionDir)..\biblioteki\build\glew\win\bin\glew32.dll" "$(OutDir)" /y
+copy "$(SolutionDir)..\biblioteki\build\glfw\win\lib\glfw3.dll" "$(OutDir)" /y
+copy "$(SolutionDir)..\biblioteki\build\assimp\win\bin\assimpd.dll" "$(OutDir)" /y
+copy "$(SolutionDir)..\biblioteki\build\box2d\win\bin\Box2D.dll" "$(OutDir)" /y
+copy "$(SolutionDir)..\biblioteki\build\freetype\win\lib\freetype.dll" "$(OutDir)" /y
+
+xcopy "$(ProjectDir)shaders" "$(OutDir)shaders" /f /y /i</Command>
+      <Message>Copy DLL and shader files to output directory.</Message>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -117,21 +149,26 @@ xcopy /y /d "$(ProjectDir)glew32.dll" "$(OutDir)"</Command>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Users\michalpiekarski\Documents\WSNHiD\CG-projekt-brickpong\biblioteki\GLEW_WIN\include;C:\Users\michalpiekarski\Documents\WSNHiD\CG-projekt-brickpong\biblioteki\GLFW_WINx64\include;C:\Users\michalpiekarski\Documents\WSNHiD\CG-projekt-brickpong\biblioteki\GLM_WINx64\include;C:\Users\michalpiekarski\Documents\WSNHiD\CG-projekt-brickpong\biblioteki\FREETYPE_WINx64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\biblioteki\build\glew\win64\include;$(SolutionDir)..\biblioteki\build\glfw\win64\include;$(SolutionDir)..\biblioteki\build\assimp\win64\include;$(SolutionDir)..\biblioteki\build\glm\win64\include;$(SolutionDir)..\biblioteki\build\box2d\win64\include;$(SolutionDir)..\biblioteki\build\freetype\win64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>C:\Users\michalpiekarski\Documents\WSNHiD\CG-projekt-brickpong\biblioteki\GLEW_WIN\lib\Release\x64;C:\Users\michalpiekarski\Documents\WSNHiD\CG-projekt-brickpong\biblioteki\GLFW_WINx64\lib64;C:\Users\michalpiekarski\Documents\WSNHiD\CG-projekt-brickpong\biblioteki\GLM_WINx64\lib;C:\Users\michalpiekarski\Documents\WSNHiD\CG-projekt-brickpong\biblioteki\FREETYPE_WINx64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;glew32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\biblioteki\build\glew\win64\lib;$(SolutionDir)..\biblioteki\build\glfw\win64\lib64;$(SolutionDir)..\biblioteki\build\assimp\win64\lib;$(SolutionDir)..\biblioteki\build\glm\win64\lib;$(SolutionDir)..\biblioteki\build\box2d\win64\lib;$(SolutionDir)..\biblioteki\build\freetype\win64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glew32.lib;opengl32.lib;glfw3dll.lib;assimp64d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /y /d "$(ProjectDir)/shaders/*.(vert|frag)" "$(OutDir)"
-xcopy /y /d "$(ProjectDir)glew32.dll" "$(OutDir)"</Command>
+      <Command>copy "$(SolutionDir)..\biblioteki\build\glew\win64\bin\glew32.dll" "$(OutDir)" /y
+copy "$(SolutionDir)..\biblioteki\build\glfw\win64\lib64\glfw3.dll" "$(OutDir)" /y
+copy "$(SolutionDir)..\biblioteki\build\assimp\win64\bin\assimp64d.dll" "$(OutDir)" /y
+copy "$(SolutionDir)..\biblioteki\build\box2d\win64\bin\Box2D.dll" "$(OutDir)" /y
+copy "$(SolutionDir)..\biblioteki\build\freetype\win64\lib\freetype.dll" "$(OutDir)" /y
+
+xcopy "$(ProjectDir)shaders" "$(OutDir)shaders" /f /y /i</Command>
     </PostBuildEvent>
     <PostBuildEvent>
-      <Message>Copy GLEW DLL to product folder (where the .exe file ends up)</Message>
+      <Message>Copy DLL and shader files to output directory.</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -173,8 +210,18 @@ xcopy /y /d "$(ProjectDir)glew32.dll" "$(OutDir)"</Command>
     <ClInclude Include="Physics Engine\PhysicsSolver.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="shaders\Simple.frag" />
-    <None Include="shaders\Simple.vert" />
+    <None Include="shaders\Simple.frag">
+      <FileType>Document</FileType>
+      <DeploymentContent>true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</DeploymentContent>
+    </None>
+    <None Include="shaders\Simple.vert">
+      <FileType>Document</FileType>
+      <DeploymentContent>true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</DeploymentContent>
+    </None>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
