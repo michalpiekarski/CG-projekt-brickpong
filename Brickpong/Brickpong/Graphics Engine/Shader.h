@@ -5,10 +5,15 @@
 #include <fstream>
 
 #ifdef _WIN32
-#include <GL/glew.h>
-#endif
+    #include <GL/glew.h>
+    #ifndef GLFW_DLL
+        #define GLFW_DLL
+    #endif /* defined(GLFW_DLL) */
+#endif /* included(GL/glew.h) */
 #ifdef __APPLE__
-#define GLFW_INCLUDE_GLCOREARB
+    #ifndef GLFW_INCLUDE_GLCOREARB
+        #define GLFW_INCLUDE_GLCOREARB
+    #endif /* defined(GLFW_INCLUDE_GLCOREARB) */
 #endif
 #include <GLFW/glfw3.h>
 
