@@ -168,8 +168,6 @@ xcopy "$(ProjectDir)shaders" "$(OutDir)shaders" /f /y /i</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Physics Engine\AABB.cpp" />
-    <ClCompile Include="Physics Engine\Body.cpp" />
     <ClCompile Include="BrickpongException.cpp" />
     <ClCompile Include="Graphics Engine\EBO.cpp" />
     <ClCompile Include="main.cpp" />
@@ -178,18 +176,10 @@ xcopy "$(ProjectDir)shaders" "$(OutDir)shaders" /f /y /i</Command>
     <ClCompile Include="Graphics Engine\VAO.cpp" />
     <ClCompile Include="Graphics Engine\VBO.cpp" />
     <ClCompile Include="Graphics Engine\Window.cpp" />
-    <ClCompile Include="Physics Engine\BodyAABB.cpp" />
-    <ClCompile Include="Physics Engine\BodyCircle.cpp" />
-    <ClCompile Include="Physics Engine\Circle.cpp" />
-    <ClCompile Include="Physics Engine\Collision.cpp" />
-    <ClCompile Include="Physics Engine\PhysicsMaterial.cpp" />
-    <ClCompile Include="Physics Engine\PhysicsSolver.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Graphics Engine\Graphics Engine.h" />
     <ClInclude Include="main.h" />
-    <ClInclude Include="Physics Engine\AABB.h" />
-    <ClInclude Include="Physics Engine\Body.h" />
     <ClInclude Include="BrickpongException.h" />
     <ClInclude Include="Graphics Engine\EBO.h" />
     <ClInclude Include="Graphics Engine\Shader.h" />
@@ -197,13 +187,6 @@ xcopy "$(ProjectDir)shaders" "$(OutDir)shaders" /f /y /i</Command>
     <ClInclude Include="Graphics Engine\VAO.h" />
     <ClInclude Include="Graphics Engine\VBO.h" />
     <ClInclude Include="Graphics Engine\Window.h" />
-    <ClInclude Include="Physics Engine\BodyAABB.h" />
-    <ClInclude Include="Physics Engine\BodyCircle.h" />
-    <ClInclude Include="Physics Engine\Circle.h" />
-    <ClInclude Include="Physics Engine\Collision.h" />
-    <ClInclude Include="Physics Engine\Physics Engine.h" />
-    <ClInclude Include="Physics Engine\PhysicsMaterial.h" />
-    <ClInclude Include="Physics Engine\PhysicsSolver.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\Simple.frag">
