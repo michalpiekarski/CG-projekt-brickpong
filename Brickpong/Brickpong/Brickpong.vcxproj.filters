@@ -21,6 +21,18 @@
     <Filter Include="Graphics Engine\Source Files">
       <UniqueIdentifier>{1c8d16c4-e0b9-4b80-b9ff-236e54c7e92a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game Logic">
+      <UniqueIdentifier>{1a45a851-89cc-4470-8a9f-c4544c2bdc72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game Logic\Brickpong">
+      <UniqueIdentifier>{e54bb0cf-c9b1-4200-a1ca-54467a682f65}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game Logic\Brickpong\Header Files">
+      <UniqueIdentifier>{e731a1f3-9118-4d10-8ac2-2803ee121c6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game Logic\Brickpong\Source Files">
+      <UniqueIdentifier>{f7d065a2-accf-4f70-835c-55d58a9e7b66}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -46,6 +58,9 @@
     </ClCompile>
     <ClCompile Include="Graphics Engine\Window.cpp">
       <Filter>Graphics Engine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game Logic\Brickpong\GameManager.cpp">
+      <Filter>Game Logic\Brickpong\Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -75,6 +90,9 @@
     </ClInclude>
     <ClInclude Include="Graphics Engine\Graphics Engine.h">
       <Filter>Graphics Engine\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game Logic\Brickpong\GameManager.h">
+      <Filter>Game Logic\Brickpong\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
