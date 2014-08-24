@@ -1,18 +1,98 @@
 #include "main.h"
 
-//    // Comment out for debut output in console
-//#define __Brickpong__DEBUG_LOG__
+    //    // Comment out for debut output in console
+    //#define __Brickpong__DEBUG_LOG__
 
-float CursorX = 0.0f;
-float CurserOffset = 150.0f;
-float CursorDamping = 10.0f;
+b2World* world;
+b2Body* ball;
+b2Body* pad;
+struct Brick {
+    b2Body* body;
+    bool destroyed;
+};
+std::list<Brick> bricks;
+struct Cursor {
+    float positionX = 0.0f;
+    float maxOffset = 150.0f;
+    float damping = 10.0f;
+} cursor;
 
-glm::vec3 BallPosition = glm::vec3(1.0f, -6.0f, 0);
-glm::vec3 BallVelocity = glm::vec3(0.05f, 0.1f, 0);
-glm::vec3 PauseBallVelocity = glm::vec3(0, 0, 0);
+void CreateWorld(b2Vec2 agravity) {
+    world = new b2World(agravity);
+}
 
-int Points = 0;
-bool bricks[500];
+void DestroyWorld(){
+    delete world;
+}
+
+void CreateBall() {
+    b2BodyDef ballBDef;
+    ballBDef.type = b2_dynamicBody;
+    ballBDef.position.Set(1.0f, -5.0f);
+    ballBDef.linearVelocity.Set(2.0f, 4.0f);
+    ballBDef.gravityScale = 0.0f;
+    ballBDef.linearDamping = 0.0f;
+    ballBDef.bullet = true;
+    ball = world->CreateBody(&ballBDef);
+    b2CircleShape ballShape;
+    ballShape.m_radius = 0.25f;
+    b2FixtureDef ballFDef;
+    ballFDef.shape = &ballShape;
+    ballFDef.density = 1.0f;
+    ballFDef.friction = 0.5f;
+    ballFDef.restitution = 1.0f;
+    ball->CreateFixture(&ballFDef);
+}
+
+void CreatePad() {
+    b2BodyDef padBDef;
+    padBDef.type = b2_kinematicBody;
+    padBDef.position.Set(cursor.positionX, -7.0f);
+    pad = world->CreateBody(&padBDef);
+    b2PolygonShape padShape;
+    padShape.SetAsBox(1.0f, 0.25f);
+    pad->CreateFixture(&padShape, 0.0f);
+}
+
+void CreateBrick(Brick* abrick, b2Vec2 pos, b2Vec2 size) {
+    b2BodyDef brickBDef;
+    brickBDef.type = b2_staticBody;
+    brickBDef.position.Set(pos.x, pos.y);
+    abrick->body = world->CreateBody(&brickBDef);
+    b2PolygonShape brickShape;
+    brickShape.SetAsBox(size.x/2.0f, size.y/2.0f);
+    abrick->body->CreateFixture(&brickShape, 0.0f);
+    abrick->destroyed = false;
+}
+
+void CreateManyBricks(b2Vec2 startPos, b2Vec2 endPos, b2Vec2 size, b2Vec2 padding) {
+    b2BodyDef brickBDef;
+    brickBDef.type = b2_staticBody;
+    b2PolygonShape brickShape;
+    brickShape.SetAsBox(size.x/2.0f, size.y/2.0f);
+    for (float32 x = startPos.x; x <= endPos.x; x+=size.x+padding.x) {
+        for (float32 y = startPos.y; y <= endPos.y; y+=size.y+padding.y) {
+            brickBDef.position.Set(x, y);
+            b2Body* brickBody = world->CreateBody(&brickBDef);
+            brickBody->CreateFixture(&brickShape, 0.0f);
+            Brick brick;
+            brick.body = brickBody;
+            brick.destroyed = false;
+            bricks.push_back(brick);
+        }
+    }
+}
+
+void CreateGame() {
+    CreateWorld(b2Vec2(0.0f, -10.0f));
+    CreateBall();
+    CreatePad();
+    CreateManyBricks(b2Vec2(-7.0f, -3.0f), b2Vec2(7.0f, 0.0f), b2Vec2(1.0f, 0.5f), b2Vec2(0.05f, 0.05f));
+}
+
+void DestroyGame() {
+    DestroyWorld();
+}
 
 void CreateBuffers(VBO* vVBO, VBO* cVBO, EBO* myEBO) {
     GLfloat vertex_data[8][3] = {
@@ -64,34 +144,38 @@ void Draw(EBO* myEBO) {
 void cursorPositionChanged(GLFWwindow *window, double x, double y) {
     int windowWidth;
     glfwGetFramebufferSize(window, &windowWidth, NULL);
-    CursorX = glm::clamp(float(-(x - windowWidth / 2.0f)), -CurserOffset, CurserOffset) / CursorDamping;
+    cursor.positionX = glm::clamp(float(-(x - windowWidth / 2.0f)), -cursor.maxOffset, cursor.maxOffset) / cursor.damping;
+    pad->SetTransform(b2Vec2(cursor.positionX, pad->GetPosition().y), 0.0f);
 #ifdef __Brickpong__DEBUG_LOG__
-    std::cout << "Cursor x position: " << CursorX << std::endl;
+    std::cout << "Cursor x position: " << cursor.positionX << std::endl;
 #endif
 }
 
+b2Vec2 PauseBallVelocity = b2Vec2(0.0f, 0.0f);
+int Points = 0;
+bool gamePaused = false;
+
 void ResetGame() {
-    BallPosition = glm::vec3(1.0f, -6.0f, 0);
-    BallVelocity = glm::vec3(0.05f, 0.1f, 0);
-    for (int i = 0; i < 500; i++) {
-        bricks[i] = false;
+    ball->SetTransform(b2Vec2(1.0f, -6.0f), 0.0f);
+    ball->SetLinearVelocity(b2Vec2(2.0f, 4.0f));
+    for (std::list<Brick>::iterator i = bricks.begin(); i != bricks.end(); i++) {
+        (*i).destroyed = false;
     }
     Points = 0;
     std::cout << "Points: " << Points <<std::endl;
 }
 
-bool gamePaused = false;
-
 void KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mods) {
     if (action == GLFW_RELEASE && key == GLFW_KEY_SPACE) {
-        glm::vec3 tmp = BallVelocity;
-        tmp = BallVelocity;
-        BallVelocity = PauseBallVelocity;
+        b2Vec2 tmp = ball->GetLinearVelocity();
+        ball->SetLinearVelocity(PauseBallVelocity);
         PauseBallVelocity = tmp;
         if (!gamePaused) {
             gamePaused = true;
             glfwSetCursorPosCallback(window, NULL);
             glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+            std::cout << "Ball position: " << ball->GetPosition().x << "; " << ball->GetPosition().y << " | ";
+            std::cout << "Pad position: " << pad->GetPosition().x << "; " << pad->GetPosition().y << std::endl;
 #ifdef __Brickpong__DEBUG_LOG__
             std::cout << "Game Paused" << std::endl;
 #endif
@@ -107,10 +191,10 @@ void KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mods
     }
     if (action == GLFW_PRESS || action == GLFW_REPEAT) {
         if (key == GLFW_KEY_A || key == GLFW_KEY_LEFT) {
-            CursorX += 1.0f;
+            cursor.positionX += 1.0f;
         }
         else if (key == GLFW_KEY_D || key == GLFW_KEY_RIGHT) {
-            CursorX -= 1.0f;
+            cursor.positionX -= 1.0f;
         }
         if (key == GLFW_KEY_R) {
             ResetGame();
@@ -120,44 +204,49 @@ void KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mods
 
 void CheckBallBoundsCol() {
         // Horizontal
-    if (BallPosition.x < -14.0f || BallPosition.x > 14.0f) {
-        BallVelocity.x = -BallVelocity.x;
+    if (ball->GetPosition().x < -14.0f || ball->GetPosition().x > 14.0f) {
+        ball->SetLinearVelocity(b2Vec2(-ball->GetLinearVelocity().x, ball->GetLinearVelocity().y));
 #ifdef __Brickpong__DEBUG_LOG__
-        std::cout << "Wall collision at: (" << BallPosition.x << "; " << BallPosition.y << ")" << std::endl;
+        std::cout << "Wall collision at: (" << ball->GetPosition().x << "; " << ball->GetPosition().y << ")" << std::endl;
 #endif
     }
         // Top
-    else if (BallPosition.y > 8.0f) {
-        BallVelocity.y = -BallVelocity.y;
+    else if (ball->GetPosition().y > 8.0f) {
+        ball->SetLinearVelocity(b2Vec2(ball->GetLinearVelocity().x, -ball->GetLinearVelocity().y));
 #ifdef __Brickpong__DEBUG_LOG__
-        std::cout << "Wall collision at: (" << BallPosition.x << "; " << BallPosition.y << ")" << std::endl;
+        std::cout << "Wall collision at: (" << ball->GetPosition().x << "; " << ball->GetPosition().y << ")" << std::endl;
 #endif
     }
         // Bottom
-    else if (BallPosition.y < -8.0f) {
+    else if (ball->GetPosition().y < -8.0f) {
 #ifdef __Brickpong__DEBUG_LOG__
-        std::cout << "Wall collision at: (" << BallPosition.x << "; " << BallPosition.y << ")" << std::endl;
+        std::cout << "Wall collision at: (" << ball->GetPosition().x << "; " << ball->GetPosition().y << ")" << std::endl;
 #endif
         std::cout << "##GAME OVER ##" << std::endl << std::endl;
         ResetGame();
     }
 }
 
+    // TODO: Zamienić stare funkcje obsługi kolizji na nowe, bazujące na kolizjach wykrywanych przez bibliotekę Box2D
+/*
 void CheckBallPadCol() {
-    if (BallPosition.y <= -6.2f && (BallPosition.x >= CursorX - 2.0f && BallPosition.x <= CursorX + 2.0f)) {
-        if (BallPosition.x > CursorX - 0.15f && BallPosition.x < CursorX + 0.15f) {
-            BallVelocity.x -= 0.025f;
-            BallVelocity.y = glm::clamp(BallVelocity.y + 0.025f, -0.3f, 0.3f);
+    if (ball->GetPosition().y <= -6.2f && (ball->GetPosition().x >= cursor.positionX - 2.0f && ball->GetPosition().x <= cursor.positionX + 2.0f)) {
+        if (ball->GetPosition().x > cursor.positionX - 0.15f && ball->GetPosition().x < cursor.positionX + 0.15f) {
+            ball->SetLinearVelocity(b2Vec2(ball->GetLinearVelocity().x-0.025f,
+                                           glm::clamp(ball->GetLinearVelocity().y+0.025f, -0.3f, 0.3f))
+                                    );
         }
         else {
-            BallVelocity.x = glm::clamp(BallVelocity.x + 0.025f, -0.3f, 0.3f);
+            ball->SetLinearVelocity(b2Vec2(glm::clamp(ball->GetLinearVelocity().x+0.025f, -0.3f, 0.3f),
+                                           ball->GetLinearVelocity().y)
+                                    );
         }
-        if ((BallVelocity.x < 0 && BallPosition.x > CursorX + 0.8f) || (BallVelocity.x > 0 && BallPosition.x < CursorX - 0.8f)) {
-            BallVelocity.x = -BallVelocity.x;
+        if ((ball->GetLinearVelocity().x < 0 && ball->GetPosition().x > cursor.positionX + 0.8f) || (ball->GetLinearVelocity().x > 0 && ball->GetPosition().x < cursor.positionX - 0.8f)) {
+            ball->SetLinearVelocity(b2Vec2(-ball->GetLinearVelocity().x, ball->GetLinearVelocity().y));
         }
-        BallVelocity.y = -BallVelocity.y;
+        ball->SetLinearVelocity(b2Vec2(ball->GetLinearVelocity().x, -ball->GetLinearVelocity().y));
 #ifdef __Brickpong__DEBUG_LOG__
-        std::cout << "Pad collision at: (" << BallPosition.x << "; " << BallPosition.y << ")" << std::endl;
+        std::cout << "Pad collision at: (" << ball->GetPosition().x << "; " << ball->GetPosition().y << ")" << std::endl;
 #endif
     }
 }
@@ -165,15 +254,15 @@ void CheckBallPadCol() {
 bool CheckBallBrickCol(float brickX, float brickY) {
         // No collision
         // top || right || bottom || left
-    if (BallPosition.y - 0.3f > brickY + 0.3f || BallPosition.x + 0.3f < brickX - 0.6f || BallPosition.y + 0.3f < brickY - 0.3f || BallPosition.x - 0.3f > brickX + 0.6f) {
+    if (ball->GetPosition().y - 0.3f > brickY + 0.3f || ball->GetPosition().x + 0.3f < brickX - 0.6f || ball->GetPosition().y + 0.3f < brickY - 0.3f || ball->GetPosition().x - 0.3f > brickX + 0.6f) {
         return false;
     }
         // Collision
-    if (BallPosition.x < brickX - 0.65f || BallPosition.x > brickX + 0.65f) {
-        BallVelocity.x = -BallVelocity.x;
+    if (ball->GetPosition().x < brickX - 0.65f || ball->GetPosition().x > brickX + 0.65f) {
+        ball->SetLinearVelocity(b2Vec2(-ball->GetLinearVelocity().x, ball->GetLinearVelocity().y));
     }
-    if (BallPosition.y < brickY - 0.4f || BallPosition.y > brickY + 0.4f) {
-        BallVelocity.y = -BallVelocity.y;
+    if (ball->GetPosition().y < brickY - 0.4f || ball->GetPosition().y > brickY + 0.4f) {
+        ball->SetLinearVelocity(b2Vec2(ball->GetLinearVelocity().x, -ball->GetLinearVelocity().y));
     }
     ++Points;
 #ifdef __Brickpong__DEBUG_LOG__
@@ -181,6 +270,7 @@ bool CheckBallBrickCol(float brickX, float brickY) {
 #endif
     return true;
 }
+*/
 
 void CheckGameWin() {
     if (Points == 70) {
@@ -229,9 +319,7 @@ int main(void) {
 
         glm::mat4 Model = glm::mat4(1.0f);
         glm::mat4 View = glm::lookAt(glm::vec3(0, 0, -20), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
-        glm::mat4 Projection = glm::perspective(45.0f, 16.0f / 9.0f, 0.1f, 100.0f);
-
-//        	glm::mat4 MVP = Projection * View * Model;
+        glm::mat4 Projection = glm::ortho(-10.0f, 10.0f, -9.0f, 2.0f, -10.0f, 50.0f);
 
         glm::mat4 tmpModel, tmpMVP;
 
@@ -249,9 +337,7 @@ int main(void) {
         vVBO->createVertexAttribPointer(positionAttribLoc, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid*)0);
         cVBO->createVertexAttribPointer(colorAttribLoc, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid*)0);
 
-        for (int i = 0; i < 500; i++) {
-            bricks[i] = false;
-        }
+        CreateGame();
 
         std::cout << "Points: " << Points << std::endl;
 
@@ -279,42 +365,47 @@ int main(void) {
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
                 // Bricks
-            int brick_i = 0;
-            for (float i = -12.0f; i <= 12.0f; i += 2.0f) {
-                for (float j = 0.0f; j <= 7.0f; j += 1.0f) {
-                    if (!bricks[brick_i]) {
-                        if (!CheckBallBrickCol(i, j)) {
-                            tmpModel = glm::scale(glm::translate(Model, glm::vec3(i, j, 0)), glm::vec3(1.0f, 0.5f, 0.5f));
-                            tmpMVP = Projection * View * tmpModel;
-                            glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &tmpMVP[0][0]);
-
-                            Draw(myEBO);
-                        }
-                        else {
-#ifdef __Brickpong__DEBUG_LOG__
-                            std::cout << "Brick nr. " << brick_i << " destroyed" << std::endl;
-#endif
-                            bricks[brick_i] = true;
-                        }
-                    }
-                    ++brick_i;
+            int brickIndex = 0;
+            for (std::list<Brick>::iterator i = bricks.begin(); i != bricks.end(); i++) {
+                if(!(*i).destroyed) {
+                        // TODO: Zaimplementować reakcję na kolizje piłki z kolckami
+//                    if(!BallBrickCollisionDetected){
+                        tmpModel = glm::scale(glm::translate(Model,
+                                                             glm::vec3((*i).body->GetPosition().x,
+                                                                       (*i).body->GetPosition().y, 0.0f)
+                                                             ),
+                                              glm::vec3(1.0f, 0.5f, 0.5f)
+                                              );
+                        tmpMVP = Projection * View * tmpModel;
+                        glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &tmpMVP[0][0]);
+                        Draw(myEBO);
+//                    }
+//                    else {
+//#ifdef __Brickpong__DEBUG_LOG__
+//                        std::cout << "Brick nr. " << brickIndex << " destroyed" << std::endl;
+//#endif
+//                        (*i).destroyed = true;
+//                    }
                 }
+                ++brickIndex;
             }
 
             CheckGameWin();
 
                 // Pad
-            tmpModel = glm::scale(glm::translate(Model, glm::vec3(CursorX, -7.0f, 0)), glm::vec3(2.0f, 0.25f, 2.0f));
+            tmpModel = glm::scale(glm::translate(Model, glm::vec3(cursor.positionX, -7.0f, 0)), glm::vec3(2.0f, 0.5f, 2.0f));
             tmpMVP = Projection * View * tmpModel;
             glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &tmpMVP[0][0]);
 
             Draw(myEBO);
 
                 // Ball
-            tmpModel = glm::scale(glm::translate(Model, BallPosition), glm::vec3(0.25f, 0.25f, 0.25f));
-            BallPosition += BallVelocity;
+            glm::vec3 tmpBallPosition = glm::vec3(ball->GetPosition().x, ball->GetPosition().y, 0.0f);
+            tmpModel = glm::scale(glm::translate(Model, tmpBallPosition), glm::vec3(0.25f, 0.25f, 0.25f));
+
+            world->Step(1.0f/60.0f, 6, 2);
+
             CheckBallBoundsCol();
-            CheckBallPadCol();
             tmpMVP = Projection * View * tmpModel;
             glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &tmpMVP[0][0]);
 
@@ -324,9 +415,11 @@ int main(void) {
             glfwPollEvents();
         } while (window->getKey(GLFW_KEY_ESCAPE) != GLFW_PRESS && window->shouldClose() == 0);
 
+        DestroyGame();
+
         glDisableVertexAttribArray(0);
         glDisableVertexAttribArray(1);
-
+        
         delete myEBO;
         delete vVBO;
         delete cVBO;

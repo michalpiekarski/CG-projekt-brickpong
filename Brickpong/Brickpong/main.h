@@ -2,6 +2,7 @@
 #define __Brickpong__main__
 
 #include <iostream>
+#include <list>
 
 #ifdef _WIN32
 #define GLEW_STATIC
@@ -12,6 +13,7 @@
 #endif
 #include <GLFW/glfw3.h>
 #include <glm/gtc/matrix_transform.hpp>
+#include <Box2D/Box2D.h>
 
 #include "BrickpongException.h"
 #include "Graphics Engine/Graphics Engine.h"
