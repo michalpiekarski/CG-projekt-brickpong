@@ -50,7 +50,7 @@ void CreatePad() {
     padBDef.position.Set(cursor.positionX, -7.0f);
     pad = world->CreateBody(&padBDef);
     b2PolygonShape padShape;
-    padShape.SetAsBox(1.0f, 0.25f);
+    padShape.SetAsBox(2.0f, 0.5f);
     pad->CreateFixture(&padShape, 0.0f);
 }
 
@@ -87,7 +87,7 @@ void CreateGame() {
     CreateWorld(b2Vec2(0.0f, -10.0f));
     CreateBall();
     CreatePad();
-    CreateManyBricks(b2Vec2(-7.0f, -3.0f), b2Vec2(7.0f, 0.0f), b2Vec2(1.0f, 0.5f), b2Vec2(0.05f, 0.05f));
+    CreateManyBricks(b2Vec2(-6.0f, -3.0f), b2Vec2(6.0f, 0.0f), b2Vec2(2.0f, 1.0f), b2Vec2(0.0f, 0.0f));
 }
 
 void DestroyGame() {
