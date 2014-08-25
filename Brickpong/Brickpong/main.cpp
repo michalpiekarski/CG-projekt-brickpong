@@ -14,7 +14,7 @@ std::list<Brick> bricks;
 struct Cursor {
     float positionX = 0.0f;
     float maxOffset = 9.0f;
-    float damping = 0.5f;
+    float damping = 2.0f;
 } cursor;
 
 void CreateWorld(b2Vec2 agravity) {
@@ -145,7 +145,10 @@ void cursorPositionChanged(GLFWwindow *window, double x, double y) {
     int windowWidth;
     glfwGetFramebufferSize(window, &windowWidth, NULL);
     int halfWindowWidth = windowWidth / 2.0f;
-    float cursorXOffsetFromMiddle = (x - halfWindowWidth) / (halfWindowWidth/cursor.maxOffset) * cursor.damping;
+    float cursorXOffsetFromMiddle = (x - halfWindowWidth) / (halfWindowWidth/cursor.maxOffset);
+    if (cursor.damping != 0.0f) {
+        cursorXOffsetFromMiddle /= cursor.damping;
+    }
     cursor.positionX = glm::clamp(cursorXOffsetFromMiddle, -cursor.maxOffset, cursor.maxOffset);
     pad->SetTransform(b2Vec2(cursor.positionX, pad->GetPosition().y), 0.0f);
 #ifdef __Brickpong__DEBUG_LOG__
@@ -197,14 +200,28 @@ void KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mods
     }
     if (action == GLFW_PRESS || action == GLFW_REPEAT) {
         if (key == GLFW_KEY_A || key == GLFW_KEY_LEFT) {
-            cursor.positionX += 1.0f;
+            cursor.positionX -= 0.5f;
+            b2Vec2 padPosition = pad->GetPosition();
+            padPosition.x -= 0.5f;
+            pad->SetTransform(padPosition, pad->GetAngle());
         }
         else if (key == GLFW_KEY_D || key == GLFW_KEY_RIGHT) {
-            cursor.positionX -= 1.0f;
+            cursor.positionX += 0.5f;
+            b2Vec2 padPosition = pad->GetPosition();
+            padPosition.x += 0.5f;
+            pad->SetTransform(padPosition, pad->GetAngle());
         }
-        if (key == GLFW_KEY_R) {
-            ResetGame();
+        else if(key == GLFW_KEY_LEFT_BRACKET) {
+            cursor.damping -= 0.5f;
+            cursor.damping = glm::clamp(cursor.damping, 0.0f, 4.0f);
         }
+        else if (key == GLFW_KEY_RIGHT_BRACKET) {
+            cursor.damping += 0.5f;
+            cursor.damping = glm::clamp(cursor.damping, 0.0f, 4.0f);
+        }
+    }
+    if (action == GLFW_PRESS && key == GLFW_KEY_R) {
+        ResetGame();
     }
 }
 
