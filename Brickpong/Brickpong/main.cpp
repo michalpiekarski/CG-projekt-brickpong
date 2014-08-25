@@ -13,7 +13,7 @@ struct Brick {
 std::list<Brick> bricks;
 struct Cursor {
     float positionX = 0.0f;
-    float maxOffset = 8.0f;
+    float maxOffset = 9.0f;
     float damping = 0.5f;
 } cursor;
 
@@ -210,21 +210,21 @@ void KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mods
 
 void CheckBallBoundsCol() {
         // Horizontal
-    if (ball->GetPosition().x < -14.0f || ball->GetPosition().x > 14.0f) {
+    if (ball->GetPosition().x < -8.0f || ball->GetPosition().x > 8.0f) {
         ball->SetLinearVelocity(b2Vec2(-ball->GetLinearVelocity().x, ball->GetLinearVelocity().y));
 #ifdef __Brickpong__DEBUG_LOG__
         std::cout << "Wall collision at: (" << ball->GetPosition().x << "; " << ball->GetPosition().y << ")" << std::endl;
 #endif
     }
         // Top
-    else if (ball->GetPosition().y > 8.0f) {
+    else if (ball->GetPosition().y > 1.0f) {
         ball->SetLinearVelocity(b2Vec2(ball->GetLinearVelocity().x, -ball->GetLinearVelocity().y));
 #ifdef __Brickpong__DEBUG_LOG__
         std::cout << "Wall collision at: (" << ball->GetPosition().x << "; " << ball->GetPosition().y << ")" << std::endl;
 #endif
     }
         // Bottom
-    else if (ball->GetPosition().y < -8.0f) {
+    else if (ball->GetPosition().y < -7.5f) {
 #ifdef __Brickpong__DEBUG_LOG__
         std::cout << "Wall collision at: (" << ball->GetPosition().x << "; " << ball->GetPosition().y << ")" << std::endl;
 #endif
