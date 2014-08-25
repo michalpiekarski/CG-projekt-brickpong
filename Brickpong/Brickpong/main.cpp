@@ -13,8 +13,8 @@ struct Brick {
 std::list<Brick> bricks;
 struct Cursor {
     float positionX = 0.0f;
-    float maxOffset = 150.0f;
-    float damping = 10.0f;
+    float maxOffset = 8.0f;
+    float damping = 0.5f;
 } cursor;
 
 void CreateWorld(b2Vec2 agravity) {
@@ -144,7 +144,9 @@ void Draw(EBO* myEBO) {
 void cursorPositionChanged(GLFWwindow *window, double x, double y) {
     int windowWidth;
     glfwGetFramebufferSize(window, &windowWidth, NULL);
-    cursor.positionX = glm::clamp(float(-(x - windowWidth / 2.0f)), -cursor.maxOffset, cursor.maxOffset) / cursor.damping;
+    int halfWindowWidth = windowWidth / 2.0f;
+    float cursorXOffsetFromMiddle = (x - halfWindowWidth) / (halfWindowWidth/cursor.maxOffset) * cursor.damping;
+    cursor.positionX = glm::clamp(cursorXOffsetFromMiddle, -cursor.maxOffset, cursor.maxOffset);
     pad->SetTransform(b2Vec2(cursor.positionX, pad->GetPosition().y), 0.0f);
 #ifdef __Brickpong__DEBUG_LOG__
     std::cout << "Cursor x position: " << cursor.positionX << std::endl;
@@ -173,7 +175,9 @@ void KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mods
         if (!gamePaused) {
             gamePaused = true;
             glfwSetCursorPosCallback(window, NULL);
+#ifndef __Brickpong__DEBUG_LOG__
             glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+#endif
             std::cout << "Ball position: " << ball->GetPosition().x << "; " << ball->GetPosition().y << " | ";
             std::cout << "Pad position: " << pad->GetPosition().x << "; " << pad->GetPosition().y << std::endl;
 #ifdef __Brickpong__DEBUG_LOG__
@@ -183,7 +187,9 @@ void KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mods
         else {
             gamePaused = false;
             glfwSetCursorPosCallback(window, cursorPositionChanged);
+#ifndef __Brickpong__DEBUG_LOG__
             glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+#endif
 #ifdef __Brickpong__DEBUG_LOG__
             std::cout << "Game Resumed" << std::endl;
 #endif
@@ -287,7 +293,9 @@ int main(void) {
         Shader* fShader;
 
         window->makeContextCurrent();
+#ifndef __Brickpong__DEBUG_LOG__
         window->setCursorMode(GLFW_CURSOR_HIDDEN);
+#endif
         window->setStickyKeys(GL_TRUE);
         window->setCursorPosCallback(cursorPositionChanged);
         window->setKeyCallback(KeyCallback);
