@@ -2,7 +2,7 @@
 #define __Brickpong__main__
 
 #include <iostream>
-#include <list>
+#include <vector>
 
 #ifdef _WIN32
 #define GLEW_STATIC

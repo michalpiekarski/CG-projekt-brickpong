@@ -10,7 +10,7 @@ struct Brick {
     b2Body* body;
     bool destroyed;
 };
-std::list<Brick> bricks;
+std::vector<Brick> bricks;
 struct Cursor {
     float positionX = 0.0f;
     float maxOffset = 9.0f;
@@ -163,7 +163,7 @@ bool gamePaused = false;
 void ResetGame() {
     ball->SetTransform(b2Vec2(1.0f, -6.0f), 0.0f);
     ball->SetLinearVelocity(b2Vec2(2.0f, 4.0f));
-    for (std::list<Brick>::iterator i = bricks.begin(); i != bricks.end(); i++) {
+    for (std::vector<Brick>::iterator i = bricks.begin(); i != bricks.end(); i++) {
         (*i).destroyed = false;
     }
     Points = 0;
@@ -391,7 +391,7 @@ int main(void) {
 
                 // Bricks
             int brickIndex = 0;
-            for (std::list<Brick>::iterator i = bricks.begin(); i != bricks.end(); i++) {
+            for (std::vector<Brick>::iterator i = bricks.begin(); i != bricks.end(); i++) {
                 if(!(*i).destroyed) {
                         // TODO: Zaimplementować reakcję na kolizje piłki z kolckami
 //                    if(!BallBrickCollisionDetected){
