@@ -1,98 +1,69 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
     <Filter Include="Shaders">
       <UniqueIdentifier>{0272b1dc-0e6c-4dba-971c-728dd2d94b84}</UniqueIdentifier>
     </Filter>
     <Filter Include="Graphics Engine">
       <UniqueIdentifier>{b291fa7b-2212-4282-9307-7d61f14a4fda}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Graphics Engine\Header Files">
-      <UniqueIdentifier>{15cddfdf-b3bf-40c3-98a3-0dc45744ec32}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Graphics Engine\Source Files">
-      <UniqueIdentifier>{1c8d16c4-e0b9-4b80-b9ff-236e54c7e92a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game Logic">
-      <UniqueIdentifier>{1a45a851-89cc-4470-8a9f-c4544c2bdc72}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game Logic\Brickpong">
-      <UniqueIdentifier>{e54bb0cf-c9b1-4200-a1ca-54467a682f65}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game Logic\Brickpong\Header Files">
-      <UniqueIdentifier>{e731a1f3-9118-4d10-8ac2-2803ee121c6f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game Logic\Brickpong\Source Files">
-      <UniqueIdentifier>{f7d065a2-accf-4f70-835c-55d58a9e7b66}</UniqueIdentifier>
+    <Filter Include="Main Program">
+      <UniqueIdentifier>{2aba1677-51ba-4ef0-bab7-7f504dee9033}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="BrickpongException.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Main Program</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Main Program</Filter>
     </ClCompile>
     <ClCompile Include="Graphics Engine\EBO.cpp">
-      <Filter>Graphics Engine\Source Files</Filter>
+      <Filter>Graphics Engine</Filter>
     </ClCompile>
     <ClCompile Include="Graphics Engine\Shader.cpp">
-      <Filter>Graphics Engine\Source Files</Filter>
+      <Filter>Graphics Engine</Filter>
     </ClCompile>
     <ClCompile Include="Graphics Engine\ShaderProgram.cpp">
-      <Filter>Graphics Engine\Source Files</Filter>
+      <Filter>Graphics Engine</Filter>
     </ClCompile>
     <ClCompile Include="Graphics Engine\VAO.cpp">
-      <Filter>Graphics Engine\Source Files</Filter>
+      <Filter>Graphics Engine</Filter>
     </ClCompile>
     <ClCompile Include="Graphics Engine\VBO.cpp">
-      <Filter>Graphics Engine\Source Files</Filter>
+      <Filter>Graphics Engine</Filter>
     </ClCompile>
     <ClCompile Include="Graphics Engine\Window.cpp">
-      <Filter>Graphics Engine\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Game Logic\Brickpong\GameManager.cpp">
-      <Filter>Game Logic\Brickpong\Source Files</Filter>
+      <Filter>Graphics Engine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="main.h">
+      <Filter>Main Program</Filter>
+    </ClInclude>
     <ClInclude Include="BrickpongException.h">
-      <Filter>Header Files</Filter>
+      <Filter>Main Program</Filter>
     </ClInclude>
     <ClInclude Include="Graphics Engine\EBO.h">
-      <Filter>Graphics Engine\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics Engine\Shader.h">
-      <Filter>Graphics Engine\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics Engine\ShaderProgram.h">
-      <Filter>Graphics Engine\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics Engine\VAO.h">
-      <Filter>Graphics Engine\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics Engine\VBO.h">
-      <Filter>Graphics Engine\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics Engine\Window.h">
-      <Filter>Graphics Engine\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="main.h">
-      <Filter>Header Files</Filter>
+      <Filter>Graphics Engine</Filter>
     </ClInclude>
     <ClInclude Include="Graphics Engine\Graphics Engine.h">
-      <Filter>Graphics Engine\Header Files</Filter>
+      <Filter>Graphics Engine</Filter>
     </ClInclude>
-    <ClInclude Include="Game Logic\Brickpong\GameManager.h">
-      <Filter>Game Logic\Brickpong\Header Files</Filter>
+    <ClInclude Include="Graphics Engine\Shader.h">
+      <Filter>Graphics Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics Engine\ShaderProgram.h">
+      <Filter>Graphics Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics Engine\VAO.h">
+      <Filter>Graphics Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics Engine\VBO.h">
+      <Filter>Graphics Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics Engine\Window.h">
+      <Filter>Graphics Engine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
