@@ -34,7 +34,7 @@ void CreateWorldBounds(float32 worldWidth, float32 worldHeight, b2Vec2 worldCent
     wbBDef.position.SetZero();
     worldBounds = world->CreateBody(&wbBDef);
 
-    float32 leftWindowEdge = -worldWidth/2.0+worldCenterOffset.x;
+    float32 leftWindowEdge = -worldWidth / 2.0 + worldCenterOffset.x;
     float32 rightWindowEdge = worldWidth / 2.0 + worldCenterOffset.x;
     float32 topWindowEdge = worldHeight / 2.0 + worldCenterOffset.y;
     float32 bottomWindowEdge = -worldHeight / 2.0 + worldCenterOffset.y;
@@ -45,7 +45,7 @@ void CreateWorldBounds(float32 worldWidth, float32 worldHeight, b2Vec2 worldCent
         b2Vec2(rightWindowEdge, topWindowEdge),
         b2Vec2(rightWindowEdge, bottomWindowEdge),
     };
-    
+
     b2ChainShape wbShape;
     wbShape.CreateChain(wbShapePoints, 4);
     worldBounds->CreateFixture(&wbShape, 0.0f);
@@ -73,15 +73,15 @@ void CreateBall() {
 void CreatePad() {
     b2BodyDef padBDef;
     padBDef.type = b2_kinematicBody;
-    padBDef.position.Set(cursor.positionX, -7.0f);
+    padBDef.position.Set(cursor.positionX, -7.5f);
     pad = world->CreateBody(&padBDef);
     b2Vec2 padShapePoints[6] = {
-        b2Vec2(-2.0f, -0.5f),
-        b2Vec2(-2.0f, +0.0f),
-        b2Vec2(-0.05f, +0.5f),
-        b2Vec2(+0.05f, +0.5f),
-        b2Vec2(+2.0f, +0.0f),
-        b2Vec2(+2.0f, -0.5f),
+        b2Vec2(-2.0f, -0.25f),
+        b2Vec2(-2.0f, -0.1f),
+        b2Vec2(-0.05f, +0.25f),
+        b2Vec2(+0.05f, +0.25f),
+        b2Vec2(+2.0f, -0.1f),
+        b2Vec2(+2.0f, -0.25f),
     };
     b2PolygonShape padShape;
     padShape.Set(padShapePoints, 6);
@@ -164,7 +164,7 @@ void CreateGame() {
     CreateWorldBounds(16.5f, 10.0f, b2Vec2(0.0f, -4.0f));
     CreateBall();
     CreatePad();
-    CreateManyBricks(b2Vec2(-6.0f, -3.0f), b2Vec2(6.0f, 0.0f), b2Vec2(2.0f, 1.0f), b2Vec2(0.0f, 0.0f));
+    CreateManyBricks(b2Vec2(-7.0f, -3.0f), b2Vec2(7.0f, 0.5f), b2Vec2(1.0f, 0.5f), b2Vec2(0.1f, 0.1f));
 }
 
 void DestroyGame() {
@@ -406,8 +406,8 @@ int main(void) {
                 if ((*i)->IsActive()) {
                     b2Vec2 bodyPos = (*i)->GetPosition();
                     glm::vec3 translation = glm::vec3(bodyPos.x, bodyPos.y, 0.0f);
-                    glm::vec3 rotation = glm::vec3(1.0f, 0.5f, 0.5f);
-                    tmpModel = glm::scale(glm::translate(Model, translation), rotation);
+                    glm::vec3 scale = glm::vec3(0.5f, 0.25f, 0.25f);
+                    tmpModel = glm::scale(glm::translate(Model, translation), scale);
                     tmpMVP = Projection * View * tmpModel;
                     glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &tmpMVP[0][0]);
                     Draw(myEBO);
@@ -415,7 +415,7 @@ int main(void) {
             }
 
             // Pad
-            tmpModel = glm::scale(glm::translate(Model, glm::vec3(cursor.positionX, -7.0f, 0)), glm::vec3(2.0f, 0.5f, 2.0f));
+            tmpModel = glm::scale(glm::translate(Model, glm::vec3(cursor.positionX, -7.5f, 0)), glm::vec3(2.0f, 0.25f, 2.0f));
             tmpMVP = Projection * View * tmpModel;
             glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &tmpMVP[0][0]);
 
