@@ -4,6 +4,7 @@
 //#define __Brickpong__DEBUG_LOG__
 
 b2World* world;
+b2Body* worldBounds;
 b2Body* ball;
 b2Body* pad;
 std::vector<b2Body*> bricks;
@@ -25,6 +26,29 @@ void CreateWorld(b2Vec2 agravity) {
 
 void DestroyWorld() {
     delete world;
+}
+
+void CreateWorldBounds(float32 worldWidth, float32 worldHeight, b2Vec2 worldCenterOffset) {
+    b2BodyDef wbBDef;
+    wbBDef.type = b2_kinematicBody;
+    wbBDef.position.SetZero();
+    worldBounds = world->CreateBody(&wbBDef);
+
+    float32 leftWindowEdge = -worldWidth/2.0+worldCenterOffset.x;
+    float32 rightWindowEdge = worldWidth / 2.0 + worldCenterOffset.x;
+    float32 topWindowEdge = worldHeight / 2.0 + worldCenterOffset.y;
+    float32 bottomWindowEdge = -worldHeight / 2.0 + worldCenterOffset.y;
+
+    b2Vec2 wbShapePoints[4] = {
+        b2Vec2(leftWindowEdge, bottomWindowEdge),
+        b2Vec2(leftWindowEdge, topWindowEdge),
+        b2Vec2(rightWindowEdge, topWindowEdge),
+        b2Vec2(rightWindowEdge, bottomWindowEdge),
+    };
+    
+    b2ChainShape wbShape;
+    wbShape.CreateChain(wbShapePoints, 4);
+    worldBounds->CreateFixture(&wbShape, 0.0f);
 }
 
 void CreateBall() {
@@ -137,6 +161,7 @@ void DestroyBricks() {
 
 void CreateGame() {
     CreateWorld(b2Vec2(0.0f, -10.0f));
+    CreateWorldBounds(16.5f, 10.0f, b2Vec2(0.0f, -4.0f));
     CreateBall();
     CreatePad();
     CreateManyBricks(b2Vec2(-6.0f, -3.0f), b2Vec2(6.0f, 0.0f), b2Vec2(2.0f, 1.0f), b2Vec2(0.0f, 0.0f));
@@ -269,27 +294,8 @@ void KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mods
     }
 }
 
-// TODO: Zaktualizować implementację kolizji od krawędzi okna (i spadania piłki poza paletkę) z użyciem biblioteki Box2D
-void CheckBallBoundsCol() {
-    // Horizontal
-    if (ball->GetPosition().x < -8.0f || ball->GetPosition().x > 8.0f) {
-        ball->SetLinearVelocity(b2Vec2(-ball->GetLinearVelocity().x, ball->GetLinearVelocity().y));
-#ifdef __Brickpong__DEBUG_LOG__
-        std::cout << "Wall collision at: (" << ball->GetPosition().x << "; " << ball->GetPosition().y << ")" << std::endl;
-#endif
-    }
-    // Top
-    else if (ball->GetPosition().y > 1.0f) {
-        ball->SetLinearVelocity(b2Vec2(ball->GetLinearVelocity().x, -ball->GetLinearVelocity().y));
-#ifdef __Brickpong__DEBUG_LOG__
-        std::cout << "Wall collision at: (" << ball->GetPosition().x << "; " << ball->GetPosition().y << ")" << std::endl;
-#endif
-    }
-    // Bottom
-    else if (ball->GetPosition().y < -7.5f) {
-#ifdef __Brickpong__DEBUG_LOG__
-        std::cout << "Wall collision at: (" << ball->GetPosition().x << "; " << ball->GetPosition().y << ")" << std::endl;
-#endif
+void CheckBallBelowPad() {
+    if (ball->GetPosition().y < -8.0f) {
         std::cout << "##GAME OVER ##" << std::endl << std::endl;
         ResetGame();
     }
@@ -377,6 +383,8 @@ int main(void) {
 
         do {
             world->Step(1.0f / 60.0f, 6, 2);
+            CheckBallBelowPad();
+            DestroyBricks();
 
 #ifdef __Brickpong__DEBUG_LOG__
             double currentTime = glfwGetTime();
@@ -394,7 +402,6 @@ int main(void) {
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
             // Bricks
-            DestroyBricks();
             for (std::vector<b2Body*>::iterator i = bricks.begin(); i != bricks.end(); i++) {
                 if ((*i)->IsActive()) {
                     b2Vec2 bodyPos = (*i)->GetPosition();
@@ -407,8 +414,6 @@ int main(void) {
                 }
             }
 
-            CheckGameWin();
-
             // Pad
             tmpModel = glm::scale(glm::translate(Model, glm::vec3(cursor.positionX, -7.0f, 0)), glm::vec3(2.0f, 0.5f, 2.0f));
             tmpMVP = Projection * View * tmpModel;
@@ -420,13 +425,14 @@ int main(void) {
             glm::vec3 tmpBallPosition = glm::vec3(ball->GetPosition().x, ball->GetPosition().y, 0.0f);
             tmpModel = glm::scale(glm::translate(Model, tmpBallPosition), glm::vec3(0.25f, 0.25f, 0.25f));
 
-            CheckBallBoundsCol();
             tmpMVP = Projection * View * tmpModel;
             glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &tmpMVP[0][0]);
 
             Draw(myEBO);
 
             window->swapBuffers();
+
+            CheckGameWin();
             glfwPollEvents();
         } while (window->getKey(GLFW_KEY_ESCAPE) != GLFW_PRESS && window->shouldClose() == 0);
 
