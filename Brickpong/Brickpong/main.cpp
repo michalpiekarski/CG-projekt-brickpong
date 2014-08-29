@@ -14,7 +14,7 @@ std::vector<Brick> bricks;
 struct Cursor {
     float positionX = 0.0f;
     float maxOffset = 9.0f;
-    float damping = 2.0f;
+    float damping = 1.0f;
 } cursor;
 
 void CreateWorld(b2Vec2 agravity) {
@@ -49,8 +49,16 @@ void CreatePad() {
     padBDef.type = b2_kinematicBody;
     padBDef.position.Set(cursor.positionX, -7.0f);
     pad = world->CreateBody(&padBDef);
+    b2Vec2 padShapePoints[6] = {
+        b2Vec2(-2.0f, -0.5f),
+        b2Vec2(-2.0f, +0.2f),
+        b2Vec2(-0.05f, +0.5f),
+        b2Vec2(+0.05f, +0.5f),
+        b2Vec2(+2.0f, +0.2f),
+        b2Vec2(+2.0f, -0.5f),
+    };
     b2PolygonShape padShape;
-    padShape.SetAsBox(2.0f, 0.5f);
+    padShape.Set(padShapePoints, 6);
     pad->CreateFixture(&padShape, 0.0f);
 }
 
