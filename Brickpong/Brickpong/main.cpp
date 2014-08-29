@@ -116,12 +116,18 @@ void DestroyBricks() {
         b2Body* bodyA = (*i)->GetFixtureA()->GetBody();
         b2Body* bodyB = (*i)->GetFixtureB()->GetBody();
         if (validBallBrickContact(bodyA, bodyB)) {
+            b2Vec2 brickPos;
             if (bodyA->GetType() == b2_staticBody) {
+                brickPos = bodyA->GetPosition();
                 bodyA->SetActive(false);
             }
             else if (bodyB->GetType() == b2_staticBody) {
+                brickPos = bodyB->GetPosition();
                 bodyB->SetActive(false);
             }
+#ifdef __Brickpong__DEBUG_LOG__
+            std::cout << "Brick destroyed at: " << brickPos.x << "; " << brickPos.y << std::endl;
+#endif
             ++Points;
             std::cout << "Points: " << Points << std::endl;
         }
@@ -263,6 +269,7 @@ void KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mods
     }
 }
 
+// TODO: Zaktualizować implementację kolizji od krawędzi okna (i spadania piłki poza paletkę) z użyciem biblioteki Box2D
 void CheckBallBoundsCol() {
     // Horizontal
     if (ball->GetPosition().x < -8.0f || ball->GetPosition().x > 8.0f) {
@@ -289,7 +296,7 @@ void CheckBallBoundsCol() {
 }
 
 void CheckGameWin() {
-    if (Points == 70) {
+    if (Points == bricks.size()) {
         std::cout << "=== YOU WON! ===" << std::endl << std::endl;
         ResetGame();
     }
@@ -388,11 +395,8 @@ int main(void) {
 
             // Bricks
             DestroyBricks();
-            int brickIndex = 0;
             for (std::vector<b2Body*>::iterator i = bricks.begin(); i != bricks.end(); i++) {
                 if ((*i)->IsActive()) {
-                    // TODO: Zaimplementować reakcję na kolizje piłki z kolckami
-                    //                    if(!BallBrickCollisionDetected){
                     b2Vec2 bodyPos = (*i)->GetPosition();
                     glm::vec3 translation = glm::vec3(bodyPos.x, bodyPos.y, 0.0f);
                     glm::vec3 rotation = glm::vec3(1.0f, 0.5f, 0.5f);
@@ -400,15 +404,7 @@ int main(void) {
                     tmpMVP = Projection * View * tmpModel;
                     glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &tmpMVP[0][0]);
                     Draw(myEBO);
-                    //                    }
-                    //                    else {
-                    //#ifdef __Brickpong__DEBUG_LOG__
-                    //                        std::cout << "Brick nr. " << brickIndex << " destroyed" << std::endl;
-                    //#endif
-                    //                        (*i).destroyed = true;
-                    //                    }
                 }
-                ++brickIndex;
             }
 
             CheckGameWin();
