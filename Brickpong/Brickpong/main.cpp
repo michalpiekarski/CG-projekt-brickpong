@@ -38,8 +38,8 @@ void CreateBall() {
     ballShape.m_radius = 0.25f;
     b2FixtureDef ballFDef;
     ballFDef.shape = &ballShape;
-    ballFDef.density = 1.0f;
-    ballFDef.friction = 0.5f;
+    ballFDef.density = 3.0f;
+    ballFDef.friction = 0.0f;
     ballFDef.restitution = 1.0f;
     ball->CreateFixture(&ballFDef);
 }
