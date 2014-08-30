@@ -50,6 +50,20 @@ void Draw(EBO* myEBO) {
     myEBO->unbind();
 }
 
+void DrawBricks(std::vector<b2Body*> aBricks, EBO* aEBO, glm::mat4 Model, glm::mat4 View, glm::mat4 Projection, GLuint MVP_ID) {
+    for (std::vector<b2Body*>::iterator i = aBricks.begin(); i != aBricks.end(); i++) {
+        if ((*i)->IsActive()) {
+            b2Vec2 bodyPos = (*i)->GetPosition();
+            glm::vec3 translation = glm::vec3(bodyPos.x, bodyPos.y, 0.0f);
+            glm::vec3 scale = glm::vec3(0.5f, 0.25f, 0.25f);
+            glm::mat4 tmpModel = glm::scale(glm::translate(Model, translation), scale);
+            glm::mat4 MVP = Projection * View * tmpModel;
+            glUniformMatrix4fv(MVP_ID, 1, GL_FALSE, &MVP[0][0]);
+            Draw(aEBO);
+        }
+    }
+}
+
 BrickpongGame* brickpongGame;
 
 void CursorPositionCallback(GLFWwindow* window, double x, double y) {
@@ -154,18 +168,7 @@ int main(void) {
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
             // Bricks
-            std::vector<b2Body*> tmpBricks = brickpongGame->GetBricksList();
-            for (std::vector<b2Body*>::iterator i = tmpBricks.begin(); i != tmpBricks.end(); i++) {
-                if ((*i)->IsActive()) {
-                    b2Vec2 bodyPos = (*i)->GetPosition();
-                    glm::vec3 translation = glm::vec3(bodyPos.x, bodyPos.y, 0.0f);
-                    glm::vec3 scale = glm::vec3(0.5f, 0.25f, 0.25f);
-                    tmpModel = glm::scale(glm::translate(Model, translation), scale);
-                    tmpMVP = Projection * View * tmpModel;
-                    glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &tmpMVP[0][0]);
-                    Draw(myEBO);
-                }
-            }
+            DrawBricks(brickpongGame->GetBricksList(), myEBO, Model, View, Projection, MatrixID);
 
             // Pad
             Cursor tmpCursor = brickpongGame->GetCursor();
