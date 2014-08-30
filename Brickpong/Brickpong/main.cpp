@@ -64,6 +64,14 @@ void DrawBricks(std::vector<b2Body*> aBricks, EBO* aEBO, glm::mat4 Model, glm::m
     }
 }
 
+void DrawPad(Cursor aCursor, EBO* aEBO, glm::mat4 Model, glm::mat4 View, glm::mat4 Projection, GLuint MVP_ID) {
+    glm::mat4 tmpModel = glm::scale(glm::translate(Model, glm::vec3(aCursor.positionX, -7.5f, 0)), glm::vec3(2.0f, 0.25f, 2.0f));
+    glm::mat4 MVP = Projection * View * tmpModel;
+    glUniformMatrix4fv(MVP_ID, 1, GL_FALSE, &MVP[0][0]);
+
+    Draw(aEBO);
+}
+
 BrickpongGame* brickpongGame;
 
 void CursorPositionCallback(GLFWwindow* window, double x, double y) {
@@ -171,12 +179,7 @@ int main(void) {
             DrawBricks(brickpongGame->GetBricksList(), myEBO, Model, View, Projection, MatrixID);
 
             // Pad
-            Cursor tmpCursor = brickpongGame->GetCursor();
-            tmpModel = glm::scale(glm::translate(Model, glm::vec3(tmpCursor.positionX, -7.5f, 0)), glm::vec3(2.0f, 0.25f, 2.0f));
-            tmpMVP = Projection * View * tmpModel;
-            glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &tmpMVP[0][0]);
-
-            Draw(myEBO);
+            DrawPad(brickpongGame->GetCursor(), myEBO, Model, View, Projection, MatrixID);
 
             // Ball
             b2Body* tmpBall = brickpongGame->GetBall();
