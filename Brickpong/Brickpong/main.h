@@ -17,6 +17,7 @@
 
 #include "BrickpongException.h"
 #include "Graphics Engine/Graphics Engine.h"
+#include "Game Engines/Game Engines.h"
 
 void CreateBuffers(VBO* vVBO, VBO* cVBO, EBO* myEBO);
 

@@ -10,6 +10,12 @@
     <Filter Include="Main Program">
       <UniqueIdentifier>{2aba1677-51ba-4ef0-bab7-7f504dee9033}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game Engines">
+      <UniqueIdentifier>{3d6921e0-3871-4fe4-97e8-afbe603478f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game Engines\Brickpong">
+      <UniqueIdentifier>{b263f403-711b-4638-ba65-6238310ad593}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BrickpongException.cpp">
@@ -35,6 +41,9 @@
     </ClCompile>
     <ClCompile Include="Graphics Engine\Window.cpp">
       <Filter>Graphics Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Game Engines\Brickpong\BrickpongGame.cpp">
+      <Filter>Game Engines\Brickpong</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -64,6 +73,12 @@
     </ClInclude>
     <ClInclude Include="Graphics Engine\Window.h">
       <Filter>Graphics Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Game Engines\Brickpong\BrickpongGame.h">
+      <Filter>Game Engines\Brickpong</Filter>
+    </ClInclude>
+    <ClInclude Include="Game Engines\Game Engines.h">
+      <Filter>Game Engines</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
