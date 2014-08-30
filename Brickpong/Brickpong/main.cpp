@@ -72,6 +72,15 @@ void DrawPad(Cursor aCursor, EBO* aEBO, glm::mat4 Model, glm::mat4 View, glm::ma
     Draw(aEBO);
 }
 
+void DrawBall(b2Body* aBall, EBO* aEBO, glm::mat4 Model, glm::mat4 View, glm::mat4 Projection, GLuint MVP_ID) {
+    glm::vec3 tmpBallPosition = glm::vec3(aBall->GetPosition().x, aBall->GetPosition().y, 0.0f);
+    glm::mat4 tmpModel = glm::scale(glm::translate(Model, tmpBallPosition), glm::vec3(0.25f, 0.25f, 0.25f));
+    glm::mat4 MVP = Projection * View * tmpModel;
+    glUniformMatrix4fv(MVP_ID, 1, GL_FALSE, &MVP[0][0]);
+
+    Draw(aEBO);
+}
+
 BrickpongGame* brickpongGame;
 
 void CursorPositionCallback(GLFWwindow* window, double x, double y) {
@@ -182,14 +191,7 @@ int main(void) {
             DrawPad(brickpongGame->GetCursor(), myEBO, Model, View, Projection, MatrixID);
 
             // Ball
-            b2Body* tmpBall = brickpongGame->GetBall();
-            glm::vec3 tmpBallPosition = glm::vec3(tmpBall->GetPosition().x, tmpBall->GetPosition().y, 0.0f);
-            tmpModel = glm::scale(glm::translate(Model, tmpBallPosition), glm::vec3(0.25f, 0.25f, 0.25f));
-
-            tmpMVP = Projection * View * tmpModel;
-            glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &tmpMVP[0][0]);
-
-            Draw(myEBO);
+            DrawBall(brickpongGame->GetBall(), myEBO, Model, View, Projection, MatrixID);
 
             window->swapBuffers();
 
