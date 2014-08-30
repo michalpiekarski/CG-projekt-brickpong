@@ -10,6 +10,7 @@
 		E907F50F198F7958003FE113 /* Simple.frag in Copy Shader Files */ = {isa = PBXBuildFile; fileRef = E907F50B198F773C003FE113 /* Simple.frag */; };
 		E907F510198F7958003FE113 /* Simple.vert in Copy Shader Files */ = {isa = PBXBuildFile; fileRef = E907F50C198F773C003FE113 /* Simple.vert */; };
 		E96D6F8219A2A6F4004C6BEB /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E96D6F8119A2A6F4004C6BEB /* libfreetype.a */; };
+		E9850F3919B27F7300E57E65 /* BrickpongGame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9850F3619B27F7300E57E65 /* BrickpongGame.cpp */; };
 		E9A1BA7719A1357D00CE01B1 /* libglfw.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E9A1BA7619A1357D00CE01B1 /* libglfw.3.dylib */; };
 		E9A1BA7919A1359100CE01B1 /* libassimp64d.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E9A1BA7819A1359100CE01B1 /* libassimp64d.3.dylib */; };
 		E9A1BA7B19A135A800CE01B1 /* libBox2D.2.3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E9A1BA7A19A135A800CE01B1 /* libBox2D.2.3.0.dylib */; };
@@ -59,6 +60,9 @@
 		E907F50B198F773C003FE113 /* Simple.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Simple.frag; sourceTree = "<group>"; };
 		E907F50C198F773C003FE113 /* Simple.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Simple.vert; sourceTree = "<group>"; };
 		E96D6F8119A2A6F4004C6BEB /* libfreetype.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfreetype.a; path = ../biblioteki/build/freetype/osx/lib/libfreetype.a; sourceTree = "<group>"; };
+		E9850F3619B27F7300E57E65 /* BrickpongGame.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BrickpongGame.cpp; sourceTree = "<group>"; };
+		E9850F3719B27F7300E57E65 /* BrickpongGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrickpongGame.h; sourceTree = "<group>"; };
+		E9850F3819B27F7300E57E65 /* Game Engines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Game Engines.h"; sourceTree = "<group>"; };
 		E9A1BA7619A1357D00CE01B1 /* libglfw.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglfw.3.dylib; path = ../biblioteki/build/glfw/osx/lib64/libglfw.3.dylib; sourceTree = "<group>"; };
 		E9A1BA7819A1359100CE01B1 /* libassimp64d.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libassimp64d.3.dylib; path = ../biblioteki/build/assimp/osx/lib/libassimp64d.3.dylib; sourceTree = "<group>"; };
 		E9A1BA7A19A135A800CE01B1 /* libBox2D.2.3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libBox2D.2.3.0.dylib; path = ../biblioteki/build/box2d/osx/lib/libBox2D.2.3.0.dylib; sourceTree = "<group>"; };
@@ -128,6 +132,24 @@
 			name = "Graphics Engine";
 			sourceTree = "<group>";
 		};
+		E9850F3419B27F7300E57E65 /* Game Engines */ = {
+			isa = PBXGroup;
+			children = (
+				E9850F3519B27F7300E57E65 /* Brickpong */,
+				E9850F3819B27F7300E57E65 /* Game Engines.h */,
+			);
+			path = "Game Engines";
+			sourceTree = "<group>";
+		};
+		E9850F3519B27F7300E57E65 /* Brickpong */ = {
+			isa = PBXGroup;
+			children = (
+				E9850F3619B27F7300E57E65 /* BrickpongGame.cpp */,
+				E9850F3719B27F7300E57E65 /* BrickpongGame.h */,
+			);
+			path = Brickpong;
+			sourceTree = "<group>";
+		};
 		E98ADD8019A95A6E00117D34 /* Main Program */ = {
 			isa = PBXGroup;
 			children = (
@@ -165,6 +187,7 @@
 			children = (
 				E98ADD8019A95A6E00117D34 /* Main Program */,
 				E908155F1992D98F00885AD0 /* Graphics Engine */,
+				E9850F3419B27F7300E57E65 /* Game Engines */,
 				E907F50A198F773C003FE113 /* shaders */,
 			);
 			path = Brickpong;
@@ -222,6 +245,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E9850F3919B27F7300E57E65 /* BrickpongGame.cpp in Sources */,
 				E9D94690198FDCE20082E1C1 /* VBO.cpp in Sources */,
 				E9D94691198FDCE20082E1C1 /* Window.cpp in Sources */,
 				E9D9468E198FDCE20082E1C1 /* ShaderProgram.cpp in Sources */,
