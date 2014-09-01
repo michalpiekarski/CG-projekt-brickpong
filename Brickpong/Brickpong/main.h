@@ -17,5 +17,6 @@
 
 #include "BrickpongException.h"
 #include "Graphics Engine/GraphicsEngine.h"
+#include "Game Engines/GameEngine.h"
 
 #endif /* defined(__Brickpong__main__) */

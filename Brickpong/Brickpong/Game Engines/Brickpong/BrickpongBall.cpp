@@ -42,3 +42,12 @@ b2Vec2 BrickpongBall::GetPosition() {
 void BrickpongBall::SetTransform(b2Vec2 aposition, float aangle) {
     _body->SetTransform(aposition, aangle);
 }
+
+void BrickpongBall::Draw(EBO* aEBO, glm::mat4 Model, glm::mat4 View, glm::mat4 Projection, GLuint MVP_ID) {
+    glm::vec3 tmpBallPosition = glm::vec3(_body->GetPosition().x, _body->GetPosition().y, 0.0f);
+    glm::mat4 tmpModel = glm::scale(glm::translate(Model, tmpBallPosition), glm::vec3(0.25f, 0.25f, 0.25f));
+    glm::mat4 MVP = Projection * View * tmpModel;
+    glUniformMatrix4fv(MVP_ID, 1, GL_FALSE, &MVP[0][0]);
+
+    aEBO->Draw();
+}

@@ -1,4 +1,5 @@
 #include "BrickpongPad.h"
+#include "BrickpongGame.h"
 
 BrickpongPad::BrickpongPad(b2World* aworld,float awidth, float aheight, float acursorPositionX) {
     b2BodyDef bodyDef;
@@ -32,4 +33,12 @@ float BrickpongPad::GetAngle() {
 
 void BrickpongPad::SetTransform(b2Vec2 aposition, float aangle) {
     _body->SetTransform(aposition, aangle);
+}
+
+void BrickpongPad::Draw(Cursor* aCursor, EBO* aEBO, glm::mat4 Model, glm::mat4 View, glm::mat4 Projection, GLuint MVP_ID) {
+    glm::mat4 tmpModel = glm::scale(glm::translate(Model, glm::vec3(aCursor->positionX, -7.5f, 0)), glm::vec3(2.0f, 0.25f, 2.0f));
+    glm::mat4 MVP = Projection * View * tmpModel;
+    glUniformMatrix4fv(MVP_ID, 1, GL_FALSE, &MVP[0][0]);
+
+    aEBO->Draw();
 }

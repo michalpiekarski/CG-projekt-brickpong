@@ -16,6 +16,7 @@
 #include <Box2D/Box2D.h>
 
 #include "../../Graphics Engine/Window.h"
+#include "../../Graphics Engine/EBO.h"
 #include "BrickpongWorld.h"
 #include "BrickpongWorldBounds.h"
 #include "BrickpongBall.h"
@@ -65,7 +66,7 @@ public:
     void DestroyBricks();
     std::vector<BrickpongBrick*> GetBricksList();
     Cursor* GetCursor();
-    b2Body* GetBall();
+    BrickpongBall* GetBall();
     void CheckGameResult();
     BrickpongPad* GetPad();
     bool IsGamePaused();
@@ -73,6 +74,7 @@ public:
     void ResetGame();
     BrickpongWorld* GetWorld();
     BrickpongInput* GetInput();
+    void DrawBricks(EBO* aEBO, glm::mat4 Model, glm::mat4 View, glm::mat4 Projection, GLuint MVP_ID);
 };
 
 #endif /* defined(__Brickpong__Game_Engines__Brickpong__BrickpongGame__) */

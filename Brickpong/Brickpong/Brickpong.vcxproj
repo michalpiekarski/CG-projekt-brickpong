@@ -160,6 +160,7 @@
     <ClCompile Include="Game Engines\Brickpong\BrickpongPad.cpp" />
     <ClCompile Include="Game Engines\Brickpong\BrickpongWorld.cpp" />
     <ClCompile Include="Game Engines\Brickpong\BrickpongWorldBounds.cpp" />
+    <ClCompile Include="Game Engines\GameEngine.cpp" />
     <ClCompile Include="Graphics Engine\EBO.cpp" />
     <ClCompile Include="Graphics Engine\GraphicsEngine.cpp" />
     <ClCompile Include="main.cpp" />
@@ -177,7 +178,7 @@
     <ClInclude Include="Game Engines\Brickpong\BrickpongPad.h" />
     <ClInclude Include="Game Engines\Brickpong\BrickpongWorld.h" />
     <ClInclude Include="Game Engines\Brickpong\BrickpongWorldBounds.h" />
-    <ClInclude Include="Game Engines\Game Engines.h" />
+    <ClInclude Include="Game Engines\GameEngine.h" />
     <ClInclude Include="Graphics Engine\GraphicsEngine.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="BrickpongException.h" />

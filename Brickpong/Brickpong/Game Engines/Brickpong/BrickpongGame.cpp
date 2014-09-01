@@ -100,8 +100,8 @@ Cursor* BrickpongGame::GetCursor() {
     return &_cursor;
 }
 
-b2Body* BrickpongGame::GetBall() {
-    return _ball->GetBody();
+BrickpongBall* BrickpongGame::GetBall() {
+    return _ball;
 }
 
 void BrickpongGame::ConnectContactListenerToWorld() {
@@ -160,4 +160,12 @@ BrickpongInput* BrickpongGame::GetInput() {
 void BrickpongGame::CheckGameResult() {
     CheckGameOver();
     CheckGameWin();
+}
+
+void BrickpongGame::DrawBricks(EBO* aEBO, glm::mat4 Model, glm::mat4 View, glm::mat4 Projection, GLuint MVP_ID) {
+    for (std::vector<BrickpongBrick*>::iterator i = _bricks.begin(); i != _bricks.end(); i++) {
+        if ((*i)->IsActive()) {
+            (*i)->Draw(aEBO, Model, View, Projection, MVP_ID);
+        }
+    }
 }

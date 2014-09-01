@@ -26,3 +26,13 @@ bool BrickpongBrick::IsActive() {
 void BrickpongBrick::SetActive(bool aactive) {
     _body->SetActive(aactive);
 }
+
+void BrickpongBrick::Draw(EBO* aEBO, glm::mat4 Model, glm::mat4 View, glm::mat4 Projection, GLuint MVP_ID) {
+    b2Vec2 bodyPos = _body->GetPosition();
+    glm::vec3 translation = glm::vec3(bodyPos.x, bodyPos.y, 0.0f);
+    glm::vec3 scale = glm::vec3(0.5f, 0.25f, 0.25f);
+    glm::mat4 tmpModel = glm::scale(glm::translate(Model, translation), scale);
+    glm::mat4 MVP = Projection * View * tmpModel;
+    glUniformMatrix4fv(MVP_ID, 1, GL_FALSE, &MVP[0][0]);
+    aEBO->Draw();
+}

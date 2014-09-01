@@ -3,43 +3,6 @@
 // Comment out for debut output in console
 #define __Brickpong__DEBUG_LOG__
 
-void Draw(EBO* myEBO) {
-    myEBO->bind();
-    glDrawElements(GL_TRIANGLES, 12 * 3, GL_UNSIGNED_SHORT, NULL);
-    myEBO->unbind();
-}
-
-void DrawBricks(std::vector<BrickpongBrick*> aBricks, EBO* aEBO, glm::mat4 Model, glm::mat4 View, glm::mat4 Projection, GLuint MVP_ID) {
-    for (std::vector<BrickpongBrick*>::iterator i = aBricks.begin(); i != aBricks.end(); i++) {
-        if ((*i)->IsActive()) {
-            b2Vec2 bodyPos = (*i)->GetPosition();
-            glm::vec3 translation = glm::vec3(bodyPos.x, bodyPos.y, 0.0f);
-            glm::vec3 scale = glm::vec3(0.5f, 0.25f, 0.25f);
-            glm::mat4 tmpModel = glm::scale(glm::translate(Model, translation), scale);
-            glm::mat4 MVP = Projection * View * tmpModel;
-            glUniformMatrix4fv(MVP_ID, 1, GL_FALSE, &MVP[0][0]);
-            Draw(aEBO);
-        }
-    }
-}
-
-void DrawPad(Cursor* aCursor, EBO* aEBO, glm::mat4 Model, glm::mat4 View, glm::mat4 Projection, GLuint MVP_ID) {
-    glm::mat4 tmpModel = glm::scale(glm::translate(Model, glm::vec3(aCursor->positionX, -7.5f, 0)), glm::vec3(2.0f, 0.25f, 2.0f));
-    glm::mat4 MVP = Projection * View * tmpModel;
-    glUniformMatrix4fv(MVP_ID, 1, GL_FALSE, &MVP[0][0]);
-
-    Draw(aEBO);
-}
-
-void DrawBall(b2Body* aBall, EBO* aEBO, glm::mat4 Model, glm::mat4 View, glm::mat4 Projection, GLuint MVP_ID) {
-    glm::vec3 tmpBallPosition = glm::vec3(aBall->GetPosition().x, aBall->GetPosition().y, 0.0f);
-    glm::mat4 tmpModel = glm::scale(glm::translate(Model, tmpBallPosition), glm::vec3(0.25f, 0.25f, 0.25f));
-    glm::mat4 MVP = Projection * View * tmpModel;
-    glUniformMatrix4fv(MVP_ID, 1, GL_FALSE, &MVP[0][0]);
-
-    Draw(aEBO);
-}
-
 BrickpongGame* brickpongGame;
 bool zoom = true;
 
@@ -221,13 +184,13 @@ int main(void) {
 
             if (zoom) {
                 // Bricks
-                DrawBricks(brickpongGame->GetBricksList(), myEBO, Model, View, Projection, MatrixID);
+                brickpongGame->DrawBricks(myEBO, Model, View, Projection, MatrixID);
 
                 // Pad
-                DrawPad(brickpongGame->GetCursor(), myEBO, Model, View, Projection, MatrixID);
+                brickpongGame->GetPad()->Draw(brickpongGame->GetCursor(), myEBO, Model, View, Projection, MatrixID);
 
                 // Ball
-                DrawBall(brickpongGame->GetBall(), myEBO, Model, View, Projection, MatrixID);
+                brickpongGame->GetBall()->Draw(myEBO, Model, View, Projection, MatrixID);
             }
             else {
                 glm::vec3 sceneOffset;
@@ -246,13 +209,13 @@ int main(void) {
                     Model = glm::rotate(Model, i, glm::vec3(0.0f, 1.0f, 0.0f));
                     Model = glm::translate(Model, sceneOffset);
                     // Bricks
-                    DrawBricks(brickpongGame->GetBricksList(), myEBO, Model, View, Projection, MatrixID);
+                    brickpongGame->DrawBricks(myEBO, Model, View, Projection, MatrixID);
 
                     // Pad
-                    DrawPad(brickpongGame->GetCursor(), myEBO, Model, View, Projection, MatrixID);
+                    brickpongGame->GetPad()->Draw(brickpongGame->GetCursor(), myEBO, Model, View, Projection, MatrixID);
 
                     // Ball
-                    DrawBall(brickpongGame->GetBall(), myEBO, Model, View, Projection, MatrixID);
+                    brickpongGame->GetBall()->Draw(myEBO, Model, View, Projection, MatrixID);
 
                     Model = glm::mat4(1.0f);
                 }
