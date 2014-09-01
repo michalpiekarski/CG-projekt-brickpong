@@ -231,14 +231,44 @@ int main(void) {
 
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-            // Bricks
-            DrawBricks(brickpongGame->GetBricksList(), myEBO, Model, View, Projection, MatrixID);
+            if (zoom) {
+                // Bricks
+                DrawBricks(brickpongGame->GetBricksList(), myEBO, Model, View, Projection, MatrixID);
 
-            // Pad
-            DrawPad(brickpongGame->GetCursor(), myEBO, Model, View, Projection, MatrixID);
+                // Pad
+                DrawPad(brickpongGame->GetCursor(), myEBO, Model, View, Projection, MatrixID);
 
-            // Ball
-            DrawBall(brickpongGame->GetBall(), myEBO, Model, View, Projection, MatrixID);
+                // Ball
+                DrawBall(brickpongGame->GetBall(), myEBO, Model, View, Projection, MatrixID);
+            }
+            else {
+                glm::vec3 sceneOffset;
+                for (float i = 90.0f; i >= -90.0f; i -= 90.0f) {
+                    switch ((int)i) {
+                        case -90:
+                            sceneOffset = glm::vec3(10.0f, 0.0f, -35.0f);
+                            break;
+                        case 0:
+                            sceneOffset = glm::vec3();
+                            break;
+                        case 90:
+                            sceneOffset = glm::vec3(-10.0f, 0.0f, -35.0f);
+                            break;
+                    }
+                    Model = glm::rotate(Model, i, glm::vec3(0.0f, 1.0f, 0.0f));
+                    Model = glm::translate(Model, sceneOffset);
+                    // Bricks
+                    DrawBricks(brickpongGame->GetBricksList(), myEBO, Model, View, Projection, MatrixID);
+
+                    // Pad
+                    DrawPad(brickpongGame->GetCursor(), myEBO, Model, View, Projection, MatrixID);
+
+                    // Ball
+                    DrawBall(brickpongGame->GetBall(), myEBO, Model, View, Projection, MatrixID);
+
+                    Model = glm::mat4(1.0f);
+                }
+            }
 
             window->swapBuffers();
 
