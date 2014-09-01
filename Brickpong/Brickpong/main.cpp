@@ -24,9 +24,7 @@ int main(void) {
         Shader* fShader;
 
         window->makeContextCurrent();
-#ifndef __Brickpong__DEBUG_LOG__
         window->setCursorMode(GLFW_CURSOR_HIDDEN);
-#endif
         window->setStickyKeys(GL_TRUE);
         window->setCursorPosCallback(CursorPositionCallback);
         window->setKeyCallback(KeyboardKeyCallback);

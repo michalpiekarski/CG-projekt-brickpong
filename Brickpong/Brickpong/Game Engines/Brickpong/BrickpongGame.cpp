@@ -30,7 +30,7 @@ BrickpongGame::~BrickpongGame() {
 void BrickpongGame::CreateGame() {
     _world = new BrickpongWorld(b2Vec2(0.0f, -10.0f));
     _worldBounds = new BrickpongWorldBounds(_world->GetWorld(), 16.5f, 10.0f, b2Vec2(0.0f, -4.0f));
-    _ball = new BrickpongBall(_world->GetWorld(), 0.25f, b2Vec2(2.0f, 4.0f), 3.0f);
+    _ball = new BrickpongBall(_world->GetWorld(), 0.25f, b2Vec2(2.0f, 4.0f), 1.0f, 3.0f);
     _pad = new BrickpongPad(_world->GetWorld(), 4.0f, 0.5f, _cursor.positionX);
     CreateManyBricks(b2Vec2(-7.0f, -3.0f), b2Vec2(7.0f, 0.5f), 1.0f, 0.5f, b2Vec2(0.1f, 0.1f));
     ConnectContactListenerToWorld();
@@ -115,6 +115,7 @@ void BrickpongGame::DestroyContactListener() {
 
 void BrickpongGame::ResetGame() {
     _ball->SetTransform(b2Vec2(1.0f, -6.0f), 0.0f);
+    _ball->SetLinearVelocityMultiplier(1.0f);
     _ball->SetLinearVelocity(b2Vec2(2.0f, 4.0f));
     for (std::vector<BrickpongBrick*>::iterator i = _bricks.begin(); i != _bricks.end(); i++) {
         (*i)->SetActive(true);

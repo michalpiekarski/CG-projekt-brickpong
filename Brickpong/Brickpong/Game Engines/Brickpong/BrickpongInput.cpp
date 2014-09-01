@@ -27,28 +27,46 @@ void BrickpongInput::CursorPositionChanged(BrickpongGame* agame, GLFWwindow *awi
 }
 
 void BrickpongInput::KeyCallback(BrickpongGame* agame, GLFWwindow *awindow, int akey, int ascancode, int aaction, int amods, GLFWcursorposfun acurrentCursorPosCallback) {
-    if (aaction == GLFW_RELEASE && akey == GLFW_KEY_SPACE) {
-        b2Vec2 tmp = agame->GetBall()->GetLinearVelocity();
-        agame->GetBall()->SetLinearVelocity(_pauseBallVelocity);
-        _pauseBallVelocity = tmp;
-        if (!agame->IsGamePaused()) {
-            agame->SetGamePaused(true);
-            glfwSetCursorPosCallback(awindow, NULL);
+    if (aaction == GLFW_RELEASE) {
+        if (akey == GLFW_KEY_SPACE) {
+            b2Vec2 tmp = agame->GetBall()->GetLinearVelocity();
+            agame->GetBall()->SetLinearVelocity(_pauseBallVelocity);
+            _pauseBallVelocity = tmp;
+            if (!agame->IsGamePaused()) {
+                agame->SetGamePaused(true);
+                glfwSetCursorPosCallback(awindow, NULL);
 #ifndef __Brickpong__DEBUG_LOG__
-            glfwSetInputMode(awindow, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-            std::cout << "Ball position: " << agame->GetBall()->GetPosition().x << "; " << agame->GetBall()->GetPosition().y << " | ";
-            std::cout << "Pad position: " << agame->GetPad()->GetPosition().x << "; " << agame->GetPad()->GetPosition().y << std::endl;
+                glfwSetInputMode(awindow, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+                std::cout << "Ball position: " << agame->GetBall()->GetPosition().x << "; " << agame->GetBall()->GetPosition().y << " | ";
+                std::cout << "Pad position: " << agame->GetPad()->GetPosition().x << "; " << agame->GetPad()->GetPosition().y << std::endl;
 #endif
-            std::cout << "Game Paused" << std::endl;
-        }
-        else {
-            agame->SetGamePaused(false);
+                std::cout << "Game Paused" << std::endl;
+            }
+            else {
+                agame->SetGamePaused(false);
 
-            glfwSetCursorPosCallback(awindow, acurrentCursorPosCallback);
+                glfwSetCursorPosCallback(awindow, acurrentCursorPosCallback);
 #ifndef __Brickpong__DEBUG_LOG__
-            glfwSetInputMode(awindow, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+                glfwSetInputMode(awindow, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 #endif
-            std::cout << "Game Resumed" << std::endl;
+                std::cout << "Game Resumed" << std::endl;
+            }
+        }
+        else if(akey == GLFW_KEY_1) {
+            BrickpongBall* tmpBall = agame->GetBall();
+            float tmpVelMulti = tmpBall->GetLinearVelocityMultiplier();
+            if (tmpVelMulti > 1.0) {
+                tmpVelMulti = 1.0f;
+            }
+            tmpBall->SetLinearVelocityMultiplier(tmpVelMulti*0.75f);
+        }
+        else if (akey == GLFW_KEY_2) {
+            BrickpongBall* tmpBall = agame->GetBall();
+            float tmpVelMulti = tmpBall->GetLinearVelocityMultiplier();
+            if (tmpVelMulti < 1.0) {
+                tmpVelMulti = 1.0f;
+            }
+            tmpBall->SetLinearVelocityMultiplier(tmpVelMulti*1.25f);
         }
     }
     if (aaction == GLFW_PRESS || aaction == GLFW_REPEAT) {

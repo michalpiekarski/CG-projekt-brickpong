@@ -18,11 +18,14 @@ class BrickpongBall {
 private:
     b2Body* _body;
     float _density;
+    float _linearVelocityMultiplier;
 public:
-    BrickpongBall(b2World* aworld, float aradius, b2Vec2 alinearVelocity, float adensity);
+    BrickpongBall(b2World* aworld, float aradius, b2Vec2 alinearVelocity, float alinearVelocityMultiplier, float adensity);
     virtual ~BrickpongBall();
     b2Body* GetBody();
     b2Vec2 GetLinearVelocity();
+    float GetLinearVelocityMultiplier();
+    void SetLinearVelocityMultiplier(float alinearVelocityMultiplier);
     void SetLinearVelocity(b2Vec2 alinearVelocity);
     b2Vec2 GetPosition();
     void SetTransform(b2Vec2 aposition, float aangle);
