@@ -83,6 +83,48 @@ void DrawBall(b2Body* aBall, EBO* aEBO, glm::mat4 Model, glm::mat4 View, glm::ma
 
 BrickpongGame* brickpongGame;
 
+bool zoom = true;
+
+glm::mat4 ZoomOut(glm::vec3 atarget) {
+    zoom = false;
+    return glm::lookAt(glm::vec3(0.0f, 0.0f, 30.0f), atarget, glm::vec3(0.0f, 1.0f, 0.0f));
+}
+
+glm::mat4 ZoomIn() {
+    zoom = true;
+    return glm::lookAt(glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(0.0f,0.0f,0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+}
+
+glm::mat4 ChangeZoomLevel(Window* window, glm::mat4 currentMatrix) {
+    if (window->getMouseButton(GLFW_MOUSE_BUTTON_LEFT) == GLFW_RELEASE) {
+        return ZoomIn();
+    }
+    else if (window->getMouseButton(GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) {
+        glm::dvec2 target = window->getCursorPosition();
+        return ZoomOut(glm::vec3(target.x, target.y, 0.0f));
+    }
+    else {
+        return currentMatrix;
+    }
+}
+
+glm::mat4 ChangeToOrtographic() {
+    return glm::ortho(-8.0f, 8.0f, -8.0f, 1.0f, -10.0f, 1000.0f);
+}
+
+glm::mat4 ChangeToPerspective() {
+    return glm::perspective(45.0f, 16.0f / 9.0f, 0.1f, 100.0f);
+}
+
+glm::mat4 ChangeProjection() {
+    if (zoom) {
+        return ChangeToOrtographic();
+    }
+    else {
+        return ChangeToPerspective();
+    }
+}
+
 void CursorPositionCallback(GLFWwindow* window, double x, double y) {
     brickpongGame->CursorPositionChanged(window, x, y);
 }
@@ -134,8 +176,10 @@ int main(void) {
         GLuint MatrixID = shaderProgram->getUniformLoc("MVP");
 
         glm::mat4 Model = glm::mat4(1.0f);
-        glm::mat4 View = glm::lookAt(glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-        glm::mat4 Projection = glm::ortho(-8.0f, 8.0f, -8.0f, 1.0f, -1.0f, 1.0f); // Powinna być zachowana taka sama proporcja szerokość:wysokość jaką ma okno (16:9) aby uniknąć zniekształceń
+        //glm::mat4 View = glm::lookAt(glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+        glm::mat4 View = ZoomIn();
+        //glm::mat4 Projection = glm::ortho(-8.0f, 8.0f, -8.0f, 1.0f, -10.0f, 1000.0f); // Powinna być zachowana taka sama proporcja szerokość:wysokość jaką ma okno (16:9) aby uniknąć zniekształceń
+        glm::mat4 Projection = ChangeToOrtographic();
 
         glm::mat4 tmpModel, tmpMVP;
 
@@ -165,6 +209,9 @@ int main(void) {
 #endif
 
         do {
+            View = ChangeZoomLevel(window, View);
+            Projection = ChangeProjection();
+
             brickpongGame->StepPhysics(1.0f / 60.0f, 6, 2);
             brickpongGame->CheckBallBelowPad();
             brickpongGame->DestroyBricks();

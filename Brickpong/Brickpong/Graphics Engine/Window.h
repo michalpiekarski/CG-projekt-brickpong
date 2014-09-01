@@ -11,6 +11,7 @@
 #define GLFW_INCLUDE_GLCOREARB
 #endif
 #include <GLFW/glfw3.h>
+#include <glm/glm.hpp>
 
 class Window {
 private:
@@ -32,6 +33,8 @@ public:
     void setCursorPosCallback(GLFWcursorposfun callback);
     void setKeyCallback(GLFWkeyfun callback);
     int getKey(int key);
+    int getMouseButton(int mouseButton);
+    glm::dvec2 getCursorPosition();
 };
 
 #endif /* defined(__Brickpong__Window__) */
