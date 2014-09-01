@@ -101,14 +101,14 @@ int Window::getMouseButton(int mouseButton) {
     return glfwGetMouseButton(_window, mouseButton);
 }
 
-glm::dvec2 Window::getCursorPosition() {
+glm::dvec2 Window::getCursorPositionInWorldSpace(float aworldWidth, float aworldHeight, glm::vec2 aworldCenterOffset) {
     glm::dvec2 cursorPos;
     glfwGetCursorPos(_window, &cursorPos.x, &cursorPos.y);
     glm::ivec2 windowSize;
     glfwGetFramebufferSize(_window, &windowSize.x, &windowSize.y);
     float halfWindowWidth = windowSize.x / 2.0f;
     float halfWindowHeight = windowSize.y / 2.0f;
-    cursorPos.x = (cursorPos.x - halfWindowWidth) / (halfWindowWidth / 45.0f);
-    cursorPos.y = (cursorPos.y - halfWindowHeight) / (halfWindowHeight / 9.0f) - 8.0f;
+    cursorPos.x = (cursorPos.x - halfWindowWidth) / (halfWindowWidth / aworldWidth) + aworldCenterOffset.x;
+    cursorPos.y = (cursorPos.y - halfWindowHeight) / (halfWindowHeight / aworldHeight) + aworldCenterOffset.y;
     return cursorPos;
 }

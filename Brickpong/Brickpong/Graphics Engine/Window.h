@@ -34,7 +34,7 @@ public:
     void setKeyCallback(GLFWkeyfun callback);
     int getKey(int key);
     int getMouseButton(int mouseButton);
-    glm::dvec2 getCursorPosition();
+    glm::dvec2 getCursorPositionInWorldSpace(float aworldWidth, float aworldHeight, glm::vec2 aworldCenterOffset);
 };
 
 #endif /* defined(__Brickpong__Window__) */
