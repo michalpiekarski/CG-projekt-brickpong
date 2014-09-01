@@ -12,15 +12,18 @@
 
 class EBO {
     GLuint _EBOID;
+    int _dataSize;
 
 public:
     EBO();
+    EBO(GLushort data[][3], int dataSize, GLenum usage);
     virtual ~EBO();
 
     void bind();
     void unbind();
     GLuint getID();
-    void data(const GLvoid* data, GLsizeiptr dataSize, GLenum usage);
+    void SetData(GLushort data[][3], int dataSize, GLenum usage);
+    void Draw();
 };
 
 #endif /* defined(__Brickpong__EBO__) */

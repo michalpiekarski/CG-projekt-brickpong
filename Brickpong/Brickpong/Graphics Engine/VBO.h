@@ -13,14 +13,17 @@
 class VBO {
 private:
     GLuint _VBOID;
+    int _dataSize;
+
 public:
     VBO();
+    VBO(GLfloat data[][3], int dataSize, GLenum usage);
     virtual ~VBO();
 
     void bind();
     void unbind();
     GLuint getID();
-    void data(const GLvoid* data, GLsizeiptr dataSize, GLenum usage);
+    void SetData(GLfloat data[][3], int dataSize, GLenum usage);
     void createVertexAttribPointer(GLuint index, GLint size, GLenum type,
                                    GLboolean normalized, GLsizei stride, const GLvoid* pointer);
 };

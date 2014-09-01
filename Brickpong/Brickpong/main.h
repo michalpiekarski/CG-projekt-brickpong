@@ -16,11 +16,6 @@
 #include <Box2D/Box2D.h>
 
 #include "BrickpongException.h"
-#include "Graphics Engine/Graphics Engine.h"
-#include "Game Engines/Game Engines.h"
-
-void CreateBuffers(VBO* vVBO, VBO* cVBO, EBO* myEBO);
-
-void Draw(EBO* myEBO);
+#include "Graphics Engine/GraphicsEngine.h"
 
 #endif /* defined(__Brickpong__main__) */

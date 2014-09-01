@@ -3,47 +3,6 @@
 // Comment out for debut output in console
 #define __Brickpong__DEBUG_LOG__
 
-void CreateBuffers(VBO* vVBO, VBO* cVBO, EBO* myEBO) {
-    GLfloat vertex_data[8][3] = {
-            {-1.0f, -1.0f, -1.0f, },
-            {-1.0f, -1.0f, +1.0f, },
-            {-1.0f, +1.0f, +1.0f, },
-            {+1.0f, +1.0f, -1.0f, },
-            {-1.0f, +1.0f, -1.0f, },
-            {+1.0f, -1.0f, +1.0f, },
-            {+1.0f, -1.0f, -1.0f, },
-            {+1.0f, +1.0f, +1.0f, },
-    };
-    GLfloat color_data[8][3] = {
-            {0.583f, 0.771f, 0.014f, },
-            {0.609f, 0.115f, 0.436f, },
-            {0.327f, 0.483f, 0.844f, },
-            {0.822f, 0.569f, 0.201f, },
-            {0.435f, 0.602f, 0.223f, },
-            {0.310f, 0.747f, 0.185f, },
-            {0.597f, 0.770f, 0.761f, },
-            {0.559f, 0.436f, 0.730f, },
-    };
-    GLushort index_data[12][3] = {
-            {0, 1, 2, },
-            {3, 0, 4, },
-            {5, 0, 6, },
-            {3, 6, 0, },
-            {0, 2, 4, },
-            {5, 1, 0, },
-            {2, 1, 5, },
-            {7, 6, 3, },
-            {6, 7, 5, },
-            {7, 3, 4, },
-            {7, 4, 2, },
-            {7, 2, 5, },
-    };
-
-    vVBO->data(vertex_data, sizeof(vertex_data), GL_STATIC_DRAW);
-    cVBO->data(color_data, sizeof(color_data), GL_STATIC_DRAW);
-    myEBO->data(index_data, sizeof(index_data), GL_STATIC_DRAW);
-}
-
 void Draw(EBO* myEBO) {
     myEBO->bind();
     glDrawElements(GL_TRIANGLES, 12 * 3, GL_UNSIGNED_SHORT, NULL);
@@ -82,7 +41,6 @@ void DrawBall(b2Body* aBall, EBO* aEBO, glm::mat4 Model, glm::mat4 View, glm::ma
 }
 
 BrickpongGame* brickpongGame;
-
 bool zoom = true;
 
 glm::mat4 ZoomOut(glm::vec3 atarget) {
@@ -184,10 +142,43 @@ int main(void) {
         VAO* VertexArray = new VAO();
         VertexArray->bind();
 
-        VBO* vVBO = new VBO();
-        VBO* cVBO = new VBO();
-        EBO* myEBO = new EBO();
-        CreateBuffers(vVBO, cVBO, myEBO);
+        GLfloat vertex_data[8][3] = {
+                {-1.0f, -1.0f, -1.0f, },
+                {-1.0f, -1.0f, +1.0f, },
+                {-1.0f, +1.0f, +1.0f, },
+                {+1.0f, +1.0f, -1.0f, },
+                {-1.0f, +1.0f, -1.0f, },
+                {+1.0f, -1.0f, +1.0f, },
+                {+1.0f, -1.0f, -1.0f, },
+                {+1.0f, +1.0f, +1.0f, },
+        };
+        VBO* vVBO = new VBO(vertex_data, 8, GL_STATIC_DRAW);
+        GLfloat color_data[8][3] = {
+                {0.583f, 0.771f, 0.014f, },
+                {0.609f, 0.115f, 0.436f, },
+                {0.327f, 0.483f, 0.844f, },
+                {0.822f, 0.569f, 0.201f, },
+                {0.435f, 0.602f, 0.223f, },
+                {0.310f, 0.747f, 0.185f, },
+                {0.597f, 0.770f, 0.761f, },
+                {0.559f, 0.436f, 0.730f, },
+        };
+        VBO* cVBO = new VBO(color_data, 8, GL_STATIC_DRAW);
+        GLushort index_data[12][3] = {
+                {0, 1, 2, },
+                {3, 0, 4, },
+                {5, 0, 6, },
+                {3, 6, 0, },
+                {0, 2, 4, },
+                {5, 1, 0, },
+                {2, 1, 5, },
+                {7, 6, 3, },
+                {6, 7, 5, },
+                {7, 3, 4, },
+                {7, 4, 2, },
+                {7, 2, 5, },
+        };
+        EBO* myEBO = new EBO(index_data, 12, GL_STATIC_DRAW);
 
         GLint positionAttribLoc = shaderProgram->getAttributeLoc("position");
         GLint colorAttribLoc = shaderProgram->getAttributeLoc("color");

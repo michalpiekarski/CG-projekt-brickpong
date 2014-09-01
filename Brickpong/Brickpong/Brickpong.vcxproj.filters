@@ -63,6 +63,9 @@
     <ClCompile Include="Game Engines\Brickpong\BrickpongInput.cpp">
       <Filter>Game Engines\Brickpong</Filter>
     </ClCompile>
+    <ClCompile Include="Graphics Engine\GraphicsEngine.cpp">
+      <Filter>Graphics Engine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -72,9 +75,6 @@
       <Filter>Main Program</Filter>
     </ClInclude>
     <ClInclude Include="Graphics Engine\EBO.h">
-      <Filter>Graphics Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics Engine\Graphics Engine.h">
       <Filter>Graphics Engine</Filter>
     </ClInclude>
     <ClInclude Include="Graphics Engine\Shader.h">
@@ -115,6 +115,9 @@
     </ClInclude>
     <ClInclude Include="Game Engines\Brickpong\BrickpongInput.h">
       <Filter>Game Engines\Brickpong</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics Engine\GraphicsEngine.h">
+      <Filter>Graphics Engine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -4,6 +4,10 @@ VBO::VBO() {
     glGenBuffers(1, &_VBOID);
 }
 
+VBO::VBO(GLfloat data[][3], int dataSize, GLenum usage) : VBO() {
+    SetData(data, dataSize, usage);
+}
+
 VBO::~VBO() {
     unbind();
     glDeleteBuffers(1, &_VBOID);
@@ -21,9 +25,10 @@ GLuint VBO::getID() {
     return _VBOID;
 }
 
-void VBO::data(const GLvoid* data, GLsizeiptr dataSize, GLenum usage) {
+void VBO::SetData(GLfloat data[][3], int dataSize, GLenum usage) {
+    _dataSize = dataSize;
     bind();
-    glBufferData(GL_ARRAY_BUFFER, dataSize, data, usage);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * 3 * _dataSize, data, usage);
     unbind();
 }
 
