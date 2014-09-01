@@ -90,6 +90,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(SolutionDir)..\biblioteki\build\glew\win64\include;$(SolutionDir)..\biblioteki\build\glfw\win64\include;$(SolutionDir)..\biblioteki\build\assimp\win64\include;$(SolutionDir)..\biblioteki\build\glm\win64\include;$(SolutionDir)..\biblioteki\build\box2d\win64\include;$(SolutionDir)..\biblioteki\build\freetype\win64\include\freetype2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <BrowseInformation>true</BrowseInformation>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -102,6 +103,9 @@
     <PostBuildEvent>
       <Message>Copy shader files to output directory.</Message>
     </PostBuildEvent>
+    <Bscmake>
+      <PreserveSbr>true</PreserveSbr>
+    </Bscmake>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -149,7 +153,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BrickpongException.cpp" />
+    <ClCompile Include="Game Engines\Brickpong\BrickpongBall.cpp" />
+    <ClCompile Include="Game Engines\Brickpong\BrickpongBrick.cpp" />
     <ClCompile Include="Game Engines\Brickpong\BrickpongGame.cpp" />
+    <ClCompile Include="Game Engines\Brickpong\BrickpongInput.cpp" />
+    <ClCompile Include="Game Engines\Brickpong\BrickpongPad.cpp" />
+    <ClCompile Include="Game Engines\Brickpong\BrickpongWorld.cpp" />
+    <ClCompile Include="Game Engines\Brickpong\BrickpongWorldBounds.cpp" />
     <ClCompile Include="Graphics Engine\EBO.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Graphics Engine\Shader.cpp" />
@@ -159,7 +169,13 @@
     <ClCompile Include="Graphics Engine\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Game Engines\Brickpong\BrickpongBall.h" />
+    <ClInclude Include="Game Engines\Brickpong\BrickpongBrick.h" />
     <ClInclude Include="Game Engines\Brickpong\BrickpongGame.h" />
+    <ClInclude Include="Game Engines\Brickpong\BrickpongInput.h" />
+    <ClInclude Include="Game Engines\Brickpong\BrickpongPad.h" />
+    <ClInclude Include="Game Engines\Brickpong\BrickpongWorld.h" />
+    <ClInclude Include="Game Engines\Brickpong\BrickpongWorldBounds.h" />
     <ClInclude Include="Game Engines\Game Engines.h" />
     <ClInclude Include="Graphics Engine\Graphics Engine.h" />
     <ClInclude Include="main.h" />

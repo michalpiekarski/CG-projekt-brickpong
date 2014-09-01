@@ -16,6 +16,12 @@
 #include <Box2D/Box2D.h>
 
 #include "../../Graphics Engine/Window.h"
+#include "BrickpongWorld.h"
+#include "BrickpongWorldBounds.h"
+#include "BrickpongBall.h"
+#include "BrickpongPad.h"
+#include "BrickpongBrick.h"
+#include "BrickpongInput.h"
 
 struct Cursor {
     float positionX;
@@ -24,26 +30,6 @@ struct Cursor {
 };
 
 class BrickpongGame {
-private:
-    b2World* world;
-    b2Body* worldBounds;
-    b2Body* ball;
-    b2Body* pad;
-    std::vector<b2Body*> bricks;
-    Cursor cursor;
-    std::vector<b2Contact*> contacts;
-    b2Vec2 PauseBallVelocity;
-    int Points;
-    bool gamePaused;
-    void CreateWorld(b2Vec2 agravity);
-    void DestroyWorld();
-    void CreateWorldBounds(float32 worldWidth, float32 worldHeight, b2Vec2 worldCenterOffset);
-    void CreateBall();
-    void CreatePad();
-    void CreateBrick(b2Body* abrick, b2Vec2 pos, b2Vec2 size);
-    void CreateManyBricks(b2Vec2 startPos, b2Vec2 endPos, b2Vec2 size, b2Vec2 padding);
-    static bool validBallBrickContact(b2Body* A, b2Body* B);
-
     class BallBrickContactListener : public b2ContactListener {
     private:
         std::vector<b2Contact*>* contacts;
@@ -51,26 +37,42 @@ private:
         BallBrickContactListener(std::vector<b2Contact*>* acontacts);
         void BeginContact(b2Contact* contact);
     };
-    BallBrickContactListener* ballBrickContactListener;
-
+private:
+    BrickpongWorld* _world;
+    BrickpongWorldBounds* _worldBounds;
+    BrickpongBall* _ball;
+    BrickpongPad* _pad;
+    std::vector<BrickpongBrick*> _bricks;
+    BrickpongInput* _input;
+    Cursor _cursor;
+    std::vector<b2Contact*> _contacts;
+    b2Vec2 _pauseBallVelocity;
+    int _points;
+    bool _gamePaused;
+    BallBrickContactListener* _ballBrickContactListener;
+    void CreateManyBricks(b2Vec2 astartPos, b2Vec2 aendPos, float awidth, float aheight, b2Vec2 apadding);
+    static bool validBallBrickContact(b2Body* A, b2Body* B);
     void ConnectContactListenerToWorld();
     void DestroyContactListener();
-    void ResetGame();
+    void CheckGameOver();
+    void CheckGameWin();
 public:
     BrickpongGame();
     virtual ~BrickpongGame();
     void CreateGame();
     void DestroyGame();
     int GetPoints();
-    void StepPhysics(float32 timeStep, int32 velocityIterations, int32 positionIterations);
     void DestroyBricks();
-    std::vector<b2Body*> GetBricksList();
-    Cursor GetCursor();
+    std::vector<BrickpongBrick*> GetBricksList();
+    Cursor* GetCursor();
     b2Body* GetBall();
-    void CursorPositionChanged(GLFWwindow *window, double x, double y);
-    void KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mods, GLFWcursorposfun currentCursorPosCallback);
-    void CheckBallBelowPad();
-    void CheckGameWin();
+    void CheckGameResult();
+    BrickpongPad* GetPad();
+    bool IsGamePaused();
+    void SetGamePaused(bool agamePaused);
+    void ResetGame();
+    BrickpongWorld* GetWorld();
+    BrickpongInput* GetInput();
 };
 
 #endif /* defined(__Brickpong__Game_Engines__Brickpong__BrickpongGame__) */

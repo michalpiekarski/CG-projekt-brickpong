@@ -4,8 +4,7 @@
 #include <iostream>
 #include <exception>
 
-class BrickpongException : public std::exception
-{
+class BrickpongException : public std::exception {
 private:
     std::string _what;
 public:

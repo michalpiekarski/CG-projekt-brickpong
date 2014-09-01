@@ -16,7 +16,7 @@ class EBO {
 public:
     EBO();
     virtual ~EBO();
-    
+
     void bind();
     void unbind();
     GLuint getID();

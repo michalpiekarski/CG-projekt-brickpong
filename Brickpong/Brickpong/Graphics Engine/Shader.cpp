@@ -1,25 +1,21 @@
 #include "Shader.h"
 #include "../BrickpongException.h"
 
-Shader::Shader(std::string path, GLenum type)
-{
+Shader::Shader(std::string path, GLenum type) {
     _shaderID = CreateShaderFromFile(path.c_str(), type);
 }
 
-Shader::~Shader()
-{
+Shader::~Shader() {
     glDeleteShader(_shaderID);
 }
 
-GLuint Shader::CreateShaderFromFile(const GLchar* path, GLenum type)
-{
+GLuint Shader::CreateShaderFromFile(const GLchar* path, GLenum type) {
     // Create the shaders
     GLuint shaderID = glCreateShader(type);
 
     // Read the Vertex Shader code from the file
     std::ifstream shaderStream(path);
-    if (!shaderStream.is_open())
-    {
+    if (!shaderStream.is_open()) {
         std::string msg = "Impossible to open shader file: ";
         msg += path;
         throw BrickpongException(msg);
@@ -38,8 +34,7 @@ GLuint Shader::CreateShaderFromFile(const GLchar* path, GLenum type)
 
     // Check Vertex Shader
     glGetShaderiv(shaderID, GL_COMPILE_STATUS, &compileStatus);
-    if (compileStatus != GL_TRUE)
-    {
+    if (compileStatus != GL_TRUE) {
         std::string msg("Shader '");
         msg += path;
         msg += "' failed to compile!\n";
@@ -55,7 +50,6 @@ GLuint Shader::CreateShaderFromFile(const GLchar* path, GLenum type)
     return shaderID;
 }
 
-GLuint Shader::getID()
-{
+GLuint Shader::getID() {
     return _shaderID;
 }

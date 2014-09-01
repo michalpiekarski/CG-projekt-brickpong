@@ -45,6 +45,24 @@
     <ClCompile Include="Game Engines\Brickpong\BrickpongGame.cpp">
       <Filter>Game Engines\Brickpong</Filter>
     </ClCompile>
+    <ClCompile Include="Game Engines\Brickpong\BrickpongWorld.cpp">
+      <Filter>Game Engines\Brickpong</Filter>
+    </ClCompile>
+    <ClCompile Include="Game Engines\Brickpong\BrickpongWorldBounds.cpp">
+      <Filter>Game Engines\Brickpong</Filter>
+    </ClCompile>
+    <ClCompile Include="Game Engines\Brickpong\BrickpongBall.cpp">
+      <Filter>Game Engines\Brickpong</Filter>
+    </ClCompile>
+    <ClCompile Include="Game Engines\Brickpong\BrickpongPad.cpp">
+      <Filter>Game Engines\Brickpong</Filter>
+    </ClCompile>
+    <ClCompile Include="Game Engines\Brickpong\BrickpongBrick.cpp">
+      <Filter>Game Engines\Brickpong</Filter>
+    </ClCompile>
+    <ClCompile Include="Game Engines\Brickpong\BrickpongInput.cpp">
+      <Filter>Game Engines\Brickpong</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -79,6 +97,24 @@
     </ClInclude>
     <ClInclude Include="Game Engines\Game Engines.h">
       <Filter>Game Engines</Filter>
+    </ClInclude>
+    <ClInclude Include="Game Engines\Brickpong\BrickpongWorld.h">
+      <Filter>Game Engines\Brickpong</Filter>
+    </ClInclude>
+    <ClInclude Include="Game Engines\Brickpong\BrickpongWorldBounds.h">
+      <Filter>Game Engines\Brickpong</Filter>
+    </ClInclude>
+    <ClInclude Include="Game Engines\Brickpong\BrickpongBall.h">
+      <Filter>Game Engines\Brickpong</Filter>
+    </ClInclude>
+    <ClInclude Include="Game Engines\Brickpong\BrickpongPad.h">
+      <Filter>Game Engines\Brickpong</Filter>
+    </ClInclude>
+    <ClInclude Include="Game Engines\Brickpong\BrickpongBrick.h">
+      <Filter>Game Engines\Brickpong</Filter>
+    </ClInclude>
+    <ClInclude Include="Game Engines\Brickpong\BrickpongInput.h">
+      <Filter>Game Engines\Brickpong</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

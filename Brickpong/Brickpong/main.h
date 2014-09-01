@@ -23,18 +23,4 @@ void CreateBuffers(VBO* vVBO, VBO* cVBO, EBO* myEBO);
 
 void Draw(EBO* myEBO);
 
-void cursorPositionChanged(GLFWwindow *window, double x, double y);
-
-void ResetGame();
-
-void KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mods);
-
-void CheckBallBoundsCol();
-
-void CheckBallPadCol();
-
-bool CheckBallBrickCol(float brickX, float brickY);
-
-void CheckGameWin();
-
 #endif /* defined(__Brickpong__main__) */

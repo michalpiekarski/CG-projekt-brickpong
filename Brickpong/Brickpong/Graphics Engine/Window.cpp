@@ -3,13 +3,10 @@
 
 GLint Window::instanceCount = 0;
 
-Window::Window(GLint width, GLint height, std::string title, bool fullscreen = false)
-{
-    if (instanceCount == 0)
-    {
+Window::Window(GLint width, GLint height, std::string title, bool fullscreen = false) {
+    if (instanceCount == 0) {
         // Initialise GLFW
-        if (!glfwInit())
-        {
+        if (!glfwInit()) {
             throw BrickpongException("Failed to initialize GLFW!");
         }
 
@@ -21,30 +18,25 @@ Window::Window(GLint width, GLint height, std::string title, bool fullscreen = f
     instanceCount++;
 
     GLFWmonitor* primaryMonitor = NULL;
-    if (fullscreen)
-    {
+    if (fullscreen) {
         primaryMonitor = glfwGetPrimaryMonitor();
     }
     // Open a window and create its OpenGL context
     _window = glfwCreateWindow(width, height, title.c_str(), primaryMonitor, NULL);
-    if (!_window)
-    {
+    if (!_window) {
         throw BrickpongException("Failed to open GLFW window!");
     }
 }
 
-Window::~Window()
-{
+Window::~Window() {
     glfwDestroyWindow(_window);
     instanceCount--;
-    if (instanceCount == 0)
-    {
+    if (instanceCount == 0) {
         glfwTerminate();
     }
 }
 
-void Window::makeContextCurrent()
-{
+void Window::makeContextCurrent() {
     glfwMakeContextCurrent(_window);
 
 #ifdef __Brickpong__DEBUG_LOG__
@@ -56,63 +48,52 @@ void Window::makeContextCurrent()
 #ifdef _WIN32
     // Initialize GLEW
     glewExperimental = true; // Needed for core profile
-    if (glewInit() != GLEW_OK)
-    {
+    if (glewInit() != GLEW_OK) {
         throw BrickpongException("Failed to initialize GLEW!");
     }
 #endif
 }
 
-int Window::shouldClose()
-{
+int Window::shouldClose() {
     return glfwWindowShouldClose(_window);
 }
 
-GLint Window::getFrameBufferWidth()
-{
+GLint Window::getFrameBufferWidth() {
     GLint width;
     glfwGetFramebufferSize(_window, &width, NULL);
     return width;
 }
 
-GLint Window::getFrameBufferHeight()
-{
+GLint Window::getFrameBufferHeight() {
     GLint height;
     glfwGetFramebufferSize(_window, NULL, &height);
     return height;
 }
-void Window::getFrameBufferSize(GLint* width, GLint* height)
-{
+void Window::getFrameBufferSize(GLint* width, GLint* height) {
     glfwGetFramebufferSize(_window, width, height);
 }
 
-void Window::swapBuffers()
-{
+void Window::swapBuffers() {
     glfwSwapBuffers(_window);
 }
 
-void Window::setCursorMode(int mode)
-{
+void Window::setCursorMode(int mode) {
     glfwSetInputMode(_window, GLFW_CURSOR, mode);
 }
 
-void Window::setStickyKeys(int mode)
-{
+void Window::setStickyKeys(int mode) {
     glfwSetInputMode(_window, GLFW_STICKY_KEYS, mode);
 }
 
-void Window::setCursorPosCallback(GLFWcursorposfun callback)
-{
+void Window::setCursorPosCallback(GLFWcursorposfun callback) {
     glfwSetCursorPosCallback(_window, callback);
 }
 
-void Window::setKeyCallback(GLFWkeyfun callback)
-{
+void Window::setKeyCallback(GLFWkeyfun callback) {
     glfwSetKeyCallback(_window, callback);
 }
 
-int Window::getKey(int key)
-{
+int Window::getKey(int key) {
     return glfwGetKey(_window, key);
 }
 
@@ -128,6 +109,6 @@ glm::dvec2 Window::getCursorPosition() {
     float halfWindowWidth = windowSize.x / 2.0f;
     float halfWindowHeight = windowSize.y / 2.0f;
     cursorPos.x = (cursorPos.x - halfWindowWidth) / (halfWindowWidth / 45.0f);
-    cursorPos.y = (cursorPos.y - halfWindowHeight) / (halfWindowHeight / 9.0f)-8.0f;
+    cursorPos.y = (cursorPos.y - halfWindowHeight) / (halfWindowHeight / 9.0f) - 8.0f;
     return cursorPos;
 }

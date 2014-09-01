@@ -1,125 +1,55 @@
 #include "BrickpongGame.h"
 
+BrickpongGame::BallBrickContactListener::BallBrickContactListener(std::vector<b2Contact*>* acontacts) {
+    contacts = acontacts;
+}
+
+void BrickpongGame::BallBrickContactListener::BeginContact(b2Contact* contact) {
+    b2Body* bodyA = contact->GetFixtureA()->GetBody();
+    b2Body* bodyB = contact->GetFixtureB()->GetBody();
+    if (validBallBrickContact(bodyA, bodyB)) {
+        contacts->push_back(contact);
+    }
+}
+
 BrickpongGame::BrickpongGame() {
-    cursor.positionX = 0.0f;
-    cursor.maxOffset = 9.0f;
-    cursor.damping = 1.0f;
+    _cursor.positionX = 0.0f;
+    _cursor.maxOffset = 9.0f;
+    _cursor.damping = 1.0f;
 
-    PauseBallVelocity = b2Vec2(0.0f, 0.0f);
-    Points = 0;
-    gamePaused = false;
+    _pauseBallVelocity = b2Vec2(0.0f, 0.0f);
+    _points = 0;
+    _gamePaused = false;
 
-    ballBrickContactListener = new BallBrickContactListener(&contacts);
+    _ballBrickContactListener = new BallBrickContactListener(&_contacts);
 }
 
 BrickpongGame::~BrickpongGame() {
-    delete ballBrickContactListener;
 }
 
 void BrickpongGame::CreateGame() {
-    CreateWorld(b2Vec2(0.0f, -10.0f));
-    CreateWorldBounds(16.5f, 10.0f, b2Vec2(0.0f, -4.0f));
-    CreateBall();
-    CreatePad();
-    CreateManyBricks(b2Vec2(-7.0f, -3.0f), b2Vec2(7.0f, 0.5f), b2Vec2(1.0f, 0.5f), b2Vec2(0.1f, 0.1f));
+    _world = new BrickpongWorld(b2Vec2(0.0f, -10.0f));
+    _worldBounds = new BrickpongWorldBounds(_world->GetWorld(), 16.5f, 10.0f, b2Vec2(0.0f, -4.0f));
+    _ball = new BrickpongBall(_world->GetWorld(), 0.25f, b2Vec2(2.0f, 4.0f), 3.0f);
+    _pad = new BrickpongPad(_world->GetWorld(), 4.0f, 0.5f, _cursor.positionX);
+    CreateManyBricks(b2Vec2(-7.0f, -3.0f), b2Vec2(7.0f, 0.5f), 1.0f, 0.5f, b2Vec2(0.1f, 0.1f));
     ConnectContactListenerToWorld();
+    _input = new BrickpongInput(this);
 }
 
 void BrickpongGame::DestroyGame() {
-    DestroyWorld();
+    delete _input;
     DestroyContactListener();
+    delete _pad;
+    delete _ball;
+    delete _worldBounds;
+    delete _world;
 }
 
-void BrickpongGame::CreateWorld(b2Vec2 agravity) {
-    world = new b2World(agravity);
-}
-
-void BrickpongGame::DestroyWorld() {
-    delete world;
-}
-
-void BrickpongGame::CreateWorldBounds(float32 worldWidth, float32 worldHeight, b2Vec2 worldCenterOffset) {
-    b2BodyDef wbBDef;
-    wbBDef.type = b2_kinematicBody;
-    wbBDef.position.SetZero();
-    worldBounds = world->CreateBody(&wbBDef);
-
-    float32 leftWindowEdge = -worldWidth / 2.0 + worldCenterOffset.x;
-    float32 rightWindowEdge = worldWidth / 2.0 + worldCenterOffset.x;
-    float32 topWindowEdge = worldHeight / 2.0 + worldCenterOffset.y;
-    float32 bottomWindowEdge = -worldHeight / 2.0 + worldCenterOffset.y;
-
-    b2Vec2 wbShapePoints[4] = {
-        b2Vec2(leftWindowEdge, bottomWindowEdge),
-        b2Vec2(leftWindowEdge, topWindowEdge),
-        b2Vec2(rightWindowEdge, topWindowEdge),
-        b2Vec2(rightWindowEdge, bottomWindowEdge),
-    };
-
-    b2ChainShape wbShape;
-    wbShape.CreateChain(wbShapePoints, 4);
-    worldBounds->CreateFixture(&wbShape, 0.0f);
-}
-
-void BrickpongGame::CreateBall() {
-    b2BodyDef ballBDef;
-    ballBDef.type = b2_dynamicBody;
-    ballBDef.position.Set(1.0f, -5.0f);
-    ballBDef.linearVelocity.Set(2.0f, 4.0f);
-    ballBDef.gravityScale = 0.0f;
-    ballBDef.linearDamping = 0.0f;
-    ballBDef.bullet = true;
-    ball = world->CreateBody(&ballBDef);
-    b2CircleShape ballShape;
-    ballShape.m_radius = 0.25f;
-    b2FixtureDef ballFDef;
-    ballFDef.shape = &ballShape;
-    ballFDef.density = 3.0f;
-    ballFDef.friction = 0.0f;
-    ballFDef.restitution = 1.0f;
-    ball->CreateFixture(&ballFDef);
-}
-
-void BrickpongGame::CreatePad() {
-    b2BodyDef padBDef;
-    padBDef.type = b2_kinematicBody;
-    padBDef.position.Set(cursor.positionX, -7.5f);
-    pad = world->CreateBody(&padBDef);
-    b2Vec2 padShapePoints[6] = {
-        b2Vec2(-2.0f, -0.25f),
-        b2Vec2(-2.0f, -0.1f),
-        b2Vec2(-0.05f, +0.25f),
-        b2Vec2(+0.05f, +0.25f),
-        b2Vec2(+2.0f, -0.1f),
-        b2Vec2(+2.0f, -0.25f),
-    };
-    b2PolygonShape padShape;
-    padShape.Set(padShapePoints, 6);
-    pad->CreateFixture(&padShape, 0.0f);
-}
-
-void BrickpongGame::CreateBrick(b2Body* abrick, b2Vec2 pos, b2Vec2 size) {
-    b2BodyDef brickBDef;
-    brickBDef.type = b2_staticBody;
-    brickBDef.position.Set(pos.x, pos.y);
-    abrick = world->CreateBody(&brickBDef);
-    b2PolygonShape brickShape;
-    brickShape.SetAsBox(size.x / 2.0f, size.y / 2.0f);
-    abrick->CreateFixture(&brickShape, 0.0f);
-}
-
-void BrickpongGame::CreateManyBricks(b2Vec2 startPos, b2Vec2 endPos, b2Vec2 size, b2Vec2 padding) {
-    b2BodyDef brickBDef;
-    brickBDef.type = b2_staticBody;
-    b2PolygonShape brickShape;
-    brickShape.SetAsBox(size.x / 2.0f, size.y / 2.0f);
-    b2Body* brick;
-    for (float32 x = startPos.x; x <= endPos.x; x += size.x + padding.x) {
-        for (float32 y = startPos.y; y <= endPos.y; y += size.y + padding.y) {
-            brickBDef.position.Set(x, y);
-            brick = world->CreateBody(&brickBDef);
-            brick->CreateFixture(&brickShape, 0.0f);
-            bricks.push_back(brick);
+void BrickpongGame::CreateManyBricks(b2Vec2 astartPos, b2Vec2 aendPos, float awidth, float aheight, b2Vec2 apadding) {
+    for (float32 x = astartPos.x; x <= aendPos.x; x += awidth + apadding.x) {
+        for (float32 y = astartPos.y; y <= aendPos.y; y += aheight + apadding.y) {
+            _bricks.push_back(new BrickpongBrick(_world->GetWorld(), b2Vec2(x, y), awidth, aheight));
         }
     }
 }
@@ -134,29 +64,8 @@ bool BrickpongGame::validBallBrickContact(b2Body* A, b2Body* B) {
     }
 }
 
-BrickpongGame::BallBrickContactListener::BallBrickContactListener(std::vector<b2Contact*>* acontacts) {
-    contacts = acontacts;
-}
-
-void BrickpongGame::BallBrickContactListener::BeginContact(b2Contact* contact) {
-    b2Body* bodyA = contact->GetFixtureA()->GetBody();
-    b2Body* bodyB = contact->GetFixtureB()->GetBody();
-    if (validBallBrickContact(bodyA, bodyB)) {
-        contacts->push_back(contact);
-    }
-}
-
-void BrickpongGame::ConnectContactListenerToWorld() {
-    ballBrickContactListener = new BallBrickContactListener(&contacts);
-    world->SetContactListener(ballBrickContactListener);
-}
-
-void BrickpongGame::DestroyContactListener() {
-    delete ballBrickContactListener;
-}
-
 void BrickpongGame::DestroyBricks() {
-    for (std::vector<b2Contact*>::iterator i = contacts.begin(); i != contacts.end(); i++) {
+    for (std::vector<b2Contact*>::iterator i = _contacts.begin(); i != _contacts.end(); i++) {
         b2Body* bodyA = (*i)->GetFixtureA()->GetBody();
         b2Body* bodyB = (*i)->GetFixtureB()->GetBody();
         if (validBallBrickContact(bodyA, bodyB)) {
@@ -172,120 +81,83 @@ void BrickpongGame::DestroyBricks() {
 #ifdef __Brickpong__DEBUG_LOG__
             std::cout << "Brick destroyed at: " << brickPos.x << "; " << brickPos.y << std::endl;
 #endif
-            ++Points;
-            std::cout << "Points: " << Points << std::endl;
+            ++_points;
+            std::cout << "Points: " << _points << std::endl;
         }
     }
-    contacts.clear();
+    _contacts.clear();
 }
 
 int BrickpongGame::GetPoints() {
-    return Points;
+    return _points;
 }
 
-void BrickpongGame::StepPhysics(float32 timeStep, int32 velocityIterations, int32 positionIterations) {
-    world->Step(timeStep, velocityIterations, positionIterations);
+std::vector<BrickpongBrick*> BrickpongGame::GetBricksList() {
+    return _bricks;
 }
 
-std::vector<b2Body*> BrickpongGame::GetBricksList() {
-    return bricks;
-}
-
-Cursor BrickpongGame::GetCursor() {
-    return cursor;
+Cursor* BrickpongGame::GetCursor() {
+    return &_cursor;
 }
 
 b2Body* BrickpongGame::GetBall() {
-    return ball;
+    return _ball->GetBody();
 }
 
-void BrickpongGame::CursorPositionChanged(GLFWwindow *window, double x, double y) {
-    int windowWidth;
-    glfwGetFramebufferSize(window, &windowWidth, NULL);
-    int halfWindowWidth = windowWidth / 2.0f;
-    float cursorXOffsetFromMiddle = (x - halfWindowWidth) / (halfWindowWidth / cursor.maxOffset);
-    if (cursor.damping != 0.0f) {
-        cursorXOffsetFromMiddle /= cursor.damping;
-    }
-    cursor.positionX = glm::clamp(cursorXOffsetFromMiddle, -cursor.maxOffset, cursor.maxOffset);
-    pad->SetTransform(b2Vec2(cursor.positionX, pad->GetPosition().y), 0.0f);
-#ifdef __Brickpong__DEBUG_LOG__
-    std::cout << "Cursor x position: " << cursor.positionX << std::endl;
-#endif
+void BrickpongGame::ConnectContactListenerToWorld() {
+    _ballBrickContactListener = new BallBrickContactListener(&_contacts);
+    _world->SetContactListener(_ballBrickContactListener);
 }
 
-void BrickpongGame::KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mods, GLFWcursorposfun currentCursorPosCallback) {
-    if (action == GLFW_RELEASE && key == GLFW_KEY_SPACE) {
-        b2Vec2 tmp = ball->GetLinearVelocity();
-        ball->SetLinearVelocity(PauseBallVelocity);
-        PauseBallVelocity = tmp;
-        if (!gamePaused) {
-            gamePaused = true;
-            glfwSetCursorPosCallback(window, NULL);
-#ifndef __Brickpong__DEBUG_LOG__
-            glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-            std::cout << "Ball position: " << ball->GetPosition().x << "; " << ball->GetPosition().y << " | ";
-            std::cout << "Pad position: " << pad->GetPosition().x << "; " << pad->GetPosition().y << std::endl;
-#endif
-            std::cout << "Game Paused" << std::endl;
-        }
-        else {
-            gamePaused = false;
-
-            glfwSetCursorPosCallback(window, currentCursorPosCallback);
-#ifndef __Brickpong__DEBUG_LOG__
-            glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
-#endif
-            std::cout << "Game Resumed" << std::endl;
-        }
-    }
-    if (action == GLFW_PRESS || action == GLFW_REPEAT) {
-        if (key == GLFW_KEY_A || key == GLFW_KEY_LEFT) {
-            cursor.positionX -= 0.5f;
-            b2Vec2 padPosition = pad->GetPosition();
-            padPosition.x -= 0.5f;
-            pad->SetTransform(padPosition, pad->GetAngle());
-        }
-        else if (key == GLFW_KEY_D || key == GLFW_KEY_RIGHT) {
-            cursor.positionX += 0.5f;
-            b2Vec2 padPosition = pad->GetPosition();
-            padPosition.x += 0.5f;
-            pad->SetTransform(padPosition, pad->GetAngle());
-        }
-        else if (key == GLFW_KEY_LEFT_BRACKET) {
-            cursor.damping -= 0.5f;
-            cursor.damping = glm::clamp(cursor.damping, 0.0f, 4.0f);
-        }
-        else if (key == GLFW_KEY_RIGHT_BRACKET) {
-            cursor.damping += 0.5f;
-            cursor.damping = glm::clamp(cursor.damping, 0.0f, 4.0f);
-        }
-    }
-    if (action == GLFW_PRESS && key == GLFW_KEY_R) {
-        ResetGame();
-    }
+void BrickpongGame::DestroyContactListener() {
+    delete _ballBrickContactListener;
 }
 
 void BrickpongGame::ResetGame() {
-    ball->SetTransform(b2Vec2(1.0f, -6.0f), 0.0f);
-    ball->SetLinearVelocity(b2Vec2(2.0f, 4.0f));
-    for (std::vector<b2Body*>::iterator i = bricks.begin(); i != bricks.end(); i++) {
+    _ball->SetTransform(b2Vec2(1.0f, -6.0f), 0.0f);
+    _ball->SetLinearVelocity(b2Vec2(2.0f, 4.0f));
+    for (std::vector<BrickpongBrick*>::iterator i = _bricks.begin(); i != _bricks.end(); i++) {
         (*i)->SetActive(true);
     }
-    Points = 0;
-    std::cout << "Points: " << Points << std::endl;
+    _points = 0;
+    std::cout << "Points: " << _points << std::endl;
 }
 
-void BrickpongGame::CheckBallBelowPad() {
-    if (ball->GetPosition().y < -8.0f) {
+void BrickpongGame::CheckGameOver() {
+    if (_ball->GetPosition().y < -8.0f) {
         std::cout << "##GAME OVER ##" << std::endl << std::endl;
         ResetGame();
     }
 }
 
 void BrickpongGame::CheckGameWin() {
-    if (Points == bricks.size()) {
+    if (_points == _bricks.size()) {
         std::cout << "=== YOU WON! ===" << std::endl << std::endl;
         ResetGame();
     }
+}
+
+BrickpongPad* BrickpongGame::GetPad() {
+    return _pad;
+}
+
+bool BrickpongGame::IsGamePaused() {
+    return _gamePaused;
+}
+
+void BrickpongGame::SetGamePaused(bool agamePaused) {
+    _gamePaused = agamePaused;
+}
+
+BrickpongWorld* BrickpongGame::GetWorld() {
+    return _world;
+}
+
+BrickpongInput* BrickpongGame::GetInput() {
+    return _input;
+}
+
+void BrickpongGame::CheckGameResult() {
+    CheckGameOver();
+    CheckGameWin();
 }
