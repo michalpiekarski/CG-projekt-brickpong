@@ -17,6 +17,14 @@
 		E9A1BA8019A135EA00CE01B1 /* libBox2D.2.3.0.dylib in Copy Library Files */ = {isa = PBXBuildFile; fileRef = E9A1BA7A19A135A800CE01B1 /* libBox2D.2.3.0.dylib */; };
 		E9A1BA8119A135EA00CE01B1 /* libassimp64d.3.dylib in Copy Library Files */ = {isa = PBXBuildFile; fileRef = E9A1BA7819A1359100CE01B1 /* libassimp64d.3.dylib */; };
 		E9A1BA8219A135EA00CE01B1 /* libglfw.3.dylib in Copy Library Files */ = {isa = PBXBuildFile; fileRef = E9A1BA7619A1357D00CE01B1 /* libglfw.3.dylib */; };
+		E9A3A66619B56BB700D705BA /* BrickpongBall.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9A3A66219B56BB700D705BA /* BrickpongBall.cpp */; };
+		E9A3A66719B56BB700D705BA /* BrickpongBrick.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9A3A66419B56BB700D705BA /* BrickpongBrick.cpp */; };
+		E9A3A67019B56BC300D705BA /* BrickpongInput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9A3A66819B56BC300D705BA /* BrickpongInput.cpp */; };
+		E9A3A67119B56BC300D705BA /* BrickpongPad.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9A3A66A19B56BC300D705BA /* BrickpongPad.cpp */; };
+		E9A3A67219B56BC300D705BA /* BrickpongWorld.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9A3A66C19B56BC300D705BA /* BrickpongWorld.cpp */; };
+		E9A3A67319B56BC300D705BA /* BrickpongWorldBounds.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9A3A66E19B56BC300D705BA /* BrickpongWorldBounds.cpp */; };
+		E9A3A67619B56BCE00D705BA /* GameEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9A3A67419B56BCE00D705BA /* GameEngine.cpp */; };
+		E9A3A67919B56BE800D705BA /* GraphicsEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9A3A67719B56BE800D705BA /* GraphicsEngine.cpp */; };
 		E9D9468D198FDCE20082E1C1 /* BrickpongException.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9D94682198FDCE20082E1C1 /* BrickpongException.cpp */; };
 		E9D9468E198FDCE20082E1C1 /* ShaderProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9D94685198FDCE20082E1C1 /* ShaderProgram.cpp */; };
 		E9D9468F198FDCE20082E1C1 /* VAO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9D94687198FDCE20082E1C1 /* VAO.cpp */; };
@@ -62,12 +70,26 @@
 		E96D6F8119A2A6F4004C6BEB /* libfreetype.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfreetype.a; path = ../biblioteki/build/freetype/osx/lib/libfreetype.a; sourceTree = "<group>"; };
 		E9850F3619B27F7300E57E65 /* BrickpongGame.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BrickpongGame.cpp; sourceTree = "<group>"; };
 		E9850F3719B27F7300E57E65 /* BrickpongGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrickpongGame.h; sourceTree = "<group>"; };
-		E9850F3819B27F7300E57E65 /* Game Engines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Game Engines.h"; sourceTree = "<group>"; };
 		E9A1BA7619A1357D00CE01B1 /* libglfw.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglfw.3.dylib; path = ../biblioteki/build/glfw/osx/lib64/libglfw.3.dylib; sourceTree = "<group>"; };
 		E9A1BA7819A1359100CE01B1 /* libassimp64d.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libassimp64d.3.dylib; path = ../biblioteki/build/assimp/osx/lib/libassimp64d.3.dylib; sourceTree = "<group>"; };
 		E9A1BA7A19A135A800CE01B1 /* libBox2D.2.3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libBox2D.2.3.0.dylib; path = ../biblioteki/build/box2d/osx/lib/libBox2D.2.3.0.dylib; sourceTree = "<group>"; };
+		E9A3A66219B56BB700D705BA /* BrickpongBall.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BrickpongBall.cpp; sourceTree = "<group>"; };
+		E9A3A66319B56BB700D705BA /* BrickpongBall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrickpongBall.h; sourceTree = "<group>"; };
+		E9A3A66419B56BB700D705BA /* BrickpongBrick.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BrickpongBrick.cpp; sourceTree = "<group>"; };
+		E9A3A66519B56BB700D705BA /* BrickpongBrick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrickpongBrick.h; sourceTree = "<group>"; };
+		E9A3A66819B56BC300D705BA /* BrickpongInput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BrickpongInput.cpp; sourceTree = "<group>"; };
+		E9A3A66919B56BC300D705BA /* BrickpongInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrickpongInput.h; sourceTree = "<group>"; };
+		E9A3A66A19B56BC300D705BA /* BrickpongPad.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BrickpongPad.cpp; sourceTree = "<group>"; };
+		E9A3A66B19B56BC300D705BA /* BrickpongPad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrickpongPad.h; sourceTree = "<group>"; };
+		E9A3A66C19B56BC300D705BA /* BrickpongWorld.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BrickpongWorld.cpp; sourceTree = "<group>"; };
+		E9A3A66D19B56BC300D705BA /* BrickpongWorld.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrickpongWorld.h; sourceTree = "<group>"; };
+		E9A3A66E19B56BC300D705BA /* BrickpongWorldBounds.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BrickpongWorldBounds.cpp; sourceTree = "<group>"; };
+		E9A3A66F19B56BC300D705BA /* BrickpongWorldBounds.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrickpongWorldBounds.h; sourceTree = "<group>"; };
+		E9A3A67419B56BCE00D705BA /* GameEngine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameEngine.cpp; sourceTree = "<group>"; };
+		E9A3A67519B56BCE00D705BA /* GameEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameEngine.h; sourceTree = "<group>"; };
+		E9A3A67719B56BE800D705BA /* GraphicsEngine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GraphicsEngine.cpp; path = "Graphics Engine/GraphicsEngine.cpp"; sourceTree = "<group>"; };
+		E9A3A67819B56BE800D705BA /* GraphicsEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GraphicsEngine.h; path = "Graphics Engine/GraphicsEngine.h"; sourceTree = "<group>"; };
 		E9C72878199401BC00D91BB0 /* main.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = main.h; sourceTree = "<group>"; };
-		E9C72890199401E500D91BB0 /* Graphics Engine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Graphics Engine.h"; path = "Graphics Engine/Graphics Engine.h"; sourceTree = "<group>"; };
 		E9D94682198FDCE20082E1C1 /* BrickpongException.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BrickpongException.cpp; sourceTree = "<group>"; };
 		E9D94683198FDCE20082E1C1 /* BrickpongException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrickpongException.h; sourceTree = "<group>"; };
 		E9D94684198FDCE20082E1C1 /* Shader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Shader.h; path = "Graphics Engine/Shader.h"; sourceTree = "<group>"; };
@@ -115,7 +137,8 @@
 		E908155F1992D98F00885AD0 /* Graphics Engine */ = {
 			isa = PBXGroup;
 			children = (
-				E9C72890199401E500D91BB0 /* Graphics Engine.h */,
+				E9A3A67719B56BE800D705BA /* GraphicsEngine.cpp */,
+				E9A3A67819B56BE800D705BA /* GraphicsEngine.h */,
 				E9D9468C198FDCE20082E1C1 /* Window.h */,
 				E9D9468B198FDCE20082E1C1 /* Window.cpp */,
 				E9D94684198FDCE20082E1C1 /* Shader.h */,
@@ -135,8 +158,9 @@
 		E9850F3419B27F7300E57E65 /* Game Engines */ = {
 			isa = PBXGroup;
 			children = (
+				E9A3A67419B56BCE00D705BA /* GameEngine.cpp */,
+				E9A3A67519B56BCE00D705BA /* GameEngine.h */,
 				E9850F3519B27F7300E57E65 /* Brickpong */,
-				E9850F3819B27F7300E57E65 /* Game Engines.h */,
 			);
 			path = "Game Engines";
 			sourceTree = "<group>";
@@ -144,6 +168,18 @@
 		E9850F3519B27F7300E57E65 /* Brickpong */ = {
 			isa = PBXGroup;
 			children = (
+				E9A3A66819B56BC300D705BA /* BrickpongInput.cpp */,
+				E9A3A66919B56BC300D705BA /* BrickpongInput.h */,
+				E9A3A66A19B56BC300D705BA /* BrickpongPad.cpp */,
+				E9A3A66B19B56BC300D705BA /* BrickpongPad.h */,
+				E9A3A66C19B56BC300D705BA /* BrickpongWorld.cpp */,
+				E9A3A66D19B56BC300D705BA /* BrickpongWorld.h */,
+				E9A3A66E19B56BC300D705BA /* BrickpongWorldBounds.cpp */,
+				E9A3A66F19B56BC300D705BA /* BrickpongWorldBounds.h */,
+				E9A3A66219B56BB700D705BA /* BrickpongBall.cpp */,
+				E9A3A66319B56BB700D705BA /* BrickpongBall.h */,
+				E9A3A66419B56BB700D705BA /* BrickpongBrick.cpp */,
+				E9A3A66519B56BB700D705BA /* BrickpongBrick.h */,
 				E9850F3619B27F7300E57E65 /* BrickpongGame.cpp */,
 				E9850F3719B27F7300E57E65 /* BrickpongGame.h */,
 			);
@@ -245,15 +281,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E9A3A66719B56BB700D705BA /* BrickpongBrick.cpp in Sources */,
 				E9850F3919B27F7300E57E65 /* BrickpongGame.cpp in Sources */,
+				E9A3A67219B56BC300D705BA /* BrickpongWorld.cpp in Sources */,
 				E9D94690198FDCE20082E1C1 /* VBO.cpp in Sources */,
 				E9D94691198FDCE20082E1C1 /* Window.cpp in Sources */,
+				E9A3A67319B56BC300D705BA /* BrickpongWorldBounds.cpp in Sources */,
 				E9D9468E198FDCE20082E1C1 /* ShaderProgram.cpp in Sources */,
+				E9A3A66619B56BB700D705BA /* BrickpongBall.cpp in Sources */,
 				E9F2A8761968F8690011EAAF /* main.cpp in Sources */,
 				E9D94693198FDCF80082E1C1 /* Shader.cpp in Sources */,
+				E9A3A67119B56BC300D705BA /* BrickpongPad.cpp in Sources */,
 				E9D9468F198FDCE20082E1C1 /* VAO.cpp in Sources */,
 				E9D9F580198FEDF900F86DCE /* EBO.cpp in Sources */,
+				E9A3A67919B56BE800D705BA /* GraphicsEngine.cpp in Sources */,
+				E9A3A67019B56BC300D705BA /* BrickpongInput.cpp in Sources */,
 				E9D9468D198FDCE20082E1C1 /* BrickpongException.cpp in Sources */,
+				E9A3A67619B56BCE00D705BA /* GameEngine.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
