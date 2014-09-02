@@ -32,7 +32,21 @@ void BrickpongGame::CreateGame() {
     _worldBounds = new BrickpongWorldBounds(_world->GetWorld(), 16.5f, 10.0f, b2Vec2(0.0f, -4.0f));
     _ball = new BrickpongBall(_world->GetWorld(), 0.25f, b2Vec2(2.0f, 4.0f), 1.0f, 3.0f);
     _pad = new BrickpongPad(_world->GetWorld(), 4.0f, 0.5f, _cursor.positionX);
-    CreateManyBricks(b2Vec2(-7.0f, -3.0f), b2Vec2(7.0f, 0.5f), 1.0f, 0.5f, b2Vec2(0.1f, 0.1f));
+        //CreateBricksFromGrid(b2Vec2(-7.0f, -3.0f), b2Vec2(7.0f, 0.5f), 1.0f, 0.5f, b2Vec2(0.1f, 0.1f));
+
+        // tymczasowa implementacja wywołania CreateManyBricksFromLayout()
+    std::vector<BrickpongBrickLayout*> bricksLayout;
+    bricksLayout.push_back(new BrickpongBrickLayout(b2Vec2(-6.0f, -2.5f), b2Vec2(2.0f, 1.0f)));
+    bricksLayout.push_back(new BrickpongBrickLayout(b2Vec2(-2.0f, -2.5f), b2Vec2(2.0f, 1.0f)));
+    bricksLayout.push_back(new BrickpongBrickLayout(b2Vec2(2.0f, -2.5f), b2Vec2(2.0f, 1.0f)));
+    bricksLayout.push_back(new BrickpongBrickLayout(b2Vec2(6.0f, -2.5), b2Vec2(2.0f, 1.0f)));
+    bricksLayout.push_back(new BrickpongBrickLayout(b2Vec2(-5.5f, -1.5f), b2Vec2(4.0f, 1.0f)));
+    bricksLayout.push_back(new BrickpongBrickLayout(b2Vec2(-1.5f, -1.5f), b2Vec2(4.0f, 1.0f)));
+    bricksLayout.push_back(new BrickpongBrickLayout(b2Vec2(2.5f, -1.5f), b2Vec2(4.0f, 1.0f)));
+    bricksLayout.push_back(new BrickpongBrickLayout(b2Vec2(6.5f, -1.5f), b2Vec2(4.0f, 1.0f)));
+    bricksLayout.push_back(new BrickpongBrickLayout(b2Vec2(-4.0f, 0.0f), b2Vec2(8.0f, 2.0f)));
+    bricksLayout.push_back(new BrickpongBrickLayout(b2Vec2(4.0f, 0.0f), b2Vec2(8.0f, 2.0f)));
+    CreateBricksFromLayout(bricksLayout);
     ConnectContactListenerToWorld();
     _input = new BrickpongInput(this);
 }
@@ -46,11 +60,17 @@ void BrickpongGame::DestroyGame() {
     delete _world;
 }
 
-void BrickpongGame::CreateManyBricks(b2Vec2 astartPos, b2Vec2 aendPos, float awidth, float aheight, b2Vec2 apadding) {
+void BrickpongGame::CreateBricksFromGrid(b2Vec2 astartPos, b2Vec2 aendPos, float awidth, float aheight, b2Vec2 apadding) {
     for (float32 x = astartPos.x; x <= aendPos.x; x += awidth + apadding.x) {
         for (float32 y = astartPos.y; y <= aendPos.y; y += aheight + apadding.y) {
             _bricks.push_back(new BrickpongBrick(_world->GetWorld(), b2Vec2(x, y), awidth, aheight));
         }
+    }
+}
+
+void BrickpongGame::CreateBricksFromLayout(std::vector<BrickpongBrickLayout*> alayout){
+    for (std::vector<BrickpongBrickLayout*>::iterator i = alayout.begin(); i != alayout.end(); i++) {
+        _bricks.push_back(new BrickpongBrick(_world->GetWorld(), (*i)->GetPosition(), (*i)->GetSize().x, (*i)->GetSize().y));
     }
 }
 

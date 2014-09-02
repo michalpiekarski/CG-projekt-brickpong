@@ -23,6 +23,7 @@
 #include "BrickpongPad.h"
 #include "BrickpongBrick.h"
 #include "BrickpongInput.h"
+#include "BrickpongBrickLayout.h"
 
 struct Cursor {
     float positionX;
@@ -51,7 +52,8 @@ private:
     int _points;
     bool _gamePaused;
     BallBrickContactListener* _ballBrickContactListener;
-    void CreateManyBricks(b2Vec2 astartPos, b2Vec2 aendPos, float awidth, float aheight, b2Vec2 apadding);
+    void CreateBricksFromGrid(b2Vec2 astartPos, b2Vec2 aendPos, float awidth, float aheight, b2Vec2 apadding);
+    void CreateBricksFromLayout(std::vector<BrickpongBrickLayout*> alayout);
     static bool validBallBrickContact(b2Body* A, b2Body* B);
     void ConnectContactListenerToWorld();
     void DestroyContactListener();
