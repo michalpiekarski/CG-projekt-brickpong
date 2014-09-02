@@ -17,6 +17,7 @@
 class BrickpongBall {
 private:
     b2Body* _body;
+    float _radius;
     float _density;
     float _linearVelocityMultiplier;
 public:

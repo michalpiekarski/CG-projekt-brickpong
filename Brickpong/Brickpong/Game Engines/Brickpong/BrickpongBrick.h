@@ -17,6 +17,8 @@
 class BrickpongBrick {
 private:
     b2Body* _body;
+    float _width;
+    float _height;
 public:
     BrickpongBrick(b2World* aworld, b2Vec2 position, float awidth, float aheight);
     virtual ~BrickpongBrick();

@@ -18,9 +18,9 @@ struct Cursor;
 
 class BrickpongPad {
 private:
+    b2Body* _body;
     float _width;
     float _height;
-    b2Body* _body;
 public:
     BrickpongPad(b2World* aworld, float awidth, float aheight, float acursorPositionX);
     virtual ~BrickpongPad();
