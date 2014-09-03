@@ -14,30 +14,30 @@ GameEngine::~GameEngine() {
 }
 
 void GameEngine::RunBrickpong(GraphicsEngine* agraphicsEngine, GLFWcursorposfun acursorPositionCallback, GLFWkeyfun akeyCallback, BrickpongGame* abrickpongGame) {
-    ShaderProgram* shaderProgram;
-    Shader* vShader;
-    Shader* fShader;
-
-    _window->makeContextCurrent();
     _window->setCursorMode(GLFW_CURSOR_HIDDEN);
     _window->setStickyKeys(GL_TRUE);
     _window->setCursorPosCallback(acursorPositionCallback);
     _window->setKeyCallback(akeyCallback);
 
-    shaderProgram = new ShaderProgram();
-    vShader = new Shader("shaders/Simple.vert", GL_VERTEX_SHADER);
-    fShader = new Shader("shaders/Simple.frag", GL_FRAGMENT_SHADER);
+    ShaderProgram* shaderProgram = new ShaderProgram();
+    ShaderProgram* shaderSemiTransparentProgram = new ShaderProgram();
+    Shader* vShader = new Shader("shaders/Simple.vert", GL_VERTEX_SHADER);
+    Shader* fShader = new Shader("shaders/Simple.frag", GL_FRAGMENT_SHADER);
+    Shader* fShaderSemiTransparent = new Shader("shaders/SemiTransparentSimple.frag", GL_FRAGMENT_SHADER);
 
     shaderProgram->attachShader(vShader);
     shaderProgram->attachShader(fShader);
-
     shaderProgram->bindFragDataLocation(0, "fragData");
-
     shaderProgram->link();
-    shaderProgram->use();
+
+    shaderSemiTransparentProgram->attachShader(vShader);
+    shaderSemiTransparentProgram->attachShader(fShaderSemiTransparent);
+    shaderSemiTransparentProgram->bindFragDataLocation(0, "fragData");
+    shaderSemiTransparentProgram->link();
 
     delete vShader;
     delete fShader;
+    delete fShaderSemiTransparent;
 
     glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
 
@@ -58,7 +58,7 @@ void GameEngine::RunBrickpong(GraphicsEngine* agraphicsEngine, GLFWcursorposfun 
     GLint positionAttribLoc = shaderProgram->getAttributeLoc("position");
     GLint colorAttribLoc = shaderProgram->getAttributeLoc("color");
 
-    abrickpongGame->CreateGame(shaderProgram, positionAttribLoc, colorAttribLoc, shaderProgram, positionAttribLoc, colorAttribLoc, shaderProgram, positionAttribLoc, colorAttribLoc);
+    abrickpongGame->CreateGame(shaderProgram, positionAttribLoc, colorAttribLoc, shaderProgram, positionAttribLoc, colorAttribLoc, shaderSemiTransparentProgram, positionAttribLoc, colorAttribLoc);
 
     std::cout << "Points: " << abrickpongGame->GetPoints() << std::endl;
 

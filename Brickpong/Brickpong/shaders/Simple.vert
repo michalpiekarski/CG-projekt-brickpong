@@ -11,6 +11,6 @@ void main(){
 
 	gl_Position =  MVP * vec4(position,1.0);
 
-	fragColor = color;
+	fragColor = color * dot(position, vec3(0.0,0.5,1.0));
 }
 

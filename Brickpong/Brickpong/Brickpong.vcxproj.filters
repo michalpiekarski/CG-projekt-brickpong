@@ -136,5 +136,8 @@
     <None Include="shaders\Simple.vert">
       <Filter>Shaders</Filter>
     </None>
+    <None Include="shaders\SemiTransparentSimple.frag">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

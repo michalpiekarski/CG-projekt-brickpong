@@ -192,6 +192,7 @@
     <ClInclude Include="Graphics Engine\Window.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="shaders\SemiTransparentSimple.frag" />
     <None Include="shaders\Simple.frag">
       <FileType>Document</FileType>
       <DeploymentContent>true</DeploymentContent>
