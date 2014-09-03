@@ -15,8 +15,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <Box2D/Box2D.h>
 
-#include "../../Graphics Engine/Window.h"
-#include "../../Graphics Engine/EBO.h"
+#include "../../Graphics Engine/GraphicsEngine.h"
 #include "BrickpongWorld.h"
 #include "BrickpongWorldBounds.h"
 #include "BrickpongBall.h"
