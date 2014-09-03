@@ -116,7 +116,7 @@ void BrickpongBall::Draw(glm::mat4 Model, glm::mat4 View, glm::mat4 Projection, 
     _shaderProgram->use();
 
     glm::vec3 tmpBallPosition = glm::vec3(_body->GetPosition().x, _body->GetPosition().y, 0.0f);
-    glm::mat4 tmpModel = glm::scale(glm::translate(Model, tmpBallPosition), glm::vec3(_radius, _radius, 0.25f));
+    glm::mat4 tmpModel = glm::rotate(glm::scale(glm::translate(Model, tmpBallPosition), glm::vec3(_radius, _radius, 0.25f)), 3.14f/4.0f, glm::vec3(0.0f, 0.0f, 1.0f));
     glm::mat4 MVP = Projection * View * tmpModel;
     glUniformMatrix4fv(MVP_ID, 1, GL_FALSE, &MVP[0][0]);
 

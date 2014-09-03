@@ -46,7 +46,7 @@ void GameEngine::RunBrickpong(GraphicsEngine* agraphicsEngine, GLFWcursorposfun 
 
     glm::mat4 Model = glm::mat4(1.0f);
     glm::mat4 View = agraphicsEngine->ZoomIn();
-    glm::mat4 Projection = agraphicsEngine->ChangeToOrtographic();
+    glm::mat4 Projection = agraphicsEngine->ChangeToPerspective();
 
     glm::mat4 tmpModel, tmpMVP;
 
@@ -66,7 +66,6 @@ void GameEngine::RunBrickpong(GraphicsEngine* agraphicsEngine, GLFWcursorposfun 
 
     do {
         View = agraphicsEngine->ChangeZoomLevel(_window, View);
-        Projection = agraphicsEngine->ChangeProjection();
 
         abrickpongGame->GetWorld()->Step();
         abrickpongGame->DestroyBricks();
@@ -110,7 +109,7 @@ void GameEngine::RunBrickpong(GraphicsEngine* agraphicsEngine, GLFWcursorposfun 
                         sceneOffset = glm::vec3(-10.0f, 0.0f, -35.0f);
                         break;
                 }
-                Model = glm::rotate(Model, i, glm::vec3(0.0f, 1.0f, 0.0f));
+                Model = glm::rotate(Model, glm::radians(i), glm::vec3(0.0f, 1.0f, 0.0f));
                 Model = glm::translate(Model, sceneOffset);
                 // Bricks
                 abrickpongGame->DrawBricks(Model, View, Projection, MatrixID);

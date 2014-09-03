@@ -29,7 +29,7 @@ BrickpongGame::~BrickpongGame() {
 
 void BrickpongGame::CreateGame(ShaderProgram* aballShaderProgram, GLint aballPositionAttribLoc, GLint aballColorAttribLoc, ShaderProgram* apadShaderProgram, GLint apadPositionAttribLoc, GLint apadColorAttribLoc, ShaderProgram* abrickShaderProgram, GLint abrickPositionAttribLoc, GLint abrickColorAttribLoc) {
     _world = new BrickpongWorld(b2Vec2(0.0f, -10.0f));
-    _worldBounds = new BrickpongWorldBounds(_world->GetWorld(), 16.5f, 10.0f, b2Vec2(0.0f, -4.0f));
+    _worldBounds = new BrickpongWorldBounds(_world->GetWorld(), 19.0f, 11.0f, b2Vec2(0.0f, -3.0f));
     _ball = new BrickpongBall(_world->GetWorld(), 0.25f, b2Vec2(2.0f, 4.0f), 1.0f, 3.0f, aballShaderProgram, aballPositionAttribLoc, aballColorAttribLoc);
     _pad = new BrickpongPad(_world->GetWorld(), 4.0f, 0.5f, _cursor.positionX, apadShaderProgram, apadPositionAttribLoc, apadColorAttribLoc);
         //CreateBricksFromGrid(b2Vec2(-7.0f, -3.0f), b2Vec2(7.0f, 0.5f), 1.0f, 0.5f, b2Vec2(0.1f, 0.1f), abrickShaderProgram);
@@ -40,10 +40,10 @@ void BrickpongGame::CreateGame(ShaderProgram* aballShaderProgram, GLint aballPos
     bricksLayout.push_back(new BrickpongBrickLayout(b2Vec2(-2.0f, -2.5f), b2Vec2(2.0f, 1.0f)));
     bricksLayout.push_back(new BrickpongBrickLayout(b2Vec2(2.0f, -2.5f), b2Vec2(2.0f, 1.0f)));
     bricksLayout.push_back(new BrickpongBrickLayout(b2Vec2(6.0f, -2.5), b2Vec2(2.0f, 1.0f)));
-    bricksLayout.push_back(new BrickpongBrickLayout(b2Vec2(-5.5f, -1.5f), b2Vec2(4.0f, 1.0f)));
-    bricksLayout.push_back(new BrickpongBrickLayout(b2Vec2(-1.5f, -1.5f), b2Vec2(4.0f, 1.0f)));
-    bricksLayout.push_back(new BrickpongBrickLayout(b2Vec2(2.5f, -1.5f), b2Vec2(4.0f, 1.0f)));
-    bricksLayout.push_back(new BrickpongBrickLayout(b2Vec2(6.5f, -1.5f), b2Vec2(4.0f, 1.0f)));
+    bricksLayout.push_back(new BrickpongBrickLayout(b2Vec2(-6.0f, -1.5f), b2Vec2(4.0f, 1.0f)));
+    bricksLayout.push_back(new BrickpongBrickLayout(b2Vec2(-2.0f, -1.5f), b2Vec2(4.0f, 1.0f)));
+    bricksLayout.push_back(new BrickpongBrickLayout(b2Vec2(2.0f, -1.5f), b2Vec2(4.0f, 1.0f)));
+    bricksLayout.push_back(new BrickpongBrickLayout(b2Vec2(6.0f, -1.5f), b2Vec2(4.0f, 1.0f)));
     bricksLayout.push_back(new BrickpongBrickLayout(b2Vec2(-4.0f, 0.0f), b2Vec2(8.0f, 2.0f)));
     bricksLayout.push_back(new BrickpongBrickLayout(b2Vec2(4.0f, 0.0f), b2Vec2(8.0f, 2.0f)));
     CreateBricksFromLayout(bricksLayout, abrickShaderProgram, abrickPositionAttribLoc, abrickColorAttribLoc);

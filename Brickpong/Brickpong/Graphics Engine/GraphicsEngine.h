@@ -19,9 +19,7 @@ public:
     glm::mat4 ZoomOut(glm::vec3 atarget);
     glm::mat4 ZoomIn();
     glm::mat4 ChangeZoomLevel(Window* window, glm::mat4 currentMatrix);
-    glm::mat4 ChangeToOrtographic();
     glm::mat4 ChangeToPerspective();
-    glm::mat4 ChangeProjection();
     bool IsZoomed();
 };
 
