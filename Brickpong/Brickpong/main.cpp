@@ -29,6 +29,8 @@ int main(void) {
     }
     catch (std::exception &e) {
         std::cerr << "ERROR: " << e.what() << std::endl;
+        std::cout << "PRESS ENTER TO CLOSE" << std::endl;
+        getchar();
         exit(EXIT_FAILURE);
     }
 }
