@@ -12,20 +12,23 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <Box2D/Box2D.h>
 
-#include "../../Graphics Engine/EBO.h"
+#include "../../Graphics Engine/GraphicsEngine.h"
 
 class BrickpongBrick {
 private:
     b2Body* _body;
     float _width;
     float _height;
+    ShaderProgram* _shaderProgram;
+    VAO* _vao;
+    EBO* _ebo;
 public:
-    BrickpongBrick(b2World* aworld, b2Vec2 position, float awidth, float aheight);
+    BrickpongBrick(b2World* aworld, b2Vec2 position, float awidth, float aheight, ShaderProgram* ashaderProgram, GLint apositionAttribLoc, GLint acolorAttribLoc);
     virtual ~BrickpongBrick();
     b2Vec2 GetPosition();
     bool IsActive();
     void SetActive(bool aactive);
-    void Draw(EBO* aEBO, glm::mat4 Model, glm::mat4 View, glm::mat4 Projection, GLuint MVP_ID);
+    void Draw(glm::mat4 Model, glm::mat4 View, glm::mat4 Projection, GLuint MVP_ID);
 };
 
 #endif /* defined(__Brickpong__Game_Engines__Brickpong__BrickpongBrick__) */

@@ -12,7 +12,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <Box2D/Box2D.h>
 
-#include "../../Graphics Engine/EBO.h"
+#include "../../Graphics Engine/GraphicsEngine.h"
 
 struct Cursor;
 
@@ -21,13 +21,16 @@ private:
     b2Body* _body;
     float _width;
     float _height;
+    ShaderProgram* _shaderProgram;
+    VAO* _vao;
+    EBO* _ebo;
 public:
-    BrickpongPad(b2World* aworld, float awidth, float aheight, float acursorPositionX);
+    BrickpongPad(b2World* aworld, float awidth, float aheight, float acursorPositionX, ShaderProgram* ashaderProgram, GLint apositionAttribLoc, GLint acolorAttribLoc);
     virtual ~BrickpongPad();
     b2Vec2 GetPosition();
     float GetAngle();
     void SetTransform(b2Vec2 aposition, float aangle);
-    void Draw(Cursor* aCursor, EBO* aEBO, glm::mat4 Model, glm::mat4 View, glm::mat4 Projection, GLuint MVP_ID);
+    void Draw(Cursor* aCursor, glm::mat4 Model, glm::mat4 View, glm::mat4 Projection, GLuint MVP_ID);
 };
 
 #endif /* defined(__Brickpong__Game_Engines__Brickpong__BrickpongPad__) */

@@ -12,7 +12,7 @@
 #include <Box2D/Box2D.h>
 #include <glm/gtc/matrix_transform.hpp>
 
-#include "../../Graphics Engine/EBO.h"
+#include "../../Graphics Engine/GraphicsEngine.h"
 
 class BrickpongBall {
 private:
@@ -20,8 +20,11 @@ private:
     float _radius;
     float _density;
     float _linearVelocityMultiplier;
+    ShaderProgram* _shaderProgram;
+    VAO* _vao;
+    EBO* _ebo;
 public:
-    BrickpongBall(b2World* aworld, float aradius, b2Vec2 alinearVelocity, float alinearVelocityMultiplier, float adensity);
+    BrickpongBall(b2World* aworld, float aradius, b2Vec2 alinearVelocity, float alinearVelocityMultiplier, float adensity, ShaderProgram* ashaderProgram, GLint apositionAttribLoc, GLint acolorAttribLoc);
     virtual ~BrickpongBall();
     b2Body* GetBody();
     b2Vec2 GetLinearVelocity();
@@ -30,7 +33,7 @@ public:
     void SetLinearVelocity(b2Vec2 alinearVelocity);
     b2Vec2 GetPosition();
     void SetTransform(b2Vec2 aposition, float aangle);
-    void Draw(EBO* aEBO, glm::mat4 Model, glm::mat4 View, glm::mat4 Projection, GLuint MVP_ID);
+    void Draw(glm::mat4 Model, glm::mat4 View, glm::mat4 Projection, GLuint MVP_ID);
 };
 
 #endif /* defined(__Brickpong__Game_engines__Brickpong__BrickpongBall__) */

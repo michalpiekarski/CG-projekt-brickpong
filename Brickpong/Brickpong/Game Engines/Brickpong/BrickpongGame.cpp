@@ -27,12 +27,12 @@ BrickpongGame::BrickpongGame() {
 BrickpongGame::~BrickpongGame() {
 }
 
-void BrickpongGame::CreateGame() {
+void BrickpongGame::CreateGame(ShaderProgram* aballShaderProgram, GLint aballPositionAttribLoc, GLint aballColorAttribLoc, ShaderProgram* apadShaderProgram, GLint apadPositionAttribLoc, GLint apadColorAttribLoc, ShaderProgram* abrickShaderProgram, GLint abrickPositionAttribLoc, GLint abrickColorAttribLoc) {
     _world = new BrickpongWorld(b2Vec2(0.0f, -10.0f));
     _worldBounds = new BrickpongWorldBounds(_world->GetWorld(), 16.5f, 10.0f, b2Vec2(0.0f, -4.0f));
-    _ball = new BrickpongBall(_world->GetWorld(), 0.25f, b2Vec2(2.0f, 4.0f), 1.0f, 3.0f);
-    _pad = new BrickpongPad(_world->GetWorld(), 4.0f, 0.5f, _cursor.positionX);
-        //CreateBricksFromGrid(b2Vec2(-7.0f, -3.0f), b2Vec2(7.0f, 0.5f), 1.0f, 0.5f, b2Vec2(0.1f, 0.1f));
+    _ball = new BrickpongBall(_world->GetWorld(), 0.25f, b2Vec2(2.0f, 4.0f), 1.0f, 3.0f, aballShaderProgram, aballPositionAttribLoc, aballColorAttribLoc);
+    _pad = new BrickpongPad(_world->GetWorld(), 4.0f, 0.5f, _cursor.positionX, apadShaderProgram, apadPositionAttribLoc, apadColorAttribLoc);
+        //CreateBricksFromGrid(b2Vec2(-7.0f, -3.0f), b2Vec2(7.0f, 0.5f), 1.0f, 0.5f, b2Vec2(0.1f, 0.1f), abrickShaderProgram);
 
         // tymczasowa implementacja wywołania CreateManyBricksFromLayout()
     std::vector<BrickpongBrickLayout*> bricksLayout;
@@ -46,7 +46,7 @@ void BrickpongGame::CreateGame() {
     bricksLayout.push_back(new BrickpongBrickLayout(b2Vec2(6.5f, -1.5f), b2Vec2(4.0f, 1.0f)));
     bricksLayout.push_back(new BrickpongBrickLayout(b2Vec2(-4.0f, 0.0f), b2Vec2(8.0f, 2.0f)));
     bricksLayout.push_back(new BrickpongBrickLayout(b2Vec2(4.0f, 0.0f), b2Vec2(8.0f, 2.0f)));
-    CreateBricksFromLayout(bricksLayout);
+    CreateBricksFromLayout(bricksLayout, abrickShaderProgram, abrickPositionAttribLoc, abrickColorAttribLoc);
     ConnectContactListenerToWorld();
     _input = new BrickpongInput(this);
 }
@@ -60,17 +60,17 @@ void BrickpongGame::DestroyGame() {
     delete _world;
 }
 
-void BrickpongGame::CreateBricksFromGrid(b2Vec2 astartPos, b2Vec2 aendPos, float awidth, float aheight, b2Vec2 apadding) {
+void BrickpongGame::CreateBricksFromGrid(b2Vec2 astartPos, b2Vec2 aendPos, float awidth, float aheight, b2Vec2 apadding, ShaderProgram* ashaderProgram, GLint apositionAttribLoc, GLint acolorAttribLoc) {
     for (float32 x = astartPos.x; x <= aendPos.x; x += awidth + apadding.x) {
         for (float32 y = astartPos.y; y <= aendPos.y; y += aheight + apadding.y) {
-            _bricks.push_back(new BrickpongBrick(_world->GetWorld(), b2Vec2(x, y), awidth, aheight));
+            _bricks.push_back(new BrickpongBrick(_world->GetWorld(), b2Vec2(x, y), awidth, aheight, ashaderProgram, apositionAttribLoc, acolorAttribLoc));
         }
     }
 }
 
-void BrickpongGame::CreateBricksFromLayout(std::vector<BrickpongBrickLayout*> alayout){
+void BrickpongGame::CreateBricksFromLayout(std::vector<BrickpongBrickLayout*> alayout, ShaderProgram* ashaderProgram, GLint apositionAttribLoc, GLint acolorAttribLoc) {
     for (std::vector<BrickpongBrickLayout*>::iterator i = alayout.begin(); i != alayout.end(); i++) {
-        _bricks.push_back(new BrickpongBrick(_world->GetWorld(), (*i)->GetPosition(), (*i)->GetSize().x, (*i)->GetSize().y));
+        _bricks.push_back(new BrickpongBrick(_world->GetWorld(), (*i)->GetPosition(), (*i)->GetSize().x, (*i)->GetSize().y, ashaderProgram, apositionAttribLoc, acolorAttribLoc));
     }
 }
 
@@ -183,10 +183,10 @@ void BrickpongGame::CheckGameResult() {
     CheckGameWin();
 }
 
-void BrickpongGame::DrawBricks(EBO* aEBO, glm::mat4 Model, glm::mat4 View, glm::mat4 Projection, GLuint MVP_ID) {
+void BrickpongGame::DrawBricks(glm::mat4 Model, glm::mat4 View, glm::mat4 Projection, GLuint MVP_ID) {
     for (std::vector<BrickpongBrick*>::iterator i = _bricks.begin(); i != _bricks.end(); i++) {
         if ((*i)->IsActive()) {
-            (*i)->Draw(aEBO, Model, View, Projection, MVP_ID);
+            (*i)->Draw(Model, View, Projection, MVP_ID);
         }
     }
 }

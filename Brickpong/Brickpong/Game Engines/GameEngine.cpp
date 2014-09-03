@@ -50,54 +50,10 @@ void GameEngine::RunBrickpong(GraphicsEngine* agraphicsEngine, GLFWcursorposfun 
 
     glm::mat4 tmpModel, tmpMVP;
 
-    VAO* VertexArray = new VAO();
-    VertexArray->bind();
-
-    GLfloat vertex_data[8][3] = {
-            {-1.0f, -1.0f, -1.0f, },
-            {-1.0f, -1.0f, +1.0f, },
-            {-1.0f, +1.0f, +1.0f, },
-            {+1.0f, +1.0f, -1.0f, },
-            {-1.0f, +1.0f, -1.0f, },
-            {+1.0f, -1.0f, +1.0f, },
-            {+1.0f, -1.0f, -1.0f, },
-            {+1.0f, +1.0f, +1.0f, },
-    };
-    VBO* vVBO = new VBO(vertex_data, 8, GL_STATIC_DRAW);
-    GLfloat color_data[8][3] = {
-            {0.583f, 0.771f, 0.014f, },
-            {0.609f, 0.115f, 0.436f, },
-            {0.327f, 0.483f, 0.844f, },
-            {0.822f, 0.569f, 0.201f, },
-            {0.435f, 0.602f, 0.223f, },
-            {0.310f, 0.747f, 0.185f, },
-            {0.597f, 0.770f, 0.761f, },
-            {0.559f, 0.436f, 0.730f, },
-    };
-    VBO* cVBO = new VBO(color_data, 8, GL_STATIC_DRAW);
-    GLushort index_data[12][3] = {
-            {0, 1, 2, },
-            {3, 0, 4, },
-            {5, 0, 6, },
-            {3, 6, 0, },
-            {0, 2, 4, },
-            {5, 1, 0, },
-            {2, 1, 5, },
-            {7, 6, 3, },
-            {6, 7, 5, },
-            {7, 3, 4, },
-            {7, 4, 2, },
-            {7, 2, 5, },
-    };
-    EBO* myEBO = new EBO(index_data, 12, GL_STATIC_DRAW);
-
     GLint positionAttribLoc = shaderProgram->getAttributeLoc("position");
     GLint colorAttribLoc = shaderProgram->getAttributeLoc("color");
 
-    vVBO->createVertexAttribPointer(positionAttribLoc, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid*)0);
-    cVBO->createVertexAttribPointer(colorAttribLoc, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid*)0);
-
-    abrickpongGame->CreateGame();
+    abrickpongGame->CreateGame(shaderProgram, positionAttribLoc, colorAttribLoc, shaderProgram, positionAttribLoc, colorAttribLoc, shaderProgram, positionAttribLoc, colorAttribLoc);
 
     std::cout << "Points: " << abrickpongGame->GetPoints() << std::endl;
 
@@ -132,13 +88,13 @@ void GameEngine::RunBrickpong(GraphicsEngine* agraphicsEngine, GLFWcursorposfun 
 
         if (agraphicsEngine->IsZoomed()) {
             // Bricks
-            abrickpongGame->DrawBricks(myEBO, Model, View, Projection, MatrixID);
+            abrickpongGame->DrawBricks(Model, View, Projection, MatrixID);
 
             // Pad
-            abrickpongGame->GetPad()->Draw(abrickpongGame->GetCursor(), myEBO, Model, View, Projection, MatrixID);
+            abrickpongGame->GetPad()->Draw(abrickpongGame->GetCursor(), Model, View, Projection, MatrixID);
 
             // Ball
-            abrickpongGame->GetBall()->Draw(myEBO, Model, View, Projection, MatrixID);
+            abrickpongGame->GetBall()->Draw(Model, View, Projection, MatrixID);
         }
         else {
             glm::vec3 sceneOffset;
@@ -157,13 +113,13 @@ void GameEngine::RunBrickpong(GraphicsEngine* agraphicsEngine, GLFWcursorposfun 
                 Model = glm::rotate(Model, i, glm::vec3(0.0f, 1.0f, 0.0f));
                 Model = glm::translate(Model, sceneOffset);
                 // Bricks
-                abrickpongGame->DrawBricks(myEBO, Model, View, Projection, MatrixID);
+                abrickpongGame->DrawBricks(Model, View, Projection, MatrixID);
 
                 // Pad
-                abrickpongGame->GetPad()->Draw(abrickpongGame->GetCursor(), myEBO, Model, View, Projection, MatrixID);
+                abrickpongGame->GetPad()->Draw(abrickpongGame->GetCursor(), Model, View, Projection, MatrixID);
 
                 // Ball
-                abrickpongGame->GetBall()->Draw(myEBO, Model, View, Projection, MatrixID);
+                abrickpongGame->GetBall()->Draw(Model, View, Projection, MatrixID);
 
                 Model = glm::mat4(1.0f);
             }
@@ -179,12 +135,6 @@ void GameEngine::RunBrickpong(GraphicsEngine* agraphicsEngine, GLFWcursorposfun 
 
     glDisableVertexAttribArray(0);
     glDisableVertexAttribArray(1);
-
-    delete myEBO;
-    delete vVBO;
-    delete cVBO;
-
-    delete VertexArray;
 
     delete shaderProgram;
 }

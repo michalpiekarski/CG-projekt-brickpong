@@ -51,8 +51,8 @@ private:
     int _points;
     bool _gamePaused;
     BallBrickContactListener* _ballBrickContactListener;
-    void CreateBricksFromGrid(b2Vec2 astartPos, b2Vec2 aendPos, float awidth, float aheight, b2Vec2 apadding);
-    void CreateBricksFromLayout(std::vector<BrickpongBrickLayout*> alayout);
+    void CreateBricksFromGrid(b2Vec2 astartPos, b2Vec2 aendPos, float awidth, float aheight, b2Vec2 apadding, ShaderProgram* ashaderProgram, GLint apositionAttribLoc, GLint acolorAttribLoc);
+    void CreateBricksFromLayout(std::vector<BrickpongBrickLayout*> alayout, ShaderProgram* ashaderProgram, GLint apositionAttribLoc, GLint acolorAttribLoc);
     static bool validBallBrickContact(b2Body* A, b2Body* B);
     void ConnectContactListenerToWorld();
     void DestroyContactListener();
@@ -61,7 +61,7 @@ private:
 public:
     BrickpongGame();
     virtual ~BrickpongGame();
-    void CreateGame();
+    void CreateGame(ShaderProgram* aballShaderProgram, GLint aballPositionAttribLoc, GLint aballColorAttribLoc, ShaderProgram* apadShaderProgram, GLint apadPositionAttribLoc, GLint apadColorAttribLoc, ShaderProgram* abrickShaderProgram, GLint abrickPositionAttribLoc, GLint abrickColorAttribLoc);
     void DestroyGame();
     int GetPoints();
     void DestroyBricks();
@@ -75,7 +75,7 @@ public:
     void ResetGame();
     BrickpongWorld* GetWorld();
     BrickpongInput* GetInput();
-    void DrawBricks(EBO* aEBO, glm::mat4 Model, glm::mat4 View, glm::mat4 Projection, GLuint MVP_ID);
+    void DrawBricks(glm::mat4 Model, glm::mat4 View, glm::mat4 Projection, GLuint MVP_ID);
 };
 
 #endif /* defined(__Brickpong__Game_Engines__Brickpong__BrickpongGame__) */
