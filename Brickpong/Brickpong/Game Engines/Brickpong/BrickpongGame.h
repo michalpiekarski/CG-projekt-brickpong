@@ -51,6 +51,7 @@ private:
     int _points;
     bool _gamePaused;
     BallBrickContactListener* _ballBrickContactListener;
+    unsigned short _debugMode;
     void CreateBricksFromGrid(b2Vec2 astartPos, b2Vec2 aendPos, float awidth, float aheight, b2Vec2 apadding, ShaderProgram* ashaderProgram, GLint apositionAttribLoc, GLint acolorAttribLoc);
     void CreateBricksFromLayout(std::vector<BrickpongBrickLayout*> alayout, ShaderProgram* ashaderProgram, GLint apositionAttribLoc, GLint acolorAttribLoc);
     static bool validBallBrickContact(b2Body* A, b2Body* B);
@@ -60,6 +61,7 @@ private:
     void CheckGameWin();
 public:
     BrickpongGame();
+    BrickpongGame(unsigned short adebugMode);
     virtual ~BrickpongGame();
     void CreateGame(ShaderProgram* aballShaderProgram, GLint aballPositionAttribLoc, GLint aballColorAttribLoc, ShaderProgram* apadShaderProgram, GLint apadPositionAttribLoc, GLint apadColorAttribLoc, ShaderProgram* abrickShaderProgram, GLint abrickPositionAttribLoc, GLint abrickColorAttribLoc);
     void DestroyGame();

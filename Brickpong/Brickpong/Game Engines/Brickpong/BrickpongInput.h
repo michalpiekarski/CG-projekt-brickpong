@@ -19,8 +19,10 @@ class BrickpongInput {
 private:
     BrickpongGame* _game;
     b2Vec2 _pauseBallVelocity;
+    unsigned short _debugMode;
 public:
     BrickpongInput(BrickpongGame* agame);
+    BrickpongInput(BrickpongGame* agame, unsigned short adebugMode);
     virtual ~BrickpongInput();
     void CursorPositionChanged(BrickpongGame* agame, GLFWwindow *awindow, double acursorPosX, double acursorPosY);
     void KeyCallback(BrickpongGame* agame, GLFWwindow *awindow, int akey, int ascancode, int aaction, int amods, GLFWcursorposfun acurrentCursorPosCallback);

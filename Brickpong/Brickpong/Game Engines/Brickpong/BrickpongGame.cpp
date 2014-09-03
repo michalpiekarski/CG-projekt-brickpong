@@ -22,6 +22,12 @@ BrickpongGame::BrickpongGame() {
     _gamePaused = false;
 
     _ballBrickContactListener = new BallBrickContactListener(&_contacts);
+
+    _debugMode = 0;
+}
+
+BrickpongGame::BrickpongGame(unsigned short adebugMode) : BrickpongGame() {
+    _debugMode = adebugMode;
 }
 
 BrickpongGame::~BrickpongGame() {
@@ -48,7 +54,7 @@ void BrickpongGame::CreateGame(ShaderProgram* aballShaderProgram, GLint aballPos
     bricksLayout.push_back(new BrickpongBrickLayout(b2Vec2(4.0f, 0.0f), b2Vec2(8.0f, 2.0f)));
     CreateBricksFromLayout(bricksLayout, abrickShaderProgram, abrickPositionAttribLoc, abrickColorAttribLoc);
     ConnectContactListenerToWorld();
-    _input = new BrickpongInput(this);
+    _input = new BrickpongInput(this, _debugMode);
 }
 
 void BrickpongGame::DestroyGame() {
@@ -98,9 +104,11 @@ void BrickpongGame::DestroyBricks() {
                 brickPos = bodyB->GetPosition();
                 bodyB->SetActive(false);
             }
-#ifdef __Brickpong__DEBUG_LOG__
-            std::cout << "Brick destroyed at: " << brickPos.x << "; " << brickPos.y << std::endl;
-#endif
+
+            if (_debugMode > 0) {
+                std::cout << "Brick destroyed at: " << brickPos.x << "; " << brickPos.y << std::endl;
+            }
+
             ++_points;
             std::cout << "Points: " << _points << std::endl;
         }

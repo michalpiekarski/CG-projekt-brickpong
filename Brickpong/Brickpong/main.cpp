@@ -1,8 +1,5 @@
 #include "main.h"
 
-// Uncomment for debug output in console
-#define __Brickpong__DEBUG_LOG__
-
 BrickpongGame* brickpongGame;
 
 void BrickpongCursorPositionCallback(GLFWwindow* window, double x, double y) {
@@ -15,18 +12,19 @@ void BrickpongKeyboardKeyCallback(GLFWwindow *window, int key, int scancode, int
 
 int main(void) {
     try {
+        unsigned short debugMode = 1;
         GraphicsEngine* graphicsEngine = new GraphicsEngine();
 
         Window* window = new Window(960, 540, "Brickpong", false);
         
-        GameEngine* gameEngine = new GameEngine(window);
+        GameEngine* gameEngine = new GameEngine(window, debugMode);
 
-        brickpongGame = new BrickpongGame();
+        brickpongGame = new BrickpongGame(debugMode);
         gameEngine->RunBrickpong(graphicsEngine, BrickpongCursorPositionCallback, BrickpongKeyboardKeyCallback, brickpongGame);
 
         delete window;
 
-        return 0;
+        exit(EXIT_SUCCESS);
     }
     catch (std::exception &e) {
         std::cerr << "ERROR: " << e.what() << std::endl;

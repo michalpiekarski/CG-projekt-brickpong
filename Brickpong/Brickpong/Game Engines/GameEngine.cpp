@@ -2,6 +2,11 @@
 
 GameEngine::GameEngine(Window* awindow) {
     _window = awindow;
+    _debugMode = 0;
+}
+
+GameEngine::GameEngine(Window* awindow, unsigned short adebugMode) : GameEngine(awindow) {
+    _debugMode = adebugMode;
 }
 
 GameEngine::~GameEngine() {
@@ -59,10 +64,14 @@ void GameEngine::RunBrickpong(GraphicsEngine* agraphicsEngine, GLFWcursorposfun 
 
     GLint viewportWidth, viewportHeight;
 
-#ifdef __Brickpong__DEBUG_LOG__
-    double lastTime = glfwGetTime();
-    int nbFrames = 0;
-#endif
+
+    double lastTime;
+    int nbFrames;
+
+    if (_debugMode > 0) {
+        lastTime = glfwGetTime();
+        nbFrames = 0;
+    }
 
     do {
         View = agraphicsEngine->ChangeZoomLevel(_window, View);
@@ -70,15 +79,15 @@ void GameEngine::RunBrickpong(GraphicsEngine* agraphicsEngine, GLFWcursorposfun 
         abrickpongGame->GetWorld()->Step();
         abrickpongGame->DestroyBricks();
 
-#ifdef __Brickpong__DEBUG_LOG__
-        double currentTime = glfwGetTime();
-        nbFrames++;
-        if (currentTime - lastTime >= 1.0) {
-            std::cout << 1000.0 / double(nbFrames) << "ms/frame" << std::endl;
-            nbFrames = 0;
-            lastTime += 1.0;
+        if (_debugMode > 0) {
+            double currentTime = glfwGetTime();
+            nbFrames++;
+            if (currentTime - lastTime >= 1.0) {
+                std::cout << 1000.0 / double(nbFrames) << "ms/frame" << std::endl;
+                nbFrames = 0;
+                lastTime += 1.0;
+            }
         }
-#endif
 
         _window->getFrameBufferSize(&viewportWidth, &viewportHeight);
         glViewport(0, 0, viewportWidth, viewportHeight);

@@ -18,8 +18,10 @@
 class GameEngine {
 private:
     Window* _window;
+    unsigned short _debugMode;
 public:
     GameEngine(Window* awindow);
+    GameEngine(Window* awindow, unsigned short adebugMode);
     virtual ~GameEngine();
     void RunBrickpong(GraphicsEngine* agraphicsEngine, GLFWcursorposfun acursorPositionCallback, GLFWkeyfun akeyCallback, BrickpongGame* abrickpongGame);
 };
