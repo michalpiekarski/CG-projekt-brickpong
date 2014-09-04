@@ -73,6 +73,10 @@ void GameEngine::RunBrickpong(GraphicsEngine* agraphicsEngine, GLFWcursorposfun 
         nbFrames = 0;
     }
 
+    Text* textRenderer = new Text(_window, 1);
+    GLfloat textColor[4] = {
+        1.0, 1.0f, 1.0f, 1.0f,
+    };
     do {
         View = agraphicsEngine->ChangeZoomLevel(_window, View);
 
@@ -93,7 +97,6 @@ void GameEngine::RunBrickpong(GraphicsEngine* agraphicsEngine, GLFWcursorposfun 
         glViewport(0, 0, viewportWidth, viewportHeight);
 
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
         if (agraphicsEngine->IsZoomed()) {
             // Bricks
             abrickpongGame->DrawBricks(Model, View, Projection, MatrixID);
@@ -133,12 +136,14 @@ void GameEngine::RunBrickpong(GraphicsEngine* agraphicsEngine, GLFWcursorposfun 
             }
         }
 
+        textRenderer->DrawUnicode(L"Hello World", -1+8, 1-100, 0.5f, 0.5f, 64, textColor);
         _window->swapBuffers();
 
         abrickpongGame->CheckGameResult();
         glfwPollEvents();
     } while (_window->getKey(GLFW_KEY_ESCAPE) != GLFW_PRESS && _window->shouldClose() == 0);
 
+    delete textRenderer;
     delete abrickpongGame;
 
     glDisableVertexAttribArray(0);

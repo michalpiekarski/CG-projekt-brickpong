@@ -9,6 +9,7 @@
 #include "VAO.h"
 #include "VBO.h"
 #include "EBO.h"
+#include "Text.h"
 
 class GraphicsEngine {
 private:
