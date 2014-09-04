@@ -74,8 +74,11 @@ void GameEngine::RunBrickpong(GraphicsEngine* agraphicsEngine, GLFWcursorposfun 
     }
 
     Text* textRenderer = new Text(_window, "fonts/Zapfino.ttf", 1);
-    GLfloat textColor[4] = {
+    GLfloat textColorWhite[4] = {
         1.0, 1.0f, 1.0f, 1.0f,
+    };
+    GLfloat textColorRed[4] = {
+        1.0f, 0.0f, 0.0f, 1.0f
     };
     do {
         View = agraphicsEngine->ChangeZoomLevel(_window, View);
@@ -138,13 +141,13 @@ void GameEngine::RunBrickpong(GraphicsEngine* agraphicsEngine, GLFWcursorposfun 
 
         std::wstring pointsText = L"Points: ";
         pointsText.append(std::to_wstring(abrickpongGame->GetPoints()));
-        textRenderer->DrawUnicode(pointsText.c_str(), 280, 230, 24, textColor);
+        textRenderer->DrawUnicode(pointsText.c_str(), 280, 230, 24, textColorWhite);
         std::wstring ballSpeedLevelText = L"Ball speed level: ";
         ballSpeedLevelText.append(std::to_wstring(abrickpongGame->GetBall()->GetLinearVelocityMultiplier()));
-        textRenderer->DrawUnicode(ballSpeedLevelText.c_str(), -450, 230, 24, textColor);
+        textRenderer->DrawUnicode(ballSpeedLevelText.c_str(), -450, 230, 24, textColorWhite);
 
         if (abrickpongGame->IsGamePaused()) {
-            textRenderer->DrawUnicode(L"GAME PAUSED", -300, -100, 42, textColor);
+            textRenderer->DrawUnicode(L"GAME PAUSED", -300, -100, 42, textColorRed);
         }
 
         _window->swapBuffers();
