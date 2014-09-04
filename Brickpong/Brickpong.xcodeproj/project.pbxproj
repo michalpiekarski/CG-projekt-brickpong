@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		E907F50F198F7958003FE113 /* Simple.frag in Copy Shader Files */ = {isa = PBXBuildFile; fileRef = E907F50B198F773C003FE113 /* Simple.frag */; };
 		E907F510198F7958003FE113 /* Simple.vert in Copy Shader Files */ = {isa = PBXBuildFile; fileRef = E907F50C198F773C003FE113 /* Simple.vert */; };
+		E932E33119B848EA00BBEE17 /* SemiTransparentSimple.frag in Copy Shader Files */ = {isa = PBXBuildFile; fileRef = E932E33019B848DC00BBEE17 /* SemiTransparentSimple.frag */; };
 		E937A67319B56FDF00AAAFFE /* BrickpongBrickLayout.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E937A67119B56FDF00AAAFFE /* BrickpongBrickLayout.cpp */; };
 		E96D6F8219A2A6F4004C6BEB /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E96D6F8119A2A6F4004C6BEB /* libfreetype.a */; };
 		E9850F3919B27F7300E57E65 /* BrickpongGame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9850F3619B27F7300E57E65 /* BrickpongGame.cpp */; };
@@ -59,6 +60,7 @@
 			files = (
 				E907F50F198F7958003FE113 /* Simple.frag in Copy Shader Files */,
 				E907F510198F7958003FE113 /* Simple.vert in Copy Shader Files */,
+				E932E33119B848EA00BBEE17 /* SemiTransparentSimple.frag in Copy Shader Files */,
 			);
 			name = "Copy Shader Files";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -68,6 +70,7 @@
 /* Begin PBXFileReference section */
 		E907F50B198F773C003FE113 /* Simple.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Simple.frag; sourceTree = "<group>"; };
 		E907F50C198F773C003FE113 /* Simple.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Simple.vert; sourceTree = "<group>"; };
+		E932E33019B848DC00BBEE17 /* SemiTransparentSimple.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = SemiTransparentSimple.frag; sourceTree = "<group>"; };
 		E937A67119B56FDF00AAAFFE /* BrickpongBrickLayout.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BrickpongBrickLayout.cpp; sourceTree = "<group>"; };
 		E937A67219B56FDF00AAAFFE /* BrickpongBrickLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrickpongBrickLayout.h; sourceTree = "<group>"; };
 		E96D6F8119A2A6F4004C6BEB /* libfreetype.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfreetype.a; path = ../biblioteki/build/freetype/osx/lib/libfreetype.a; sourceTree = "<group>"; };
@@ -131,6 +134,7 @@
 		E907F50A198F773C003FE113 /* shaders */ = {
 			isa = PBXGroup;
 			children = (
+				E932E33019B848DC00BBEE17 /* SemiTransparentSimple.frag */,
 				E907F50B198F773C003FE113 /* Simple.frag */,
 				E907F50C198F773C003FE113 /* Simple.vert */,
 			);
