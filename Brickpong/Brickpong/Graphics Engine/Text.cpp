@@ -67,7 +67,7 @@ Text::~Text() {
     delete _shaderProgram;
 }
 
-void Text::DrawUnicode(const wchar_t* atext, float aposX, float aposY, float awidth, float aheight, int afontSize, GLfloat acolor[4]) {
+void Text::DrawUnicode(const wchar_t* atext, float aposX, float aposY, int afontSize, GLfloat acolor[4]) {
     if(_debugMode > 1) {
         std::cout << "Rendering text: " << std::endl;
     }
@@ -83,8 +83,6 @@ void Text::DrawUnicode(const wchar_t* atext, float aposX, float aposY, float awi
     float height = 2.0f / windowHeight;
     aposX *= width;
     aposY *= height;
-    awidth *= width;
-    aheight *= height;
 
     FT_Set_Pixel_Sizes(_ftFace, 0, afontSize);
     glUniform4fv(_uniform_color, 1, acolor);
@@ -104,7 +102,7 @@ void Text::DrawUnicode(const wchar_t* atext, float aposX, float aposY, float awi
         if(*p == L'\n') {
             aposX = startx;
             float tmpHeight = g->bitmap.rows != 0 ? g->bitmap.rows : 50;
-            aposY -= tmpHeight * aheight * 1.25f;
+            aposY -= tmpHeight * height * 1.25f;
             continue;
         }
 
@@ -120,10 +118,10 @@ void Text::DrawUnicode(const wchar_t* atext, float aposX, float aposY, float awi
                      g->bitmap.buffer
                      );
 
-        float x2 = aposX + g->bitmap_left * awidth;
-        float y2 = -aposY - g->bitmap_top * aheight;
-        float w = g->bitmap.width * awidth;
-        float h = g->bitmap.rows * aheight;
+        float x2 = aposX + g->bitmap_left * width;
+        float y2 = -aposY - g->bitmap_top * height;
+        float w = g->bitmap.width * width;
+        float h = g->bitmap.rows * height;
 
         GLfloat box[4][4] = {
             {x2,     -y2    , 0, 0},
@@ -135,8 +133,8 @@ void Text::DrawUnicode(const wchar_t* atext, float aposX, float aposY, float awi
         glBufferData(GL_ARRAY_BUFFER, sizeof (GLfloat) * 4 * 4, box, GL_DYNAMIC_DRAW);
         glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 
-        aposX += (g->advance.x >> 6) * awidth;
-        aposY += (g->advance.y >> 6) * aheight;
+        aposX += (g->advance.x >> 6) * width;
+        aposY += (g->advance.y >> 6) * height;
     }
     if(_debugMode > 1) {
         std::wcout << std::endl;

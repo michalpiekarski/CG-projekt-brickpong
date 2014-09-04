@@ -15,7 +15,7 @@ int main(void) {
         unsigned short debugMode = 1;
         GraphicsEngine* graphicsEngine = new GraphicsEngine();
 
-        Window* window = new Window(800, 600, "Brickpong", false);
+        Window* window = new Window(940, 560, "Brickpong", false);
         window->makeContextCurrent();
         
         GameEngine* gameEngine = new GameEngine(window, debugMode);

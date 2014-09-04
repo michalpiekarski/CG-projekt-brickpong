@@ -31,7 +31,7 @@ public:
     Text(Window* awindow, const char* afont);
     Text(Window* awindow, const char* afont, unsigned short adebugMode);
     virtual ~Text();
-    void DrawUnicode(const wchar_t* atext, float aposX, float aposY, float awidth, float aheight, int afontSize, GLfloat acolor[4]);
+    void DrawUnicode(const wchar_t* atext, float aposX, float aposY, int afontSize, GLfloat acolor[4]);
 };
 
 #endif /* defined(__Brickpong__Graphics_Engine__Text__) */
