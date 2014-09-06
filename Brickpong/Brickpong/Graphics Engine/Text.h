@@ -3,14 +3,14 @@
 
 #ifdef _WIN32
 #define GLEW_STATIC
-#include <GL/glew.h>
+#include <GL\glew.h>
 #endif
 #ifdef __APPLE__
 #define GLFW_INCLUDE_GLCOREARB
 #endif
-#include <GLFW/glfw3.h>
-#include <glm/gtc/matrix_transform.hpp>
-#include <freetype2/ft2build.h>
+#include <GLFW\glfw3.h>
+#include <glm\gtc\matrix_transform.hpp>
+#include <ft2build.h>
 #include FT_FREETYPE_H
 
 #include "GraphicsEngine.h"

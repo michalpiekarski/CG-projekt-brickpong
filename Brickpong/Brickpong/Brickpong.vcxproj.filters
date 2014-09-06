@@ -16,6 +16,9 @@
     <Filter Include="Game Engines\Brickpong">
       <UniqueIdentifier>{b263f403-711b-4638-ba65-6238310ad593}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fonts">
+      <UniqueIdentifier>{ddac22f2-cea8-47ab-8adf-18b6a1c2a991}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BrickpongException.cpp">
@@ -71,6 +74,9 @@
     </ClCompile>
     <ClCompile Include="Game Engines\Brickpong\BrickpongBrickLayout.cpp">
       <Filter>Game Engines\Brickpong</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics Engine\Text.cpp">
+      <Filter>Graphics Engine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -128,6 +134,9 @@
     <ClInclude Include="Game Engines\Brickpong\BrickpongBrickLayout.h">
       <Filter>Game Engines\Brickpong</Filter>
     </ClInclude>
+    <ClInclude Include="Graphics Engine\Text.h">
+      <Filter>Graphics Engine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\Simple.frag">
@@ -139,5 +148,16 @@
     <None Include="shaders\SemiTransparentSimple.frag">
       <Filter>Shaders</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="fonts\Arial.ttf">
+      <Filter>Fonts</Filter>
+    </Font>
+    <Font Include="fonts\FontAwesome.otf">
+      <Filter>Fonts</Filter>
+    </Font>
+    <Font Include="fonts\Zapfino.ttf">
+      <Filter>Fonts</Filter>
+    </Font>
   </ItemGroup>
 </Project>
