@@ -17,11 +17,29 @@ int main(void) {
 
         Window* window = new Window(940, 560, "Brickpong", false);
         window->makeContextCurrent();
-        
+
         GameEngine* gameEngine = new GameEngine(window, debugMode);
 
-        brickpongGame = new BrickpongGame(debugMode);
-        gameEngine->RunBrickpong(graphicsEngine, BrickpongCursorPositionCallback, BrickpongKeyboardKeyCallback, brickpongGame);
+        bool play = true;
+        int currentGame = 0;
+        do {
+            if (gameEngine->Run(&currentGame, NULL, NULL)) {
+                switch (currentGame) {
+                    case 0: {
+
+                        brickpongGame = new BrickpongGame(debugMode);
+                        gameEngine->RunBrickpong(graphicsEngine, BrickpongCursorPositionCallback, BrickpongKeyboardKeyCallback, brickpongGame);
+                        break;
+                    }
+                    default: {
+                        break;
+                    }
+                }
+            }
+            else {
+                play = false;
+            }
+        } while (play);
 
         delete window;
 

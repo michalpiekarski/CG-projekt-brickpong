@@ -1,6 +1,8 @@
 #ifndef __Brickpong__GameEngine__
 #define __Brickpong__GameEngine__
 
+#include <string>
+
 #ifdef _WIN32
 #define GLEW_STATIC
 #include <GL/glew.h>
@@ -23,6 +25,7 @@ public:
     GameEngine(Window* awindow);
     GameEngine(Window* awindow, unsigned short adebugMode);
     virtual ~GameEngine();
+    bool Run(int* acurrentGame, GLFWcursorposfun acursorPositionCallback, GLFWkeyfun akeyCallback);
     void RunBrickpong(GraphicsEngine* agraphicsEngine, GLFWcursorposfun acursorPositionCallback, GLFWkeyfun akeyCallback, BrickpongGame* abrickpongGame);
 };
 
