@@ -14,10 +14,10 @@ void main(){
     mat4 MVP = Projection * View * Model;
 	gl_Position =  MVP * vec4(position,1.0);
 
-        //Działający spotlight o nieskończonym zasięgu
-    vec4 lightPosition = vec4(0.0, 0.0, 25.0, 1.0);
+    vec4 lightPosition = vec4(0.0, 0.0, 15.0, 1.0);
     vec4 positionInWorld = Model * vec4(position, 1.0);
     vec4 directionToLight = lightPosition - positionInWorld;
+    directionToLight = View * directionToLight;
     mat4 normalModel = transpose(inverse(Model));
     vec4 normalInCameraSpace = normalize(normalModel * vec4(normal, 1.0));
     float cosAngIncidence = dot(normalInCameraSpace.xyz, directionToLight.xyz);

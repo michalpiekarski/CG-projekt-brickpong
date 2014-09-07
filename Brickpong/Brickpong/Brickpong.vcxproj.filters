@@ -169,6 +169,9 @@
     <None Include="shaders\ASSIMP.vert">
       <Filter>Shaders</Filter>
     </None>
+    <None Include="meshes\spaceship.fbx">
+      <Filter>Meshes</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Font Include="fonts\Arial.ttf">

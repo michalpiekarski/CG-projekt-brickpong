@@ -203,6 +203,7 @@ xcopy "$(ProjectDir)fonts" "$(OutDir)fonts" /f /y /i</Command>
   <ItemGroup>
     <None Include="meshes\cube.fbx" />
     <None Include="meshes\cube_color.fbx" />
+    <None Include="meshes\spaceship.fbx" />
     <None Include="shaders\ASSIMP.frag" />
     <None Include="shaders\ASSIMP.vert" />
     <None Include="shaders\SemiTransparentSimple.frag" />
