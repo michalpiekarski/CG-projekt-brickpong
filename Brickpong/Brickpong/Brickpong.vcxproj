@@ -77,12 +77,13 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)..\biblioteki\build\glew\win\lib;$(SolutionDir)..\biblioteki\build\glfw\win\lib;$(SolutionDir)..\biblioteki\build\assimp\win\lib;$(SolutionDir)..\biblioteki\build\box2d\win\lib;$(SolutionDir)..\biblioteki\build\freetype\win\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glew32s.lib;opengl32.lib;glfw3.lib;assimp.lib;Box2D.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glew32s.lib;opengl32.lib;glfw3.lib;assimpd.lib;Box2D.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy "$(ProjectDir)shaders" "$(OutDir)shaders" /f /y /i
+      <Command>xcopy "$(SolutionDir)..\biblioteki\build\assimp\win\bin" "$(OutDir)" /f /i
+xcopy "$(ProjectDir)shaders" "$(OutDir)shaders" /f /y /i
 xcopy "$(ProjectDir)fonts" "$(OutDir)fonts" /f /y /i</Command>
-      <Message>Copy shader files and fonts to output directory.</Message>
+      <Message>Copy dlls, shaders and fonts to output directory.</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -96,14 +97,15 @@ xcopy "$(ProjectDir)fonts" "$(OutDir)fonts" /f /y /i</Command>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)..\biblioteki\build\glew\win64\lib;$(SolutionDir)..\biblioteki\build\glfw\win64\lib64;$(SolutionDir)..\biblioteki\build\assimp\win64\lib;$(SolutionDir)..\biblioteki\build\box2d\win64\lib;$(SolutionDir)..\biblioteki\build\freetype\win64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glew32s.lib;opengl32.lib;glfw3.lib;assimp64.lib;Box2D.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glew32s.lib;opengl32.lib;glfw3.lib;assimp64d.lib;Box2D.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy "$(ProjectDir)shaders" "$(OutDir)shaders" /f /y /i
+      <Command>xcopy "$(SolutionDir)..\biblioteki\build\assimp\win64\bin" "$(OutDir)" /f /i
+xcopy "$(ProjectDir)shaders" "$(OutDir)shaders" /f /y /i
 xcopy "$(ProjectDir)fonts" "$(OutDir)fonts" /f /y /i</Command>
     </PostBuildEvent>
     <PostBuildEvent>
-      <Message>Copy shader files and fonts to output directory.</Message>
+      <Message>Copy dlls, shaders, fonts to output directory.</Message>
     </PostBuildEvent>
     <Bscmake>
       <PreserveSbr>true</PreserveSbr>
