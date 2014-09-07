@@ -19,6 +19,10 @@
 		E960F4D019B8816500E6F26F /* Zapfino.ttf in Copy Fonts */ = {isa = PBXBuildFile; fileRef = E960F4CA19B8812100E6F26F /* Zapfino.ttf */; };
 		E96D6F8219A2A6F4004C6BEB /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E96D6F8119A2A6F4004C6BEB /* libfreetype.a */; };
 		E9850F3919B27F7300E57E65 /* BrickpongGame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9850F3619B27F7300E57E65 /* BrickpongGame.cpp */; };
+		E98B0CAD19BCB028009EF7BC /* cube.fbx in Copy Meshes */ = {isa = PBXBuildFile; fileRef = E98B0CAA19BCAFD9009EF7BC /* cube.fbx */; };
+		E98B0CAE19BCB02B009EF7BC /* cube_color.fbx in Copy Meshes */ = {isa = PBXBuildFile; fileRef = E98B0CAB19BCAFD9009EF7BC /* cube_color.fbx */; };
+		E98B0CB119BCB122009EF7BC /* ASSIMP.frag in Copy Shader Files */ = {isa = PBXBuildFile; fileRef = E98B0CAF19BCB117009EF7BC /* ASSIMP.frag */; };
+		E98B0CB219BCB124009EF7BC /* ASSIMP.vert in Copy Shader Files */ = {isa = PBXBuildFile; fileRef = E98B0CB019BCB117009EF7BC /* ASSIMP.vert */; };
 		E9A1BA7719A1357D00CE01B1 /* libglfw.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E9A1BA7619A1357D00CE01B1 /* libglfw.3.dylib */; };
 		E9A1BA7919A1359100CE01B1 /* libassimp64d.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E9A1BA7819A1359100CE01B1 /* libassimp64d.3.dylib */; };
 		E9A1BA7B19A135A800CE01B1 /* libBox2D.2.3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E9A1BA7A19A135A800CE01B1 /* libBox2D.2.3.0.dylib */; };
@@ -58,6 +62,18 @@
 			name = "Copy Fonts";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E98B0CAC19BCB00D009EF7BC /* Copy Meshes */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = meshes;
+			dstSubfolderSpec = 16;
+			files = (
+				E98B0CAD19BCB028009EF7BC /* cube.fbx in Copy Meshes */,
+				E98B0CAE19BCB02B009EF7BC /* cube_color.fbx in Copy Meshes */,
+			);
+			name = "Copy Meshes";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E9A1BA7E19A135C600CE01B1 /* Copy Library Files */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -82,6 +98,8 @@
 				E932E33119B848EA00BBEE17 /* SemiTransparentSimple.frag in Copy Shader Files */,
 				E960F4CC19B8814400E6F26F /* Text.vert in Copy Shader Files */,
 				E960F4CB19B8814100E6F26F /* Text.frag in Copy Shader Files */,
+				E98B0CB219BCB124009EF7BC /* ASSIMP.vert in Copy Shader Files */,
+				E98B0CB119BCB122009EF7BC /* ASSIMP.frag in Copy Shader Files */,
 			);
 			name = "Copy Shader Files";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -104,6 +122,10 @@
 		E96D6F8119A2A6F4004C6BEB /* libfreetype.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfreetype.a; path = ../biblioteki/build/freetype/osx/lib/libfreetype.a; sourceTree = "<group>"; };
 		E9850F3619B27F7300E57E65 /* BrickpongGame.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BrickpongGame.cpp; sourceTree = "<group>"; };
 		E9850F3719B27F7300E57E65 /* BrickpongGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrickpongGame.h; sourceTree = "<group>"; };
+		E98B0CAA19BCAFD9009EF7BC /* cube.fbx */ = {isa = PBXFileReference; lastKnownFileType = file; path = cube.fbx; sourceTree = "<group>"; };
+		E98B0CAB19BCAFD9009EF7BC /* cube_color.fbx */ = {isa = PBXFileReference; lastKnownFileType = file; path = cube_color.fbx; sourceTree = "<group>"; };
+		E98B0CAF19BCB117009EF7BC /* ASSIMP.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ASSIMP.frag; sourceTree = "<group>"; };
+		E98B0CB019BCB117009EF7BC /* ASSIMP.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ASSIMP.vert; sourceTree = "<group>"; };
 		E9A1BA7619A1357D00CE01B1 /* libglfw.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglfw.3.dylib; path = ../biblioteki/build/glfw/osx/lib64/libglfw.3.dylib; sourceTree = "<group>"; };
 		E9A1BA7819A1359100CE01B1 /* libassimp64d.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libassimp64d.3.dylib; path = ../biblioteki/build/assimp/osx/lib/libassimp64d.3.dylib; sourceTree = "<group>"; };
 		E9A1BA7A19A135A800CE01B1 /* libBox2D.2.3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libBox2D.2.3.0.dylib; path = ../biblioteki/build/box2d/osx/lib/libBox2D.2.3.0.dylib; sourceTree = "<group>"; };
@@ -162,6 +184,8 @@
 		E907F50A198F773C003FE113 /* shaders */ = {
 			isa = PBXGroup;
 			children = (
+				E98B0CAF19BCB117009EF7BC /* ASSIMP.frag */,
+				E98B0CB019BCB117009EF7BC /* ASSIMP.vert */,
 				E960F4C219B8745E00E6F26F /* Text.frag */,
 				E960F4C319B8745E00E6F26F /* Text.vert */,
 				E932E33019B848DC00BBEE17 /* SemiTransparentSimple.frag */,
@@ -248,6 +272,15 @@
 			name = "Main Program";
 			sourceTree = "<group>";
 		};
+		E98B0CA919BCAFD9009EF7BC /* meshes */ = {
+			isa = PBXGroup;
+			children = (
+				E98B0CAA19BCAFD9009EF7BC /* cube.fbx */,
+				E98B0CAB19BCAFD9009EF7BC /* cube_color.fbx */,
+			);
+			path = meshes;
+			sourceTree = "<group>";
+		};
 		E9F2A8691968F8680011EAAF = {
 			isa = PBXGroup;
 			children = (
@@ -276,6 +309,7 @@
 				E908155F1992D98F00885AD0 /* Graphics Engine */,
 				E9850F3419B27F7300E57E65 /* Game Engines */,
 				E907F50A198F773C003FE113 /* shaders */,
+				E98B0CA919BCAFD9009EF7BC /* meshes */,
 				E960F4C719B8812100E6F26F /* fonts */,
 			);
 			path = Brickpong;
@@ -292,6 +326,7 @@
 				E9F2A86F1968F8690011EAAF /* Frameworks */,
 				E9A1BA7E19A135C600CE01B1 /* Copy Library Files */,
 				E9F2A8701968F8690011EAAF /* Copy Shader Files */,
+				E98B0CAC19BCB00D009EF7BC /* Copy Meshes */,
 				E960F4CD19B8814D00E6F26F /* Copy Fonts */,
 			);
 			buildRules = (
@@ -441,7 +476,7 @@
 					"../biblioteki/build/glm/osx/include/**",
 					"../biblioteki/build/assimp/osx/include/**",
 					"../biblioteki/build/box2d/osx/include/**",
-					"../biblioteki/build/freetype/osx/include/**",
+					"../biblioteki/build/freetype/osx/include/freetype2/**",
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -467,7 +502,7 @@
 					"../biblioteki/build/glm/osx/include/**",
 					"../biblioteki/build/assimp/osx/include/**",
 					"../biblioteki/build/box2d/osx/include/**",
-					"../biblioteki/build/freetype/osx/include/**",
+					"../biblioteki/build/freetype/osx/include/freetype2/**",
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

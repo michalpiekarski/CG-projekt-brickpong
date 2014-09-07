@@ -40,13 +40,16 @@ bool GameEngine::Run(int* acurrentGame, GraphicsEngine* agraphicsEngine, GLFWcur
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-    GLuint MatrixID = shaderProgram->getUniformLoc("MVP");
+    GLuint modelUniformLoc = shaderProgram->getUniformLoc("Model");
+    GLuint viewUniformLoc = shaderProgram->getUniformLoc("View");
+    GLuint projectionUniformLoc = shaderProgram->getUniformLoc("Projection");
 
     glm::mat4 Model = glm::mat4(1.0f);
     glm::vec2 cursorPosition = _window->getCursorPositionInWorldSpace(60.0f, 2.0f, glm::vec2(0.0f, 0.0f));
     glm::vec3 viewTarget = glm::vec3(cursorPosition.x, cursorPosition.y-2.0f, glm::abs(cursorPosition.x));
     glm::mat4 View = glm::lookAt(glm::vec3(0.0f, 1.0f, 30.0f), viewTarget, glm::vec3(0.0f, 1.0f, 0.0f));
     glm::mat4 Projection = glm::perspective(120.0f, 16.0f / 9.0f, 0.01f, 10000.0f);
+    glUniformMatrix4fv(projectionUniformLoc, 1, GL_FALSE, &Projection[0][0]);
 
     glm::mat4 tmpModel, tmpMVP;
 
@@ -82,11 +85,16 @@ bool GameEngine::Run(int* acurrentGame, GraphicsEngine* agraphicsEngine, GLFWcur
     };
 
     float rotation = 0;
-    glm::vec3 rotationUp = glm::vec3(0.0f, 1.0f, 0.0f);
+    glm::vec3 rotationX = glm::vec3(1.0f, 0.0f, 0.0f);
+    glm::vec3 rotationY = glm::vec3(0.0f, 1.0f, 0.0f);
+    glm::vec3 rotationZ = glm::vec3(0.0f, 0.0f, 1.0f);
     do {
+        shaderProgram->use();
+        
         cursorPosition = _window->getCursorPositionInWorldSpace(60.0f, 2.0f, glm::vec2(0.0f, 0.0f));
         viewTarget = glm::vec3(cursorPosition.x, cursorPosition.y-2.0f, glm::abs(cursorPosition.x));
         View = glm::lookAt(glm::vec3(0.0f, 1.0f, 30.0f), viewTarget, glm::vec3(0.0f, 1.0f,0.0f));
+        glUniformMatrix4fv(viewUniformLoc, 1, GL_FALSE, &View[0][0]);
 
         if (_debugMode > 0) {
             double currentTime = glfwGetTime();
@@ -101,7 +109,6 @@ bool GameEngine::Run(int* acurrentGame, GraphicsEngine* agraphicsEngine, GLFWcur
         _window->getFrameBufferSize(&viewportWidth, &viewportHeight);
         glViewport(0, 0, viewportWidth, viewportHeight);
 
-        shaderProgram->use();
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         glm::vec3 translation, scale;
@@ -110,10 +117,10 @@ bool GameEngine::Run(int* acurrentGame, GraphicsEngine* agraphicsEngine, GLFWcur
         // FRONT
         translation = glm::vec3(0.0f, 0.0f, 10.0f);
         scale = glm::vec3(2.0f, 5.0f, 2.0f);
-        tmpModel = glm::scale(glm::translate(Model, translation), scale);
-        tmpModel = glm::rotate(tmpModel, glm::radians(rotation), rotationUp);
-        MVP = Projection * View * tmpModel;
-        glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP[0][0]);
+        tmpModel = glm::translate(Model, translation);
+        tmpModel = glm::rotate(tmpModel, glm::radians(rotation), rotationY);
+        tmpModel = glm::scale(tmpModel, scale);
+        glUniformMatrix4fv(modelUniformLoc, 1, GL_FALSE, &tmpModel[0][0]);
 
         vao->bind();
         ebo->Draw();
@@ -122,10 +129,11 @@ bool GameEngine::Run(int* acurrentGame, GraphicsEngine* agraphicsEngine, GLFWcur
         // LEFT
         translation = glm::vec3(-20.0f, 0.0f, 30.0f);
         scale = glm::vec3(2.0f, 5.0f, 2.0f);
-        tmpModel = glm::scale(glm::translate(Model, translation), scale);
-        tmpModel = glm::rotate(tmpModel, glm::radians(rotation), rotationUp);
-        MVP = Projection * View * tmpModel;
-        glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP[0][0]);
+        tmpModel = glm::translate(Model, translation);
+        tmpModel = glm::rotate(tmpModel, glm::radians(rotation), rotationZ);
+        tmpModel = glm::rotate(tmpModel, glm::radians(rotation), rotationX);
+        tmpModel = glm::scale(tmpModel, scale);
+        glUniformMatrix4fv(modelUniformLoc, 1, GL_FALSE, &tmpModel[0][0]);
 
         vao->bind();
         ebo->Draw();
@@ -134,12 +142,13 @@ bool GameEngine::Run(int* acurrentGame, GraphicsEngine* agraphicsEngine, GLFWcur
         // RIGHT
         translation = glm::vec3(20.0f, 0.0f, 30.0f);
         scale = glm::vec3(2.0f, 5.0f, 2.0f);
-        tmpModel = glm::scale(glm::translate(Model, translation), scale);
-        tmpModel = glm::rotate(tmpModel, glm::radians(rotation), rotationUp);
-        MVP = Projection * View * tmpModel;
-        glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP[0][0]);
+        tmpModel = glm::translate(Model, translation);
+        tmpModel = glm::rotate(tmpModel, glm::radians(rotation), rotationZ);
+        tmpModel = glm::rotate(tmpModel, glm::radians(rotation), rotationY);
+        tmpModel = glm::scale(tmpModel, scale);
+        glUniformMatrix4fv(modelUniformLoc, 1, GL_FALSE, &tmpModel[0][0]);
 
-        rotation += 0.1f;
+        rotation += 1.0f;
 
         vao->bind();
         ebo->Draw();

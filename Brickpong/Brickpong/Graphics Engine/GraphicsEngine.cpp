@@ -92,7 +92,7 @@ bool GraphicsEngine::Load3DFile(const char* afilePath, ShaderProgram* ashaderPro
         if (mesh->HasNormals()) {
             GLint positionAttribLoc = ashaderProgram->getAttributeLoc("normal");
             anvbo->SetData(mesh->mNormals, numVertices, GL_STATIC_DRAW);
-            anvbo->createVertexAttribPointer(positionAttribLoc, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid*)0);
+            anvbo->createVertexAttribPointer(positionAttribLoc, 3, GL_FLOAT, GL_TRUE, 0, (GLvoid*)0);
         }
         if (mesh->HasFaces()) {
             std::vector<glm::uvec3> index_data;
