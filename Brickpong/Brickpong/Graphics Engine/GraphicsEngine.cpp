@@ -38,3 +38,72 @@ glm::mat4 GraphicsEngine::ChangeToPerspective() {
 bool GraphicsEngine::IsZoomed() {
     return _zoom;
 }
+
+
+bool GraphicsEngine::Load3DFile(const char* afilePath, ShaderProgram* ashaderProgram, EBO* aebo, VBO* avvbo, VBO* acvbo) {
+    Assimp::Importer importer;
+    const aiScene* scene = importer.ReadFile(afilePath,
+                                             aiProcess_CalcTangentSpace |
+                                             aiProcess_Triangulate |
+                                             aiProcess_JoinIdenticalVertices |
+                                             aiProcess_SortByPType);
+    if (!scene) {
+        std::cerr << "Wczytywanie: " << afilePath << " nie powiod³o siê!" << std::endl;
+        return false;
+    }
+
+    if (scene->HasMeshes()) {
+        aiMesh* mesh = scene->mMeshes[0];
+        int numVertices = mesh->mNumVertices;
+        if (mesh->HasPositions()) {
+            GLint positionAttribLoc = ashaderProgram->getAttributeLoc("position");
+            avvbo->SetData(mesh->mVertices, numVertices, GL_STATIC_DRAW);
+            avvbo->createVertexAttribPointer(positionAttribLoc, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid*)0);
+        }
+        // TODO: Sprawdziæ dlaczego w plikach obj i fbx nie ma vertex color
+        GLint colorAttribLoc = ashaderProgram->getAttributeLoc("color");
+        GLfloat color_data[24][3] = {
+                {0.0f, 0.0f, 1.0f, }, // 0-E
+                {0.0f, 1.0f, 0.0f, }, // 1-H
+                {0.0f, 1.0f, 0.0f, }, // 2-D
+                {1.0f, 0.0f, 0.0f, }, // 3-B
+                {0.0f, 0.0f, 1.0f, }, // 4-A
+                {0.0f, 1.0f, 0.0f, }, // 5-G
+                {1.0f, 0.0f, 0.0f, }, // 6-F
+                {0.0f, 1.0f, 0.0f, }, // 7-C
+                {0.0f, 0.0f, 1.0f, }, // 0-E
+                {0.0f, 1.0f, 0.0f, }, // 1-H
+                {0.0f, 1.0f, 0.0f, }, // 2-D
+                {1.0f, 0.0f, 0.0f, }, // 3-B
+                {0.0f, 0.0f, 1.0f, }, // 4-A
+                {0.0f, 1.0f, 0.0f, }, // 5-G
+                {1.0f, 0.0f, 0.0f, }, // 6-F
+                {0.0f, 1.0f, 0.0f, }, // 7-C
+                {0.0f, 1.0f, 0.0f, }, // 2-D
+                {1.0f, 0.0f, 0.0f, }, // 3-B
+                {0.0f, 0.0f, 1.0f, }, // 4-A
+                {0.0f, 1.0f, 0.0f, }, // 5-G
+                {1.0f, 0.0f, 0.0f, }, // 6-F
+                {0.0f, 1.0f, 0.0f, }, // 7-C
+        };
+        acvbo->SetData(color_data, numVertices, GL_STATIC_DRAW);
+        acvbo->createVertexAttribPointer(colorAttribLoc, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid*)0);
+        // ------------------------------------------------------------------
+        if (mesh->HasFaces()) {
+            std::vector<glm::uvec3> index_data;
+
+            for (unsigned int t = 0; t < mesh->mNumFaces; ++t) {
+                const aiFace* face = &mesh->mFaces[t];
+                glm::uvec3 index = glm::uvec3();
+                index.x = face->mIndices[0];
+                index.y = face->mIndices[1];
+                index.z = face->mIndices[2];
+                index_data.push_back(index);
+            }
+
+            aebo->SetData(index_data, mesh->mNumFaces, GL_STATIC_DRAW);
+        }
+    }
+
+    return true;
+}

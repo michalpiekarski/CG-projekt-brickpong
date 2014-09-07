@@ -23,7 +23,7 @@ int main(void) {
         bool play = true;
         int currentGame = 0;
         do {
-            if (gameEngine->Run(&currentGame, NULL, NULL)) {
+            if (gameEngine->Run(&currentGame, graphicsEngine, NULL, NULL)) {
                 switch (currentGame) {
                     case 0: {
 

@@ -19,6 +19,9 @@
     <Filter Include="Fonts">
       <UniqueIdentifier>{ddac22f2-cea8-47ab-8adf-18b6a1c2a991}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Meshes">
+      <UniqueIdentifier>{ff6357d6-d24e-4fb1-870f-2ac56ef9c905}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BrickpongException.cpp">
@@ -147,6 +150,9 @@
     </None>
     <None Include="shaders\SemiTransparentSimple.frag">
       <Filter>Shaders</Filter>
+    </None>
+    <None Include="meshes\cube.fbx">
+      <Filter>Meshes</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

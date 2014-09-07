@@ -13,7 +13,7 @@ GameEngine::~GameEngine() {
 
 }
 
-bool GameEngine::Run(int* acurrentGame, GLFWcursorposfun acursorPositionCallback, GLFWkeyfun akeyCallback) {
+bool GameEngine::Run(int* acurrentGame, GraphicsEngine* agraphicsEngine, GLFWcursorposfun acursorPositionCallback, GLFWkeyfun akeyCallback) {
     bool playGame = true;
 
     _window->setCursorMode(GLFW_CURSOR_HIDDEN);
@@ -50,59 +50,17 @@ bool GameEngine::Run(int* acurrentGame, GLFWcursorposfun acursorPositionCallback
 
     glm::mat4 tmpModel, tmpMVP;
 
-    GLint positionAttribLoc = shaderProgram->getAttributeLoc("position");
-    GLint colorAttribLoc = shaderProgram->getAttributeLoc("color");
-
     shaderProgram->use();
     VAO* vao = new VAO();
     vao->bind();
 
-    GLfloat vertex_data[9][3] = {
-            {-1.0f, -1.0f, -1.0f, }, // 0-E
-            {-1.0f, -1.0f, +1.0f, }, // 1-H
-            {-1.0f, +1.0f, +1.0f, }, // 2-D
-            {+1.0f, +1.0f, -1.0f, }, // 3-B
-            {-1.0f, +1.0f, -1.0f, }, // 4-A
-            {+1.0f, -1.0f, +1.0f, }, // 5-G
-            {+1.0f, -1.0f, -1.0f, }, // 6-F
-            {+1.0f, +1.0f, +1.0f, }, // 7-C
-            {+0.0f, +0.0f, +1.0f, }, // 8-I
-    };
-    VBO* vvbo = new VBO(vertex_data, 9, GL_STATIC_DRAW);
-    GLfloat color_data[9][3] = {
-            {0.0f, 0.0f, 1.0f, }, // 0-E
-            {0.0f, 1.0f, 0.0f, }, // 1-H
-            {0.0f, 1.0f, 0.0f, }, // 2-D
-            {1.0f, 0.0f, 0.0f, }, // 3-B
-            {0.0f, 0.0f, 1.0f, }, // 4-A
-            {0.0f, 1.0f, 0.0f, }, // 5-G
-            {1.0f, 0.0f, 0.0f, }, // 6-F
-            {0.0f, 1.0f, 0.0f, }, // 7-C
-            {0.0f, 0.0f, 0.0f, }, // 8-I
-    };
-    VBO* cvbo = new VBO(color_data, 9, GL_STATIC_DRAW);
-    GLushort index_data[14][3] = {
-            {0, 1, 2, }, // EHD - left
-            {0, 2, 4, }, // EDA - left
-            {3, 0, 4, }, // BEA - back
-            {3, 6, 0, }, // BFE - back
-            {7, 6, 3, }, // CFB - right
-            {6, 7, 5, }, // FCG - right
-            {5, 0, 6, }, // GEF - bottom
-            {5, 1, 0, }, // GHE - bottom
-            {7, 3, 4, }, // CBA - top
-            {7, 4, 2, }, // CAD - top
-            //{7, 2, 5, }, // CDG - front
-            //{2, 1, 5, }, // DHG - front
-            {8, 2, 1, }, // IDH - front
-            {8, 7, 2, }, // ICD - front
-            {8, 5, 7, }, // IGC - front
-            {8, 1, 5, }, // IHG - front
-    };
-    EBO* ebo = new EBO(index_data, 14, GL_STATIC_DRAW);
+    VBO* vvbo = new VBO();
+    VBO* cvbo = new VBO();
+    EBO* ebo = new EBO();
 
-    vvbo->createVertexAttribPointer(positionAttribLoc, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid*)0);
-    cvbo->createVertexAttribPointer(colorAttribLoc, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid*)0);
+    if (!agraphicsEngine->Load3DFile("meshes/cube.fbx", shaderProgram, ebo, vvbo, cvbo)) {
+        exit(EXIT_FAILURE);
+    }
 
     GLint viewportWidth, viewportHeight;
 

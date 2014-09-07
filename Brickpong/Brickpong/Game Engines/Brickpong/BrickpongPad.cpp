@@ -50,7 +50,7 @@ BrickpongPad::BrickpongPad(b2World* aworld, float awidth, float aheight, float a
             {1.0f, 1.0f, 1.0f, }, // 8-I
     };
     VBO* cVBO = new VBO(color_data, 9, GL_STATIC_DRAW);
-    GLushort index_data[14][3] = {
+    GLuint index_data[14][3] = {
             {0, 1, 2, }, // EHD - left
             {0, 2, 4, }, // EDA - left
             {3, 0, 4, }, // BEA - back

@@ -8,6 +8,14 @@ VBO::VBO(GLfloat data[][3], int dataSize, GLenum usage) : VBO() {
     SetData(data, dataSize, usage);
 }
 
+VBO::VBO(aiVector3D* data, int dataSize, GLenum usage) : VBO() {
+    SetData(data, dataSize, usage);
+}
+
+VBO::VBO(aiColor4D* data, int dataSize, GLenum usage) : VBO() {
+    SetData(data, dataSize, usage);
+}
+
 VBO::~VBO() {
     unbind();
     glDeleteBuffers(1, &_VBOID);
@@ -29,6 +37,20 @@ void VBO::SetData(GLfloat data[][3], int dataSize, GLenum usage) {
     _dataSize = dataSize;
     bind();
     glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * 3 * _dataSize, data, usage);
+    unbind();
+}
+
+void VBO::SetData(aiVector3D* data, int dataSize, GLenum usage) {
+    _dataSize = dataSize;
+    bind();
+    glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 3 * _dataSize, data, usage);
+    unbind();
+}
+
+void VBO::SetData(aiColor4D* data, int dataSize, GLenum usage) {
+    _dataSize = dataSize;
+    bind();
+    glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 4 * _dataSize, data, usage);
     unbind();
 }
 

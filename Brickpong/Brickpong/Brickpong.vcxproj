@@ -102,10 +102,11 @@ xcopy "$(ProjectDir)fonts" "$(OutDir)fonts" /f /y /i</Command>
     <PostBuildEvent>
       <Command>xcopy "$(SolutionDir)..\biblioteki\build\assimp\win64\bin" "$(OutDir)" /f /i
 xcopy "$(ProjectDir)shaders" "$(OutDir)shaders" /f /y /i
+xcopy "$(ProjectDir)meshes" "$(OutDir)meshes" /f /y /i
 xcopy "$(ProjectDir)fonts" "$(OutDir)fonts" /f /y /i</Command>
     </PostBuildEvent>
     <PostBuildEvent>
-      <Message>Copy dlls, shaders, fonts to output directory.</Message>
+      <Message>Copy dlls, shaders, meshes and fonts to output directory.</Message>
     </PostBuildEvent>
     <Bscmake>
       <PreserveSbr>true</PreserveSbr>
@@ -200,6 +201,7 @@ xcopy "$(ProjectDir)fonts" "$(OutDir)fonts" /f /y /i</Command>
     <ClInclude Include="Graphics Engine\Window.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="meshes\cube.fbx" />
     <None Include="shaders\SemiTransparentSimple.frag" />
     <None Include="shaders\Simple.frag">
       <FileType>Document</FileType>

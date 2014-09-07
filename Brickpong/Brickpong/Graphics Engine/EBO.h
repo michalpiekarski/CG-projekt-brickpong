@@ -1,6 +1,8 @@
 #ifndef __Brickpong__EBO__
 #define __Brickpong__EBO__
 
+#include <vector>
+
 #ifdef _WIN32
 #define GLEW_STATIC
 #include <GL/glew.h>
@@ -9,6 +11,7 @@
 #define GLFW_INCLUDE_GLCOREARB
 #endif
 #include <GLFW/glfw3.h>
+#include <glm/glm.hpp>
 
 class EBO {
     GLuint _EBOID;
@@ -16,13 +19,15 @@ class EBO {
 
 public:
     EBO();
-    EBO(GLushort data[][3], int dataSize, GLenum usage);
+    EBO(GLuint data[][3], int dataSize, GLenum usage);
+    EBO(std::vector<glm::uvec3> data, int dataSize, GLenum usage);
     virtual ~EBO();
 
     void bind();
     void unbind();
     GLuint getID();
-    void SetData(GLushort data[][3], int dataSize, GLenum usage);
+    void SetData(GLuint data[][3], int dataSize, GLenum usage);
+    void SetData(std::vector<glm::uvec3> data, int dataSize, GLenum usage);
     void Draw();
 };
 
