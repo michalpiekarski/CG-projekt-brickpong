@@ -80,8 +80,9 @@
       <AdditionalDependencies>glew32s.lib;opengl32.lib;glfw3.lib;assimp.lib;Box2D.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy "$(ProjectDir)shaders" "$(OutDir)shaders" /f /y /i</Command>
-      <Message>Copy shader files to output directory.</Message>
+      <Command>xcopy "$(ProjectDir)shaders" "$(OutDir)shaders" /f /y /i
+xcopy "$(ProjectDir)fonts" "$(OutDir)fonts" /f /y /i</Command>
+      <Message>Copy shader files and fonts to output directory.</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -125,8 +126,9 @@ xcopy "$(ProjectDir)fonts" "$(OutDir)fonts" /f /y /i</Command>
       <AdditionalDependencies>glew32s.lib;opengl32.lib;glfw3.lib;assimp.lib;Box2D.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy "$(ProjectDir)shaders" "$(OutDir)shaders" /f /y /i</Command>
-      <Message>Copy shader files to output directory.</Message>
+      <Command>xcopy "$(ProjectDir)shaders" "$(OutDir)shaders" /f /y /i
+xcopy "$(ProjectDir)fonts" "$(OutDir)fonts" /f /y /i</Command>
+      <Message>Copy shader files and fonts to output directory.</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
