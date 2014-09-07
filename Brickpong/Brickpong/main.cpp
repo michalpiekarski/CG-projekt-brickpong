@@ -28,7 +28,7 @@ int main(void) {
                     case 0: {
 
                         brickpongGame = new BrickpongGame(debugMode);
-                        gameEngine->RunBrickpong(graphicsEngine, BrickpongCursorPositionCallback, BrickpongKeyboardKeyCallback, brickpongGame);
+                        play = gameEngine->RunBrickpong(graphicsEngine, BrickpongCursorPositionCallback, BrickpongKeyboardKeyCallback, brickpongGame);
                         break;
                     }
                     default: {

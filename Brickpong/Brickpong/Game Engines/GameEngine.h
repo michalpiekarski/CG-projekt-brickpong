@@ -26,7 +26,7 @@ public:
     GameEngine(Window* awindow, unsigned short adebugMode);
     virtual ~GameEngine();
     bool Run(int* acurrentGame, GraphicsEngine* agraphicsEngine, GLFWcursorposfun acursorPositionCallback, GLFWkeyfun akeyCallback);
-    void RunBrickpong(GraphicsEngine* agraphicsEngine, GLFWcursorposfun acursorPositionCallback, GLFWkeyfun akeyCallback, BrickpongGame* abrickpongGame);
+    bool RunBrickpong(GraphicsEngine* agraphicsEngine, GLFWcursorposfun acursorPositionCallback, GLFWkeyfun akeyCallback, BrickpongGame* abrickpongGame);
 };
 
 #endif /* defined(__Brickpong__GameEngine__) */

@@ -175,7 +175,9 @@ bool GameEngine::Run(int* acurrentGame, GraphicsEngine* agraphicsEngine, GLFWcur
     return playGame;
 }
 
-void GameEngine::RunBrickpong(GraphicsEngine* agraphicsEngine, GLFWcursorposfun acursorPositionCallback, GLFWkeyfun akeyCallback, BrickpongGame* abrickpongGame) {
+bool GameEngine::RunBrickpong(GraphicsEngine* agraphicsEngine, GLFWcursorposfun acursorPositionCallback, GLFWkeyfun akeyCallback, BrickpongGame* abrickpongGame) {
+    bool play = true;
+
     _window->setCursorMode(GLFW_CURSOR_HIDDEN);
     _window->setStickyKeys(GL_TRUE);
     _window->setCursorPosCallback(acursorPositionCallback);
@@ -282,6 +284,9 @@ void GameEngine::RunBrickpong(GraphicsEngine* agraphicsEngine, GLFWcursorposfun 
 
         abrickpongGame->CheckGameResult();
         glfwPollEvents();
+        if (_window->getKey(GLFW_KEY_ESCAPE) == GLFW_PRESS || _window->shouldClose() != 0) {
+            play = false;
+        }
     } while ((_window->getKey(GLFW_KEY_BACKSPACE) != GLFW_PRESS && _window->getKey(GLFW_KEY_ESCAPE) != GLFW_PRESS) && _window->shouldClose() == 0);
 
     delete textRenderer;
@@ -291,4 +296,6 @@ void GameEngine::RunBrickpong(GraphicsEngine* agraphicsEngine, GLFWcursorposfun 
     glDisableVertexAttribArray(1);
 
     delete shaderProgram;
+
+    return play;
 }
