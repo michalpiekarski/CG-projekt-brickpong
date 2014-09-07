@@ -30,7 +30,7 @@ public:
     b2Vec2 GetPosition();
     float GetAngle();
     void SetTransform(b2Vec2 aposition, float aangle);
-    void Draw(Cursor* aCursor, glm::mat4 Model, glm::mat4 View, glm::mat4 Projection, GLuint MVP_ID);
+    void Draw(Cursor* aCursor, glm::mat4* Model, glm::mat4* View, glm::mat4* Projection, GLuint MVP_ID);
 };
 
 #endif /* defined(__Brickpong__Game_Engines__Brickpong__BrickpongPad__) */

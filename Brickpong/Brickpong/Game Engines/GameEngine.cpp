@@ -303,11 +303,11 @@ void GameEngine::RunBrickpong(GraphicsEngine* agraphicsEngine, GLFWcursorposfun 
 
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         // Bricks
-        abrickpongGame->DrawBricks(Model, View, Projection, MatrixID);
+        abrickpongGame->DrawBricks(&Model, &View, &Projection, MatrixID);
         // Pad
-        abrickpongGame->GetPad()->Draw(abrickpongGame->GetCursor(), Model, View, Projection, MatrixID);
+        abrickpongGame->GetPad()->Draw(abrickpongGame->GetCursor(), &Model, &View, &Projection, MatrixID);
         // Ball
-        abrickpongGame->GetBall()->Draw(Model, View, Projection, MatrixID);
+        abrickpongGame->GetBall()->Draw(&Model, &View, &Projection, MatrixID);
 
         std::wstring pointsText = L"Points: ";
         pointsText.append(std::to_wstring(abrickpongGame->GetPoints()));

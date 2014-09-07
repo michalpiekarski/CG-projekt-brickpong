@@ -28,7 +28,7 @@ public:
     b2Vec2 GetPosition();
     bool IsActive();
     void SetActive(bool aactive);
-    void Draw(glm::mat4 Model, glm::mat4 View, glm::mat4 Projection, GLuint MVP_ID);
+    void Draw(glm::mat4* Model, glm::mat4* View, glm::mat4* Projection, GLuint MVP_ID);
 };
 
 #endif /* defined(__Brickpong__Game_Engines__Brickpong__BrickpongBrick__) */

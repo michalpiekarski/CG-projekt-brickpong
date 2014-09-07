@@ -33,7 +33,7 @@ public:
     void SetLinearVelocity(b2Vec2 alinearVelocity);
     b2Vec2 GetPosition();
     void SetTransform(b2Vec2 aposition, float aangle);
-    void Draw(glm::mat4 Model, glm::mat4 View, glm::mat4 Projection, GLuint MVP_ID);
+    void Draw(glm::mat4* Model, glm::mat4* View, glm::mat4* Projection, GLuint MVP_ID);
 };
 
 #endif /* defined(__Brickpong__Game_engines__Brickpong__BrickpongBall__) */

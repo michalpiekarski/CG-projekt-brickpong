@@ -86,14 +86,14 @@ void BrickpongBrick::SetActive(bool aactive) {
     _body->SetActive(aactive);
 }
 
-void BrickpongBrick::Draw(glm::mat4 Model, glm::mat4 View, glm::mat4 Projection, GLuint MVP_ID) {
+void BrickpongBrick::Draw(glm::mat4* Model, glm::mat4* View, glm::mat4* Projection, GLuint MVP_ID) {
     _shaderProgram->use();
 
     b2Vec2 bodyPos = _body->GetPosition();
     glm::vec3 translation = glm::vec3(bodyPos.x, bodyPos.y, 0.0f);
     glm::vec3 scale = glm::vec3(_width/2.0f, _height/2.0f, 0.25f);
-    glm::mat4 tmpModel = glm::scale(glm::translate(Model, translation), scale);
-    glm::mat4 MVP = Projection * View * tmpModel;
+    glm::mat4 tmpModel = glm::scale(glm::translate(*Model, translation), scale);
+    glm::mat4 MVP = *Projection * *View * tmpModel;
     glUniformMatrix4fv(MVP_ID, 1, GL_FALSE, &MVP[0][0]);
 
     _vao->bind();

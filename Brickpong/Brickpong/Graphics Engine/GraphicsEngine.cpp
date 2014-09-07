@@ -18,7 +18,7 @@ glm::mat4 GraphicsEngine::ZoomIn() {
     return glm::lookAt(glm::vec3(0.0f, -3.0f, 10.0f), glm::vec3(0.0f, -3.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 }
 
-glm::mat4 GraphicsEngine::ChangeZoomLevel(Window* window, glm::mat4 currentMatrix) {
+glm::mat4 GraphicsEngine::ChangeZoomLevel(Window* window, glm::mat4* currentMatrix) {
     if (window->getMouseButton(GLFW_MOUSE_BUTTON_LEFT) == GLFW_RELEASE) {
         return ZoomIn();
     }
@@ -27,7 +27,7 @@ glm::mat4 GraphicsEngine::ChangeZoomLevel(Window* window, glm::mat4 currentMatri
         return ZoomOut(glm::vec3(target.x, target.y, 0.0f));
     }
     else {
-        return currentMatrix;
+        return *currentMatrix;
     }
 }
 

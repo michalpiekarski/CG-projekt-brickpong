@@ -191,7 +191,7 @@ void BrickpongGame::CheckGameResult() {
     CheckGameWin();
 }
 
-void BrickpongGame::DrawBricks(glm::mat4 Model, glm::mat4 View, glm::mat4 Projection, GLuint MVP_ID) {
+void BrickpongGame::DrawBricks(glm::mat4* Model, glm::mat4* View, glm::mat4* Projection, GLuint MVP_ID) {
     for (std::vector<BrickpongBrick*>::iterator i = _bricks.begin(); i != _bricks.end(); i++) {
         if ((*i)->IsActive()) {
             (*i)->Draw(Model, View, Projection, MVP_ID);

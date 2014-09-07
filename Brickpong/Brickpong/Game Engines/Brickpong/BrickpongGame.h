@@ -77,7 +77,7 @@ public:
     void ResetGame();
     BrickpongWorld* GetWorld();
     BrickpongInput* GetInput();
-    void DrawBricks(glm::mat4 Model, glm::mat4 View, glm::mat4 Projection, GLuint MVP_ID);
+    void DrawBricks(glm::mat4* Model, glm::mat4* View, glm::mat4* Projection, GLuint MVP_ID);
 };
 
 #endif /* defined(__Brickpong__Game_Engines__Brickpong__BrickpongGame__) */
