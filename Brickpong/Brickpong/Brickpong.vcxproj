@@ -202,6 +202,9 @@ xcopy "$(ProjectDir)fonts" "$(OutDir)fonts" /f /y /i</Command>
   </ItemGroup>
   <ItemGroup>
     <None Include="meshes\cube.fbx" />
+    <None Include="meshes\cube_color.fbx" />
+    <None Include="shaders\ASSIMP.frag" />
+    <None Include="shaders\ASSIMP.vert" />
     <None Include="shaders\SemiTransparentSimple.frag" />
     <None Include="shaders\Simple.frag">
       <FileType>Document</FileType>
@@ -215,6 +218,8 @@ xcopy "$(ProjectDir)fonts" "$(OutDir)fonts" /f /y /i</Command>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DeploymentContent>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</DeploymentContent>
     </None>
+    <None Include="shaders\Text.frag" />
+    <None Include="shaders\Text.vert" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="fonts\Arial.ttf" />

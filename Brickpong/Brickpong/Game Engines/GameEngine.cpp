@@ -22,8 +22,8 @@ bool GameEngine::Run(int* acurrentGame, GraphicsEngine* agraphicsEngine, GLFWcur
     _window->setKeyCallback(akeyCallback);
 
     ShaderProgram* shaderProgram = new ShaderProgram();
-    Shader* vShader = new Shader("shaders/Simple.vert", GL_VERTEX_SHADER);
-    Shader* fShader = new Shader("shaders/Simple.frag", GL_FRAGMENT_SHADER);
+    Shader* vShader = new Shader("shaders/ASSIMP.vert", GL_VERTEX_SHADER);
+    Shader* fShader = new Shader("shaders/ASSIMP.frag", GL_FRAGMENT_SHADER);
     shaderProgram->attachShader(vShader);
     shaderProgram->attachShader(fShader);
     shaderProgram->bindFragDataLocation(0, "fragData");
@@ -56,9 +56,10 @@ bool GameEngine::Run(int* acurrentGame, GraphicsEngine* agraphicsEngine, GLFWcur
 
     VBO* vvbo = new VBO();
     VBO* cvbo = new VBO();
+    VBO* nvbo = new VBO();
     EBO* ebo = new EBO();
 
-    if (!agraphicsEngine->Load3DFile("meshes/cube.fbx", shaderProgram, ebo, vvbo, cvbo)) {
+    if (!agraphicsEngine->Load3DFile("meshes/cube.fbx", shaderProgram, ebo, vvbo, cvbo, nvbo)) {
         exit(EXIT_FAILURE);
     }
 
@@ -80,6 +81,8 @@ bool GameEngine::Run(int* acurrentGame, GraphicsEngine* agraphicsEngine, GLFWcur
         1.0f, 0.0f, 0.0f, 1.0f
     };
 
+    float rotation = 0;
+    glm::vec3 rotationUp = glm::vec3(0.0f, 1.0f, 0.0f);
     do {
         cursorPosition = _window->getCursorPositionInWorldSpace(60.0f, 2.0f, glm::vec2(0.0f, 0.0f));
         viewTarget = glm::vec3(cursorPosition.x, cursorPosition.y-2.0f, glm::abs(cursorPosition.x));
@@ -108,6 +111,7 @@ bool GameEngine::Run(int* acurrentGame, GraphicsEngine* agraphicsEngine, GLFWcur
         translation = glm::vec3(0.0f, 0.0f, 10.0f);
         scale = glm::vec3(2.0f, 5.0f, 2.0f);
         tmpModel = glm::scale(glm::translate(Model, translation), scale);
+        tmpModel = glm::rotate(tmpModel, glm::radians(rotation), rotationUp);
         MVP = Projection * View * tmpModel;
         glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP[0][0]);
 
@@ -119,6 +123,7 @@ bool GameEngine::Run(int* acurrentGame, GraphicsEngine* agraphicsEngine, GLFWcur
         translation = glm::vec3(-20.0f, 0.0f, 30.0f);
         scale = glm::vec3(2.0f, 5.0f, 2.0f);
         tmpModel = glm::scale(glm::translate(Model, translation), scale);
+        tmpModel = glm::rotate(tmpModel, glm::radians(rotation), rotationUp);
         MVP = Projection * View * tmpModel;
         glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP[0][0]);
 
@@ -130,8 +135,11 @@ bool GameEngine::Run(int* acurrentGame, GraphicsEngine* agraphicsEngine, GLFWcur
         translation = glm::vec3(20.0f, 0.0f, 30.0f);
         scale = glm::vec3(2.0f, 5.0f, 2.0f);
         tmpModel = glm::scale(glm::translate(Model, translation), scale);
+        tmpModel = glm::rotate(tmpModel, glm::radians(rotation), rotationUp);
         MVP = Projection * View * tmpModel;
         glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP[0][0]);
+
+        rotation += 0.1f;
 
         vao->bind();
         ebo->Draw();
@@ -164,6 +172,7 @@ bool GameEngine::Run(int* acurrentGame, GraphicsEngine* agraphicsEngine, GLFWcur
     delete ebo;
     delete vvbo;
     delete cvbo;
+    delete nvbo;
     delete vao;
 
     delete textRenderer;

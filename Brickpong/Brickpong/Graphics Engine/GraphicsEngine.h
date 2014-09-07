@@ -36,7 +36,7 @@ public:
     glm::mat4 ChangeZoomLevel(Window* window, glm::mat4* currentMatrix);
     glm::mat4 ChangeToPerspective();
     bool IsZoomed();
-    bool Load3DFile(const char* afilePath, ShaderProgram* ashaderProgram, EBO* aebo, VBO* avvbo, VBO* acvbo);
+    bool Load3DFile(const char* afilePath, ShaderProgram* ashaderProgram, EBO* aebo, VBO* avvbo, VBO* acvbo, VBO* anvbo);
 };
 
 #endif /* defined(__Brickpong__GraphicsEngine__) */

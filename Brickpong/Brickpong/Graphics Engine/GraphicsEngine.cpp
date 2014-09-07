@@ -40,7 +40,7 @@ bool GraphicsEngine::IsZoomed() {
 }
 
 
-bool GraphicsEngine::Load3DFile(const char* afilePath, ShaderProgram* ashaderProgram, EBO* aebo, VBO* avvbo, VBO* acvbo) {
+bool GraphicsEngine::Load3DFile(const char* afilePath, ShaderProgram* ashaderProgram, EBO* aebo, VBO* avvbo, VBO* acvbo, VBO* anvbo) {
     Assimp::Importer importer;
     const aiScene* scene = importer.ReadFile(afilePath,
                                              aiProcess_CalcTangentSpace |
@@ -89,6 +89,11 @@ bool GraphicsEngine::Load3DFile(const char* afilePath, ShaderProgram* ashaderPro
         acvbo->SetData(color_data, numVertices, GL_STATIC_DRAW);
         acvbo->createVertexAttribPointer(colorAttribLoc, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid*)0);
         // ------------------------------------------------------------------
+        if (mesh->HasNormals()) {
+            GLint positionAttribLoc = ashaderProgram->getAttributeLoc("normal");
+            anvbo->SetData(mesh->mNormals, numVertices, GL_STATIC_DRAW);
+            anvbo->createVertexAttribPointer(positionAttribLoc, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid*)0);
+        }
         if (mesh->HasFaces()) {
             std::vector<glm::uvec3> index_data;
 

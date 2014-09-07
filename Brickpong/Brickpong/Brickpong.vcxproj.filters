@@ -154,6 +154,21 @@
     <None Include="meshes\cube.fbx">
       <Filter>Meshes</Filter>
     </None>
+    <None Include="meshes\cube_color.fbx">
+      <Filter>Meshes</Filter>
+    </None>
+    <None Include="shaders\Text.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="shaders\Text.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="shaders\ASSIMP.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="shaders\ASSIMP.vert">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Font Include="fonts\Arial.ttf">
