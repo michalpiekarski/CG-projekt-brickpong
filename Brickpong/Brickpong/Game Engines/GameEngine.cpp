@@ -179,17 +179,6 @@ bool GameEngine::Run(int* acurrentGame, GLFWcursorposfun acursorPositionCallback
         ebo->Draw();
         vao->unbind();
 
-        // BACK
-        translation = glm::vec3(0.0f, 0.0f, 50.0f);
-        scale = glm::vec3(2.0f, 5.0f, 2.0f);
-        tmpModel = glm::scale(glm::translate(Model, translation), scale);
-        MVP = Projection * View * tmpModel;
-        glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP[0][0]);
-
-        vao->bind();
-        ebo->Draw();
-        vao->unbind();
-
         textRenderer->DrawUnicode(L"WELCOME TO\nBRICKPONG ARCADES", -450, 220, 42, textColorRed);
         std::wstring gameText = L"Choose Your game: ";
         if (cursorPosition.x > -20.0f && cursorPosition.x < 20.0f) {
@@ -214,7 +203,6 @@ bool GameEngine::Run(int* acurrentGame, GLFWcursorposfun acursorPositionCallback
         }
     } while ((_window->getMouseButton(GLFW_MOUSE_BUTTON_LEFT) != GLFW_PRESS && _window->getKey(GLFW_KEY_ESCAPE) != GLFW_PRESS) && _window->shouldClose() == 0);
 
-    vao->unbind();
     delete ebo;
     delete vvbo;
     delete cvbo;
