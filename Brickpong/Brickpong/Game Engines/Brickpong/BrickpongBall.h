@@ -20,11 +20,12 @@ private:
     float _radius;
     float _density;
     float _linearVelocityMultiplier;
+    GraphicsEngine* _graphicsEngine;
     ShaderProgram* _shaderProgram;
     VAO* _vao;
     EBO* _ebo;
 public:
-    BrickpongBall(b2World* aworld, float aradius, b2Vec2 alinearVelocity, float alinearVelocityMultiplier, float adensity, ShaderProgram* ashaderProgram, GLint apositionAttribLoc, GLint acolorAttribLoc);
+    BrickpongBall(b2World* aworld, float aradius, b2Vec2 alinearVelocity, float alinearVelocityMultiplier, float adensity, GraphicsEngine* agraphicsEngine, ShaderProgram* ashaderProgram);
     virtual ~BrickpongBall();
     b2Body* GetBody();
     b2Vec2 GetLinearVelocity();
@@ -33,7 +34,7 @@ public:
     void SetLinearVelocity(b2Vec2 alinearVelocity);
     b2Vec2 GetPosition();
     void SetTransform(b2Vec2 aposition, float aangle);
-    void Draw(glm::mat4* Model, glm::mat4* View, glm::mat4* Projection, GLuint MVP_ID);
+    void Draw(glm::mat4* Model, glm::mat4* View, glm::mat4* Projection);
 };
 
 #endif /* defined(__Brickpong__Game_engines__Brickpong__BrickpongBall__) */

@@ -62,7 +62,7 @@ bool GameEngine::Run(int* acurrentGame, GraphicsEngine* agraphicsEngine, GLFWcur
     VBO* nvbo = new VBO();
     EBO* ebo = new EBO();
 
-    if (!agraphicsEngine->Load3DFile("meshes/cube.fbx", shaderProgram, ebo, vvbo, cvbo, nvbo)) {
+    if (!agraphicsEngine->Load3DFile("meshes/arcade.fbx", shaderProgram, ebo, vvbo, cvbo, nvbo)) {
         exit(EXIT_FAILURE);
     }
 
@@ -116,7 +116,8 @@ bool GameEngine::Run(int* acurrentGame, GraphicsEngine* agraphicsEngine, GLFWcur
 
         // FRONT
         translation = glm::vec3(0.0f, 0.0f, 10.0f);
-        scale = glm::vec3(2.0f, 5.0f, 2.0f);
+        //scale = glm::vec3(2.0f, 5.0f, 2.0f);
+        scale = glm::vec3(0.25f, 0.25f, 0.25f);
         tmpModel = glm::translate(Model, translation);
         tmpModel = glm::rotate(tmpModel, glm::radians(rotation), rotationY);
         tmpModel = glm::scale(tmpModel, scale);
@@ -128,7 +129,8 @@ bool GameEngine::Run(int* acurrentGame, GraphicsEngine* agraphicsEngine, GLFWcur
 
         // LEFT
         translation = glm::vec3(-20.0f, 0.0f, 30.0f);
-        scale = glm::vec3(2.0f, 5.0f, 2.0f);
+        //scale = glm::vec3(2.0f, 5.0f, 2.0f);
+        scale = glm::vec3(0.25f, 0.25f, 0.25f);
         tmpModel = glm::translate(Model, translation);
         tmpModel = glm::rotate(tmpModel, glm::radians(rotation), rotationZ);
         tmpModel = glm::rotate(tmpModel, glm::radians(rotation), rotationX);
@@ -141,7 +143,8 @@ bool GameEngine::Run(int* acurrentGame, GraphicsEngine* agraphicsEngine, GLFWcur
 
         // RIGHT
         translation = glm::vec3(20.0f, 0.0f, 30.0f);
-        scale = glm::vec3(2.0f, 5.0f, 2.0f);
+        //scale = glm::vec3(2.0f, 5.0f, 2.0f);
+        scale = glm::vec3(0.25f, 0.25f, 0.25f);
         tmpModel = glm::translate(Model, translation);
         tmpModel = glm::rotate(tmpModel, glm::radians(rotation), rotationZ);
         tmpModel = glm::rotate(tmpModel, glm::radians(rotation), rotationY);
@@ -203,6 +206,7 @@ bool GameEngine::RunBrickpong(GraphicsEngine* agraphicsEngine, GLFWcursorposfun 
 
     ShaderProgram* shaderProgram = new ShaderProgram();
     ShaderProgram* shaderSemiTransparentProgram = new ShaderProgram();
+    ShaderProgram* ballShaderProgram = new ShaderProgram();
     Shader* vShader = new Shader("shaders/Simple.vert", GL_VERTEX_SHADER);
     Shader* fShader = new Shader("shaders/Simple.frag", GL_FRAGMENT_SHADER);
     Shader* fShaderSemiTransparent = new Shader("shaders/SemiTransparentSimple.frag", GL_FRAGMENT_SHADER);
@@ -220,6 +224,15 @@ bool GameEngine::RunBrickpong(GraphicsEngine* agraphicsEngine, GLFWcursorposfun 
     delete vShader;
     delete fShader;
     delete fShaderSemiTransparent;
+
+    Shader* vBallShader = new Shader("shaders/ASSIMP.vert", GL_VERTEX_SHADER);
+    Shader* fBallShader = new Shader("shaders/ASSIMP.frag", GL_FRAGMENT_SHADER);
+    ballShaderProgram->attachShader(vBallShader);
+    ballShaderProgram->attachShader(fBallShader);
+    ballShaderProgram->bindFragDataLocation(0, "fragData");
+    ballShaderProgram->link();
+    delete vBallShader;
+    delete fBallShader;
 
     glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
 
@@ -240,7 +253,7 @@ bool GameEngine::RunBrickpong(GraphicsEngine* agraphicsEngine, GLFWcursorposfun 
     GLint positionAttribLoc = shaderProgram->getAttributeLoc("position");
     GLint colorAttribLoc = shaderProgram->getAttributeLoc("color");
 
-    abrickpongGame->CreateGame(shaderProgram, positionAttribLoc, colorAttribLoc, shaderProgram, positionAttribLoc, colorAttribLoc, shaderSemiTransparentProgram, positionAttribLoc, colorAttribLoc);
+    abrickpongGame->CreateGame(agraphicsEngine, ballShaderProgram, shaderProgram, positionAttribLoc, colorAttribLoc, shaderSemiTransparentProgram, positionAttribLoc, colorAttribLoc);
 
     std::cout << "Points: " << abrickpongGame->GetPoints() << std::endl;
 
@@ -285,7 +298,7 @@ bool GameEngine::RunBrickpong(GraphicsEngine* agraphicsEngine, GLFWcursorposfun 
         // Pad
         abrickpongGame->GetPad()->Draw(abrickpongGame->GetCursor(), &Model, &View, &Projection, MatrixID);
         // Ball
-        abrickpongGame->GetBall()->Draw(&Model, &View, &Projection, MatrixID);
+        abrickpongGame->GetBall()->Draw(&Model, &View, &Projection);
 
         std::wstring pointsText = L"Points: ";
         pointsText.append(std::to_wstring(abrickpongGame->GetPoints()));

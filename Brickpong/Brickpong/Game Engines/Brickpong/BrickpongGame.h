@@ -63,7 +63,7 @@ public:
     BrickpongGame();
     BrickpongGame(unsigned short adebugMode);
     virtual ~BrickpongGame();
-    void CreateGame(ShaderProgram* aballShaderProgram, GLint aballPositionAttribLoc, GLint aballColorAttribLoc, ShaderProgram* apadShaderProgram, GLint apadPositionAttribLoc, GLint apadColorAttribLoc, ShaderProgram* abrickShaderProgram, GLint abrickPositionAttribLoc, GLint abrickColorAttribLoc);
+    void CreateGame(GraphicsEngine* agraphicsEngine, ShaderProgram* aballShaderProgram, ShaderProgram* apadShaderProgram, GLint apadPositionAttribLoc, GLint apadColorAttribLoc, ShaderProgram* abrickShaderProgram, GLint abrickPositionAttribLoc, GLint abrickColorAttribLoc);
     void DestroyGame();
     int GetPoints();
     void DestroyBricks();

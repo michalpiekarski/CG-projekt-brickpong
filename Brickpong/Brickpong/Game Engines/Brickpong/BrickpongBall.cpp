@@ -1,7 +1,7 @@
 #include "BrickpongBall.h"
 
 
-BrickpongBall::BrickpongBall(b2World* aworld, float aradius, b2Vec2 alinearVelocity, float alinearVelocityMultiplier, float adensity, ShaderProgram* ashaderProgram, GLint apositionAttribLoc, GLint acolorAttribLoc) {
+BrickpongBall::BrickpongBall(b2World* aworld, float aradius, b2Vec2 alinearVelocity, float alinearVelocityMultiplier, float adensity, GraphicsEngine* agraphicsEngine, ShaderProgram* ashaderProgram) {
     _radius = aradius;
     b2BodyDef bodyDef;
     bodyDef.type = b2_dynamicBody;
@@ -21,58 +21,22 @@ BrickpongBall::BrickpongBall(b2World* aworld, float aradius, b2Vec2 alinearVeloc
     fixtureDef.restitution = 1.0f;
     _body->CreateFixture(&fixtureDef);
 
+    _graphicsEngine = agraphicsEngine;
+
     _shaderProgram = ashaderProgram;
     _shaderProgram->use();
 
     _vao = new VAO();
     _vao->bind();
 
-    GLfloat vertex_data[9][3] = {
-            {-1.0f, -1.0f, -1.0f, }, // 0-E
-            {-1.0f, -1.0f, +1.0f, }, // 1-H
-            {-1.0f, +1.0f, +1.0f, }, // 2-D
-            {+1.0f, +1.0f, -1.0f, }, // 3-B
-            {-1.0f, +1.0f, -1.0f, }, // 4-A
-            {+1.0f, -1.0f, +1.0f, }, // 5-G
-            {+1.0f, -1.0f, -1.0f, }, // 6-F
-            {+1.0f, +1.0f, +1.0f, }, // 7-C
-            {+0.0f, +0.0f, +1.0f, }, // 8-I
-    };
-    VBO* vVBO = new VBO(vertex_data, 9, GL_STATIC_DRAW);
-    GLfloat color_data[9][3] = {
-            {0.0f, 1.0f, 0.0f, }, // 0-E
-            {1.0f, 0.0f, 0.0f, }, // 1-H
-            {1.0f, 0.0f, 0.0f, }, // 2-D
-            {0.0f, 0.0f, 1.0f, }, // 3-B
-            {0.0f, 1.0f, 0.0f, }, // 4-A
-            {1.0f, 0.0f, 0.0f, }, // 5-G
-            {0.0f, 0.0f, 1.0f, }, // 6-F
-            {1.0f, 0.0f, 0.0f, }, // 7-C
-            {1.0f, 1.0f, 1.0f, }, // 8-I
-    };
-    VBO* cVBO = new VBO(color_data, 9, GL_STATIC_DRAW);
-    GLuint index_data[14][3] = {
-            {0, 1, 2, }, // EHD - left
-            {0, 2, 4, }, // EDA - left
-            {3, 0, 4, }, // BEA - back
-            {3, 6, 0, }, // BFE - back
-            {7, 6, 3, }, // CFB - right
-            {6, 7, 5, }, // FCG - right
-            {5, 0, 6, }, // GEF - bottom
-            {5, 1, 0, }, // GHE - bottom
-            {7, 3, 4, }, // CBA - top
-            {7, 4, 2, }, // CAD - top
-            //{7, 2, 5, }, // CDG - front
-            //{2, 1, 5, }, // DHG - front
-            {8, 2, 1, }, // IDH - front
-            {8, 7, 2, }, // ICD - front
-            {8, 5, 7, }, // IGC - front
-            {8, 1, 5, }, // IHG - front
-    };
-    _ebo = new EBO(index_data, 14, GL_STATIC_DRAW);
+    VBO* vvbo = new VBO();
+    VBO* cvbo = new VBO();
+    VBO* nvbo = new VBO();
+    _ebo = new EBO();
 
-    vVBO->createVertexAttribPointer(apositionAttribLoc, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid*)0);
-    cVBO->createVertexAttribPointer(acolorAttribLoc, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid*)0);
+    if (!_graphicsEngine->Load3DFile("meshes/ball.fbx", _shaderProgram, _ebo, vvbo, cvbo, nvbo)) {
+        exit(EXIT_FAILURE);
+    }
 
     _vao->unbind();
 }
@@ -112,13 +76,22 @@ void BrickpongBall::SetTransform(b2Vec2 aposition, float aangle) {
     _body->SetTransform(aposition, aangle);
 }
 
-void BrickpongBall::Draw(glm::mat4* Model, glm::mat4* View, glm::mat4* Projection, GLuint MVP_ID) {
+void BrickpongBall::Draw(glm::mat4* Model, glm::mat4* View, glm::mat4* Projection) {
     _shaderProgram->use();
 
+    GLuint ballViewUniformLoc = _shaderProgram->getUniformLoc("View");
+    glUniformMatrix4fv(ballViewUniformLoc, 1, GL_FALSE, &(*View)[0][0]);
+    GLuint ballProjectionUniformLoc = _shaderProgram->getUniformLoc("Projection");
+    glUniformMatrix4fv(ballProjectionUniformLoc, 1, GL_FALSE, &(*Projection)[0][0]);
+
     glm::vec3 tmpBallPosition = glm::vec3(_body->GetPosition().x, _body->GetPosition().y, 0.0f);
-    glm::mat4 tmpModel = glm::rotate(glm::scale(glm::translate(*Model, tmpBallPosition), glm::vec3(_radius, _radius, 0.25f)), 3.14f/4.0f, glm::vec3(0.0f, 0.0f, 1.0f));
-    glm::mat4 MVP = *Projection * *View * tmpModel;
-    glUniformMatrix4fv(MVP_ID, 1, GL_FALSE, &MVP[0][0]);
+    
+    glm::mat4 tmpModel = glm::translate(*Model, tmpBallPosition);
+    tmpModel = glm::rotate(tmpModel, glm::radians(_body->GetAngularVelocity()), glm::vec3(0.0f, 0.0f, 1.0f));
+    tmpModel = glm::scale(tmpModel, glm::vec3(0.05f, 0.05f, 0.05f));
+
+    GLuint ballModelUniformLoc = _shaderProgram->getUniformLoc("Model");
+    glUniformMatrix4fv(ballModelUniformLoc, 1, GL_FALSE, &tmpModel[0][0]);
 
     _vao->bind();
     _ebo->Draw();

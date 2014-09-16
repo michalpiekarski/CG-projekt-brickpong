@@ -201,6 +201,8 @@ xcopy "$(ProjectDir)fonts" "$(OutDir)fonts" /f /y /i</Command>
     <ClInclude Include="Graphics Engine\Window.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="meshes\arcade.fbx" />
+    <None Include="meshes\ball.fbx" />
     <None Include="meshes\cube.fbx" />
     <None Include="meshes\cube_color.fbx" />
     <None Include="meshes\spaceship.fbx" />

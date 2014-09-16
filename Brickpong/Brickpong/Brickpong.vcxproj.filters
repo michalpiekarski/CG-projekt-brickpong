@@ -172,6 +172,12 @@
     <None Include="meshes\spaceship.fbx">
       <Filter>Meshes</Filter>
     </None>
+    <None Include="meshes\arcade.fbx">
+      <Filter>Meshes</Filter>
+    </None>
+    <None Include="meshes\ball.fbx">
+      <Filter>Meshes</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Font Include="fonts\Arial.ttf">

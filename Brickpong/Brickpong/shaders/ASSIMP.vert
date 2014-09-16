@@ -24,6 +24,7 @@ void main(){
     cosAngIncidence = clamp(cosAngIncidence, 0, 1);
     float lightIntensity = 1.0;
 
-	fragColor = lightIntensity * color * cosAngIncidence;
+    // Tymcasowo sta³y kolor - bia³y
+	fragColor = lightIntensity * vec3(1.0,1.0,1.0) * cosAngIncidence;
 }
 
