@@ -10,6 +10,7 @@ BrickpongBall::BrickpongBall(b2World* aworld, float aradius, b2Vec2 alinearVeloc
     bodyDef.linearVelocity.Set(alinearVelocity.x*_linearVelocityMultiplier, alinearVelocity.y*_linearVelocityMultiplier);
     bodyDef.gravityScale = 0.0f;
     bodyDef.linearDamping = 0.0f;
+    bodyDef.angularDamping = 0.0f;
     bodyDef.bullet = true;
     _body = aworld->CreateBody(&bodyDef);
     b2CircleShape shape;
@@ -17,7 +18,7 @@ BrickpongBall::BrickpongBall(b2World* aworld, float aradius, b2Vec2 alinearVeloc
     b2FixtureDef fixtureDef;
     fixtureDef.shape = &shape;
     fixtureDef.density = adensity;
-    fixtureDef.friction = 0.0f;
+    fixtureDef.friction = 0.01f;
     fixtureDef.restitution = 1.0f;
     _body->CreateFixture(&fixtureDef);
 
@@ -87,11 +88,15 @@ void BrickpongBall::Draw(glm::mat4* Model, glm::mat4* View, glm::mat4* Projectio
     glm::vec3 tmpBallPosition = glm::vec3(_body->GetPosition().x, _body->GetPosition().y, 0.0f);
     
     glm::mat4 tmpModel = glm::translate(*Model, tmpBallPosition);
-    tmpModel = glm::rotate(tmpModel, glm::radians(_body->GetAngularVelocity()), glm::vec3(0.0f, 0.0f, 1.0f));
+    tmpModel = glm::rotate(tmpModel, -_body->GetAngle()*2.0f, glm::vec3(0.0f, 0.0f, 1.0f));
     tmpModel = glm::scale(tmpModel, glm::vec3(0.05f, 0.05f, 0.05f));
 
     GLuint ballModelUniformLoc = _shaderProgram->getUniformLoc("Model");
     glUniformMatrix4fv(ballModelUniformLoc, 1, GL_FALSE, &tmpModel[0][0]);
+
+    GLuint lightPositionUniformLoc = _shaderProgram->getUniformLoc("LightPosition");
+    glm::vec3 LightPosition = glm::vec3(0.0f, -3.0f, 1.0f);
+    glUniform3fv(lightPositionUniformLoc, 1, &LightPosition[0]);
 
     _vao->bind();
     _ebo->Draw();

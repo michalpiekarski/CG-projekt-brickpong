@@ -53,6 +53,10 @@ bool GameEngine::Run(int* acurrentGame, GraphicsEngine* agraphicsEngine, GLFWcur
 
     glm::mat4 tmpModel, tmpMVP;
 
+    GLuint lightPositionUniformLoc = shaderProgram->getUniformLoc("LightPosition");
+    glm::vec3 LightPosition = glm::vec3(0.0f, 0.0f, 15.0f);
+    glUniform3fv(lightPositionUniformLoc, 1, &LightPosition[0]);
+
     shaderProgram->use();
     VAO* vao = new VAO();
     vao->bind();
