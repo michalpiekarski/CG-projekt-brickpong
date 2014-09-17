@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		E907F50F198F7958003FE113 /* Simple.frag in Copy Shader Files */ = {isa = PBXBuildFile; fileRef = E907F50B198F773C003FE113 /* Simple.frag */; };
 		E907F510198F7958003FE113 /* Simple.vert in Copy Shader Files */ = {isa = PBXBuildFile; fileRef = E907F50C198F773C003FE113 /* Simple.vert */; };
+		E90F5DCD19CA378C00EAA9A7 /* arcade.fbx in Copy Meshes */ = {isa = PBXBuildFile; fileRef = E90F5DCA19CA376700EAA9A7 /* arcade.fbx */; };
+		E90F5DCE19CA379000EAA9A7 /* ball.fbx in Copy Meshes */ = {isa = PBXBuildFile; fileRef = E90F5DCB19CA376700EAA9A7 /* ball.fbx */; };
+		E90F5DCF19CA379300EAA9A7 /* spaceship.fbx in Copy Meshes */ = {isa = PBXBuildFile; fileRef = E90F5DCC19CA376700EAA9A7 /* spaceship.fbx */; };
 		E932E33119B848EA00BBEE17 /* SemiTransparentSimple.frag in Copy Shader Files */ = {isa = PBXBuildFile; fileRef = E932E33019B848DC00BBEE17 /* SemiTransparentSimple.frag */; };
 		E937A67319B56FDF00AAAFFE /* BrickpongBrickLayout.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E937A67119B56FDF00AAAFFE /* BrickpongBrickLayout.cpp */; };
 		E960F4C619B8753F00E6F26F /* Text.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E960F4C419B8753F00E6F26F /* Text.cpp */; };
@@ -70,6 +73,9 @@
 			files = (
 				E98B0CAD19BCB028009EF7BC /* cube.fbx in Copy Meshes */,
 				E98B0CAE19BCB02B009EF7BC /* cube_color.fbx in Copy Meshes */,
+				E90F5DCD19CA378C00EAA9A7 /* arcade.fbx in Copy Meshes */,
+				E90F5DCE19CA379000EAA9A7 /* ball.fbx in Copy Meshes */,
+				E90F5DCF19CA379300EAA9A7 /* spaceship.fbx in Copy Meshes */,
 			);
 			name = "Copy Meshes";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -109,6 +115,9 @@
 /* Begin PBXFileReference section */
 		E907F50B198F773C003FE113 /* Simple.frag */ = {isa = PBXFileReference; explicitFileType = sourcecode.glsl; fileEncoding = 4; path = Simple.frag; sourceTree = "<group>"; };
 		E907F50C198F773C003FE113 /* Simple.vert */ = {isa = PBXFileReference; explicitFileType = sourcecode.glsl; fileEncoding = 4; path = Simple.vert; sourceTree = "<group>"; };
+		E90F5DCA19CA376700EAA9A7 /* arcade.fbx */ = {isa = PBXFileReference; lastKnownFileType = file; path = arcade.fbx; sourceTree = "<group>"; };
+		E90F5DCB19CA376700EAA9A7 /* ball.fbx */ = {isa = PBXFileReference; lastKnownFileType = file; path = ball.fbx; sourceTree = "<group>"; };
+		E90F5DCC19CA376700EAA9A7 /* spaceship.fbx */ = {isa = PBXFileReference; lastKnownFileType = file; path = spaceship.fbx; sourceTree = "<group>"; };
 		E932E33019B848DC00BBEE17 /* SemiTransparentSimple.frag */ = {isa = PBXFileReference; explicitFileType = sourcecode.glsl; fileEncoding = 4; path = SemiTransparentSimple.frag; sourceTree = "<group>"; };
 		E937A67119B56FDF00AAAFFE /* BrickpongBrickLayout.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BrickpongBrickLayout.cpp; sourceTree = "<group>"; };
 		E937A67219B56FDF00AAAFFE /* BrickpongBrickLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrickpongBrickLayout.h; sourceTree = "<group>"; };
@@ -275,6 +284,9 @@
 		E98B0CA919BCAFD9009EF7BC /* meshes */ = {
 			isa = PBXGroup;
 			children = (
+				E90F5DCA19CA376700EAA9A7 /* arcade.fbx */,
+				E90F5DCB19CA376700EAA9A7 /* ball.fbx */,
+				E90F5DCC19CA376700EAA9A7 /* spaceship.fbx */,
 				E98B0CAA19BCAFD9009EF7BC /* cube.fbx */,
 				E98B0CAB19BCAFD9009EF7BC /* cube_color.fbx */,
 			);
